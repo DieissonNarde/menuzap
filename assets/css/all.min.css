@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Picmenu</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLJT3GY575"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-VLJT3GY575');
+  </script>
+
+  <!-- Favicons -->
+  <!-- <link href="site/assets/img/favicon.png" rel="icon">
+  <link href="site/assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+  <!-- Vendor CSS Files -->
+  <link href="site/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="site/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+
+  <link href="site/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="site/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="site/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="site/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="site/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="site/assets/css/style.css" rel="stylesheet">
+
+  <script src="assets/js/vue.min.js"></script>
+  <!-- <script src="https://unpkg.com/vue2-smooth-scroll"></script> -->
+  <script src="assets/js/axios.min.js"></script>
+
+  <!-- <script src="js/vue-scrollto.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue-scrollto"></script>
+  <script src="vendor/vue-the-mask-master/dist/vue-the-mask.js"></script>
+  <script src="assets/js/vue-select.js"></script>
+  <link rel="stylesheet" href="assets/css/vue-select.css">
+  <script src="vendor/v-money-master/dist/v-money.js"></script>
+
+
+  <!-- Facebook Pixel Code2 -->
+  <script>
+    ! function(f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function() {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '849176905919045');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=849176905919045&ev=PageView&noscript=1" /></noscript>
+  <!-- End Facebook Pixel Code -->
+
+</head>
+<div id="home">
+
+  <body data-spy="scroll">
+
+    <!-- START : ALERTAS //-->
+    <div class="alert alert-solid pd-20 alert-dismissible position-fixed fixed-top" style="z-index:1061" role="alert" v-show="show_msg" style="display: none" :class=msg_status>
+      <button type="button" class="close" v-on:click.stop.prevent="show_msg=false">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="d-sm-flex align-items-center justify-content-start">
+        <i class="fa fa-times lh-0 tx-40" v-show="msg_status == 'alert-danger'"></i>
+        <i class="fa fa-check lh-0 tx-40" v-show="msg_status != 'alert-danger'"></i>
+
+        <div class="mg-sm-l-15 mg-t-15 mg-sm-t-0">
+          <h5 class="mg-b-2 pd-t-2 text-white">Aviso</h5>
+          <p class="mg-b-0 tx-xs op-8 text-white" v-html="msg_retorno"></p>
+        </div>
+      </div><!-- d-flex -->
+    </div>
+    <!-- END : ALERTAS //-->
+
+    <header id="header" class="fixed-top header-transparent">
+      <div class="container-fluid">
+
+        <div class="row justify-content-center">
+          <div class="col-3 align-middle">
+            <h1 class="logo"><a href="#home"><img src="site/assets/img/logo_picmenu_horizontal.png" alt="" class="img"></a></h1>
+          </div>
+          <div class="col-9 align-middle">
+            <nav class="nav-menu d-none d-lg-block float-right">
+              <ul>
+                <li class="active"><a href="#" class="lnk-tp" v-on:click="zera_page;" v-scroll-to="'#home'">Home</a></li>
+                <li><a href="#" class="lnk-tp" v-on:click="zera_page" v-scroll-to="'#como-funciona'">Como Funciona</a></li>
+                <li><a href="#" class="lnk-tp" v-on:click="zera_page" v-scroll-to="'#beneficios'">Motivos para utilizar</a></li>
+                <li><a href="#" class="lnk-tp" v-on:click="zera_page" v-scroll-to="'#exemplos'">Exemplos</a></li>
+                <li><a href="#" class="lnk-tp" v-on:click="zera_page" v-scroll-to="'#nossos-planos'">Planos</a></li>
+
+                <li>
+                  <div class="btn-group">
+                    <a href="index.php?action=dash" class="btn mr-1 bt-entre-topo">Entre</a>
+                    <a href="#" v-on:click="zera_page" v-scroll-to="'#nossos-planos'" class="btn btn-warning btn-get-started scrollto animate__animated animate__fadeInUp btn-picmenu">Crie sua conta</a></div>
+                <li>
+              </ul>
+            </nav>
+
+
+            <!-- MENU MOBILE //-->
+            <nav role="navigation" class="d-lg-none d-xl-none d-md-none">
+              <div id="menuToggle" class="d-lg-none d-xl-none d-md-none">
+
+                <a href="" v-on:click.stop.prevent="tg_menu">
+                  <i class="fas fa-bars menu-mobile-picmenu" v-if="!show_menu"></i>
+                  <i class="fas fa-times menu-mobile-picmenu" v-if="show_menu"></i>
+                </a>
+
+                <ul id="menu" v-if="show_menu">
+                  <li class="active"><a href="#" v-on:click="passo=1" v-scroll-to="'#home'">Home</a></li>
+                  <li><a href="#" v-on:click="passo=1" v-scroll-to="'#como-funciona'">Como Funciona</a></li>
+                  <li><a href="#" v-on:click="passo=1" v-scroll-to="'#beneficios'">Motivos para utilizar</a></li>
+                  <li><a href="#" v-on:click="passo=1" v-scroll-to="'#exemplos'">Exemplos</a></li>
+                  <li><a href="#" v-on:click="passo=1" v-scroll-to="'#nossos-planos'">Planos</a></li>
+
+
+                  <li><a href="index.php?action=dash" class="btn mr-1 wd-100p bt-entre-topo">Entre</a></li>
+                  <li><a href="#" v-on:click="zera_page" v-scroll-to="'#nossos-planos'" class="wd-100p btn btn-warning btn-get-started scrollto animate__animated animate__fadeInUp btn-picmenu">Crie sua conta</a></li>
+
+
+                </ul>
+
+              </div>
+            </nav>
+            <!-- FIM MENU MOBILE //-->
+          </div>
+
+        </div>
+
+      </div>
+    </header>
+
+
+
+    <section id="intro">
+      <div class="intro-container">
+        <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
+
+          <ol class="carousel-indicators"></ol>
+
+          <div class="carousel-inner" role="listbox">
+
+            <div class="carousel-item active" style="background-image: url(site/assets/img/intro-carousel/1.jpg)">
+              <div class="carousel-container">
+                <div class="container">
+
+
+                  <div class="d-flex flex-md-nowrap flex-sm-wrap flex-xs-wrap flex-lg-nowrap flex-xl-nowrap h-100">
+
+                    <div class="p2 align-self-center" data-aos="fade-up" data-aos-delay="100">
+
+
+                      <img src="site/assets/img/logo.png" class="align-middle animate__animated animate__fadeInDown img w-50 w-xs-60 w-sm-60 p-3 mb-3" alt="">
+                      <p class="animate__animated animate__fadeInUp text-left mg-t-20">Use nosso cardápio digital para pedidos
+                        na mesa, sem precisar baixar aplicativos.</p>
+                      <p class="animate__animated animate__fadeInUp text-left text-warning">Prepare seu estabelecimento
+                        para esta nova realidade</p>
+
+
+
+                    </div>
+
+
+                    <div class="p2 img-baseline-flex" data-aos="fade-left" data-aos-delay="300">
+
+                      <img src="site/assets/img/mockup_picmenu.png" class="mockup-picmenu pt-2 mt-4 mt-xs-0 mt-sm-0 animate__animated animate__fadeInDown img img-fluid" alt=""></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <a class="carousel-control-prev" href="#introCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon ion-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+
+          <a class="carousel-control-next" href="#introCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon ion-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <main id="main">
+
+
+
+
+
+      <section id="como-funciona" v-if="passo!=2">
+        <div class="container" data-aos="fade-up">
+
+          <header class="section-header">
+            <h3>Como Funciona</h3>
+
+          </header>
+
+          <div class="row about-cols">
+
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="about-col">
+                <div class="img">
+                  <img src="site/assets/img/about-mission.jpg" alt="" class="img-fluid">
+                  <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
+                </div>
+                <h2 class="title"><a href="#">Fácil e rápido</a></h2>
+                <p>
+                  Crie o seu cardápio em poucos passos.
+                  Imprima seu QR code e cole onde seus clientes possam ver.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+              <div class="about-col">
+                <div class="img">
+                  <img src="site/assets/img/about-plan.jpg" alt="" class="img-fluid">
+                  <div class="icon"><i class="ion-ios-list-outline"></i></div>
+                </div>
+                <h2 class="title"><a href="#">Para acessar</a></h2>
+                <p>
+                  O seu cliente aponta o celular para o código, não precisa de nenhum aplicação, a própria camera do aparelho é suficiente para conseguir ver o cardápio. </p>
+              </div>
+            </div>
+
+
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <section id="call-to-action" v-if="passo!=2">
+        <div class="container text-center" data-aos="zoom-in">
+          <h3>Veja como funciona nosso sistema</h3>
+          <a class="cta-btn" href="#" v-on:click.stop.prevent="modal_video=true"><i class="fa fa-youtube mr-2"></i>Assistir video demostrativo</a>
+        </div>
+      </section>
+
+
+      <section id="beneficios" v-if="passo!=2">
+        <div class="container" data-aos="fade-up">
+
+          <header class="section-header wow fadeInUp mb-3">
+            <h3>ALGUNS BENEFÍCIOS</h3>
+
+          </header>
+
+          <div class="row mt-3">
+
+            <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon">
+
+
+                <img src="site/assets/img/icon1.svg" class="icon-benef"></div>
+              <h4 class="title"><a href="">Não precisa instalar</a></h4>
+              <p class="description">Para usar o Pic Menu é só ler o QR Code com a câmera do se dispositivo que o cardápio do estabelecimento irá abrir no navegador do seu cliente.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon"><img src="site/assets/img/icon2.svg" class="icon-benef"></div>
+              <h4 class="title"><a href="">Agilidade no atendimento</a></h4>
+              <p class="description">O cliente consegue realizar o próprio atendimento, tirando todas as dúvidas e observando detalhes do pedido.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon"><img src="site/assets/img/icon3.svg" class="icon-benef"></div>
+              <h4 class="title"><a href="">Otimização da equipe</a></h4>
+              <p class="description">O nosso cardápio digital desafoga os seus garçons, diminuindo o número de atendimento realizado pelos mesmos, portanto cada garçom poderá dar mais atenção aos seus clientes a cada atendimento realizado.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon"><img src="site/assets/img/icon4.svg" class="icon-benef"></div>
+              <h4 class="title"><a href="">Redução de custos</a></h4>
+              <p class="description">Economizando com funcionários, erros de produção, gastos com gráficas para fazer novos cardápios, e aumentando sua capacidade de atendimento, os lucros do seu negócio tendem a somente aumentar.
+              </p>
+            </div>
+            <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon"><img src="site/assets/img/icon5.svg" class="icon-benef"></div>
+              <h4 class="title"><a href="">Fácil Atualização</a></h4>
+              <p class="description">Atualizando produtos no gestor do nosso cardápio digital, nosso sistema atualiza automaticamente seu cardápio para seu cliente, proporcionando inúmeros benefícios para seu estabelecimento, como economizar com gráficas para produzir um novo cardápio a cada alteração de cardápio.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="400">
+              <div class="icon"><img src="site/assets/img/icon6.svg" class="icon-benef"></div>
+              <h4 class="title"><a href="">Segurança e higiene</a></h4>
+              <p class="description">Passe mais confiança a seus clientes, seguindo de forma simples os protocolos de higiên recomendados pela OMS, elimindo o cardapio impresso.</p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <section id="exemplos" v-if="passo!=2">
+        <div class="container" data-aos="fade-up">
+          <div class="section-header">
+            <h3>Veja nosso cardápio modelo</h3>
+          </div>
+
+          <div class="row justify-content-between">
+
+
+            <div class="col-lg-3 col-md-6">
+              <div class="member" data-aos="fade-up" data-aos-delay="100">
+                <a href="https://www.picmenu.com.br/dolcechurros" target="_blank"><img src="site/assets/img/logos/3.jpg" class="img-fluid" alt=""></a>
+              </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+              <div class="member" data-aos="fade-up" data-aos-delay="100">
+                <a href="https://www.picmenu.com.br/optimumgourmet137" target="_blank"><img src="../storage/clientes/34/prod1593915461.jpeg" class="img-fluid" alt=""></a>
+              </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+              <div class="member" data-aos="fade-up" data-aos-delay="100">
+                <a href="https://www.picmenu.com.br/rota47" target="_blank"><img src="../storage/clientes/35/prod1594164675.png" class="img-fluid" alt=""></a>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </section>
+
+      <section id="nossos-planos">
+        <div class="container" data-aos="fade-up">
+
+          <header class="section-header" v-if="!cadastro_efetuado">
+            <h3>Nossos Planos</h3>
+
+          </header>
+
+          <!-- ENTRAR ROTINAS VUE //-->
+
+
+
+
+
+          <!-- MENSAGEM DE GRAVADO COM SUCESSO //-->
+          <main id="parabens" v-if="cadastro_efetuado">
+            <section>
+              <img src="assets/img/ok.svg" alt="sucesso">
+              <h1 class="font-light">Parabéns, seu cadastro foi efetuado com sucesso no Picmenu.</h1>
+
+            </section>
+            <section>
+              <br>
+              <p class="font-light font-blue text-center" style="color:#727376;">Você receberá em alguns minutos um e-mail e confirmação, clicando no link seu acesso será liberado, caso não encontre o e-mail verifique na pasta SPAM.</p>
+              <br>
+            </section>
+          </main>
+          <!-- FIM MENSAGEM DDE GRAVADO //-->
+
+
+
+          <!-- ESCOLHA DE PLANO //-->
+          <div id="planos" class="white_bg" v-if="passo == 1">
+            <div class="container margin_60_35">
+              <!-- <div class="main_title margin_mobile">
+                  <h2 class="nomargin_top">Nossos Planos</h2>
+                  <p>
+                      Escolha seu plano: {{plano_selecionado}}
+                  </p>
+              </div> -->
+              <div class="row text-center plans">
+                <div class="plan col-md-4">
+                  <h2 class="plan-title">{{lista_planos[0].nome}}</h2>
+                  <p class="plan-price">R${{lista_planos[0].valor}}</p>
+                  <div v-html=lista_planos[0].descricao></div>
+                  <a href="" class="btn btn-warning wd-100p" v-on:click.stop.prevent="assina_plano(0)">ASSINE</a>
+                </div> <!-- End col-md-4 -->
+
+
+                <div class="plan plan-tall col-md-4">
+                  <span class="ribbon"></span>
+                  <span class="ribbon_table"></span>
+                  <h2 class="plan-title">{{lista_planos[1].nome}}</h2>
+                  <p class="plan-price">R${{lista_planos[1].valor}}</p>
+                  <div v-html=lista_planos[1].descricao></div>
+                  <a href="" class="btn btn-success wd-100p" v-on:click.stop.prevent="assina_plano(1)">ASSINE</a>
+                </div><!-- End col-md-4 -->
+
+                <div class="plan col-md-4">
+                  <h2 class="plan-title">{{lista_planos[2].nome}}</h2>
+                  <p class="plan-price">R${{lista_planos[2].valor}}</p>
+                  <div v-html=lista_planos[2].descricao></div>
+                  <a href="" class="btn btn-warning wd-100p" v-on:click.stop.prevent="assina_plano(2)">ASSINE</a>
+                </div><!-- End col-md-4 -->
+              </div><!-- End row plans-->
+            </div><!-- End container -->
+          </div>
+          <!-- FIM ESCOLHA PLANO //-->
+
+
+          <!-- CADASTRO //-->
+
+          <div class="container margin_60_35" v-if="passo == 2 && lista_planos[plano_selecionado].id > 0 && !cadastro_efetuado">
+
+            <section class="box-work margin-box" style="top:0;">
+              <div class="form-text">
+                <div id="carousel" class="carousel carousel-fade" data-ride="carousel" data-interval="10000">
+                  <div class="carousel-inner">
+                    <div class="item active">
+                      <div class="slide-content">
+                        <div class="slide-overlay door align-top">
+
+                          <div class="box-article">
+                            <div class="title-slide text-white">SELECIONADO:</div>
+                            <h4>{{lista_planos[plano_selecionado]['nome']}}</h4>
+
+
+                          </div>
+
+                          <div class="box-article">
+
+                            <p class="description-slide title-parcela" style="margin-bottom:0">
+
+                              <p class="plan-price">R${{lista_planos[plano_selecionado]['valor']}}</p>
+                              <span style="font-size:0.6em; font-weight:400;"></span>
+                            </p>
+
+
+                            <div v-html="lista_planos[plano_selecionado]['descricao']"></div>
+
+                            <p><a href="#" class="txt-picmenu" v-on:click.stop.prevent="passo=1" v-scroll-to="'#nossos-planos'"><i class="fa fa-chevron-left mg-r-10"></i>&nbsp;Alterar plano</a></p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <form action="/NFe/Save" id="FormNFe" method="post" autocomplete="off">
+                <div style="padding: 15px 10px; float: left;">
+
+
+
+                  <div class="col-12 input-effect">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" value="F" v-model="tipo_cadastro" type="radio" value="option1">
+                      <label for="inlineCheckbox1">Pessoa Física</label>
+                    </div>
+
+                    <div class="form-check form-check-inline mg-l-10">
+                      <input class="form-check-input" value="J" v-model="tipo_cadastro" type="radio" value="option2">
+                      <label for="inlineCheckbox2">Pessoa Jurídica</label>
+                    </div>
+                  </div>
+
+
+                  <div class="col-12 input-effect">
+
+                    <input type="text" name="nome_cli" ref="nome_cli" v-model="nome_cli" :class="[nome_cli  != '' ? 'has-content' : '']" class="form-control2 focusHere effect-17 validate text-box single-line" size="60" maxlength="50" autocomplete="user-nm">
+
+                    <label for="nome_cli" v-if="tipo_cadastro == 'F'">Nome</label>
+                    <label for="nome_cli" v-if="tipo_cadastro == 'J'">Razão Social</label>
+                    <span class="focus-border"></span>
+                  </div>
+                  <div class="col-12 input-effect" v-if="tipo_cadastro == 'J'">
+                    <input type="text" name="nome_fantasia" v-model="nome_fantasia" :class="[nome_fantasia  != '' ? 'has-content' : '']" class="form-control2 focusHere effect-17 validate text-box single-line" size="18" maxlength="200" autocomplete="user-nm">
+                    <label>Nome Fantasia</label> <span class="focus-border"></span></div>
+
+
+                  <div class="col-12 input-effect" v-show="tipo_cadastro == 'F'">
+                    <the-mask v-model="cpf_cli" name="cpf_cli" :class="[cpf_cli  != '' ? 'has-content' : '']" :mask="['###.###.###-##']" class="form-control2 focusHere effect-17 validate text-box single-line"></the-mask>
+
+                    <label for="cpf_cli">CPF</label>
+                    <span class="focus-border"></span>
+                  </div>
+
+
+                  <div class="col-12 input-effect" v-if="tipo_cadastro == 'J'">
+                    <input type="text" name="cpf_cli" v-model="cpf_cli" :class="[cpf_cli  != '' ? 'has-content' : '']" v-mask="'##.###.###/####-##'" class="form-control2 focusHere effect-17 validate text-box single-line" autocomplete="user-nm">
+                    <label for="cpf_cli">CNPJ</label><span class="focus-border"></span>
+                  </div>
+
+                  <div class="col-12 input-effect">
+                    <the-mask v-model="tel1_cli" name="tel1_cli" :class="[tel1_cli  != '' ? 'has-content' : '']" :mask="['(##) ####-####', '(##) #####-####']" class="form-control2 focusHere effect-17 validate text-box single-line"></the-mask>
+                    <label for="tel1_cli">Telefone</label>
+                    <span class="focus-border"></span>
+                  </div>
+
+                  <div class="col-12 input-effect">
+                    <input type="mail" name="email_cli" :class="[email_cli  != '' ? 'has-content' : '']" v-model="email_cli" class="form-control2 focusHere effect-17 validate text-box single-line" autocomplete="user-nm">
+                    <label for="tel2_cli">E-mail</label><span class="focus-border"></span></div>
+
+                  <legend class="tit-cadastro">ENDEREÇO</legend>
+
+                  <!--START //ENDERECO //-->
+
+                  <div class="col-6 input-effect">
+                    <input type="tel" name="cep_cli" v-mask="'#####-###'" :class="[cep_cli  != '' ? 'has-content' : '']" v-on:blur="get_endereco(cep_cli, false)" v-model="cep_cli" class="form-control2 focusHere effect-17 validate text-box single-line" size="11" maxlength="9" autocomplete="user-nm">
+                    <label for="cep_cli">CEP</label><span class="focus-border"></span></div>
+
+
+
+                  <div class="col-6 input-effect">
+                    <v-select v-bind:options="estados" @input="get_cidades(estado_cli, false)" :class="[estado_cli  != '' ? 'has-content' : '']" v-model="estado_cli" class="form-control2 focusHere effect-17 validate text-box single-line"><span slot="no-options">Nenhuma estado encontrada!</span></v-select>
+                    <label for="estado_cli">Estado</label><span class="focus-border"></span>
+                  </div>
+                  <div class="col-6 input-effect">
+
+                    <v-select v-bind:options="lista_cidades" :class="[cidade_cli.value  != '' ? 'has-content' : '']" v-model="cidade_cli" class="form-control2 focusHere effect-17 validate text-box single-line"><span slot="no-options">Nenhuma cidade encontrada!</span></v-select>
+                    <label for="cidade_cli">Cidade</label><span class="focus-border"></span>
+                  </div>
+
+
+                  <div class="col-6 input-effect">
+                    <input type="text" name="bairro_cli" :class="[bairro_cli  != '' ? 'has-content' : '']" v-model="bairro_cli" class="form-control2 focusHere effect-17 validate text-box single-line" maxlength="50" autocomplete="user-nm">
+                    <label for="bairro_cli">Bairro</label><span class="focus-border"></span></div>
+                  <div class="col-12 input-effect">
+                    <input type="text" name="rua_cli" :class="[rua_cli  != '' ? 'has-content' : '']" v-model="rua_cli" size="48" class="form-control2 focusHere effect-17 validate text-box single-line" maxlength="50" autocomplete="user-nm">
+                    <label for="rua_cli">Rua</label><span class="focus-border"></span></div>
+
+
+
+                  <div class="col-6 input-effect">
+                    <input type="text" name="num_cli" ref="num_cli" :class="[num_cli  != '' ? 'has-content' : '']" v-model="num_cli" class="form-control2 focusHere effect-17 validate text-box single-line" size="2" maxlength="10" autocomplete="user-nm">
+                    <label for="numero_cli">Número</label><span class="focus-border"></span></div>
+                  <div class="col-6 input-effect">
+                    <input type="text" name="compl_cli" v-model="compl_cli" :class="[compl_cli  != '' ? 'has-content' : '']" size="25" class="form-control2 focusHere effect-17 validate text-box single-line" maxlength="50" autocomplete="user-nm">
+                    <label for="compl_cli">Complemento</label><span class="focus-border"></span></div>
+
+
+
+
+
+
+                  <h4 class="tit-cadastro">ACESSO</h4>
+
+
+
+
+                  <div class="col-6 input-effect" :class="[erro_login ? 'has-danger' : '']">
+                    <input type="text" v-model="login_cli" :class="[login_cli  != '' ? 'has-content' : '']" v-on:keyup.stop.prevent="valida_login" v-on:blur="valida_login" autocomplete="off" class="form-control2 focusHere effect-17 validate text-box single-line" size="11" maxlength="30" autocomplete="user-nm2">
+                    <label>Login</label><span class="focus-border"></span>
+                    <div class="msg-validacao" v-if="erro_login" v-html="msg_erro_login"></div>
+
+
+                  </div>
+
+                  <div class="col-6 input-effect" :class="[erro_senha ? 'has-danger' : '']">
+                    <span class="show-password-ico-cadastro" v-on:click.stop.prevent="mostra_senha"><i class="fa fa-eye-slash icon-cinza" v-if="tipo_campo_senha=='password'"></i>
+                      <i class="fa fa-eye icon-cinza" v-if="tipo_campo_senha=='text'"></i></span>
+                    <input :type=tipo_campo_senha v-on:focus="valida_login" v-model="senha_cli" :class="[senha_cli  != '' ? 'has-content' : '']" autocomplete="off" v-on:keyup.stop.prevent="verifica_senha" class="form-control2 focusHere effect-17 validate text-box single-line" autocomplete="user-nm1"><label>Senha</label><span class="focus-border"></span>
+
+                    <div class="msg-validacao" v-if="erro_senha" v-html="msg_erro_senha"></div>
+                  </div>
+
+
+                  <div class="col-6 input-effect" v-if="senha_cli != ''" :class="[erro_senha ? 'has-danger' : '']">
+                    <span class="show-password-ico-cadastro" v-on:click.stop.prevent="mostra_senha"><i class="fa fa-eye-slash icon-cinza" v-if="tipo_campo_senha=='password'"></i>
+                      <i class="fa fa-eye icon-cinza" v-if="tipo_campo_senha=='text'"></i>
+                      <!----></span><input :type=tipo_campo_senha :class="[senha_cli2  != '' ? 'has-content' : '']" v-model="senha_cli2" class="form-control2 focusHere effect-17 validate text-box single-line" autocomplete="off" v-on:keyup.stop.prevent="verifica_senha" autocomplete="user-nm3"><label>Confirmar Senha</label><span class="focus-border"></span>
+
+                  </div>
+
+
+
+
+
+
+
+
+
+                  <div class="termos clearfix" autocomplete="off">
+
+                    <input type="checkbox" v-model="aceito_termos" value="0" id="TERMOS">
+                    <a href="#" v-on:click.stop.prevent="modal_termos=true" title="Termo de Uso" target="_blank">
+                      <p class="text-termo">Concordo com os termos de serviços Picmenu</p>
+                    </a>
+                  </div>
+                  <div class="col-3 input-effect mag right">
+                    <button type="button" id="btn-salvar" :disabled="erro_login || erro_senha || loading" v-on:click.stop.prevent="salvar" class="btn-curric disableAutoFillSubmit text-nowrap"><span v-if="!loading">Salvar</span><span v-if="loading"><i class="fas fa-sync fa-spin tx-18 mg-r-10"></i>&nbsp;Aguarde...</span></button>
+                  </div>
+                </div>
+
+              </form>
+            </section>
+
+
+
+          </div>
+          <!-- FIM CADASTRO //-->
+          <!-- FIM ROTINAS VUE //-->
+
+        </div>
+      </section>
+
+      <section id="call-to-action" v-if="passo!=2">
+        <div class="container text-center" data-aos="zoom-in">
+          <h3>Ainda não é cadastrado?</h3>
+          <a class="cta-btn" href="#" v-scroll-to="'#nossos-planos'">Cadastre-se agora</a>
+        </div>
+      </section>
+
+
+
+
+    </main>
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+
+
+
+            <div class="col-lg-6 col-md-6 footer-links">
+              <h4>Links Úteis</h4>
+              <ul>
+                <li><i class="ion-ios-arrow-right"></i> <a href="#" v-on:click="passo=1" v-scroll-to="'#home'">Home</a></li>
+                <li><i class="ion-ios-arrow-right"></i> <a href="#" v-on:click.stop.prevent="modal_termos = true">Termos de uso</a></li>
+
+              </ul>
+            </div>
+
+            <div class="col-lg-6 col-md-6 footer-contact">
+              <h4>Contato</h4>
+              <strong>E-mail:</strong> contato@picmenu.com.br<br>
+              </p>
+
+              <div class="social-links">
+
+                <a href="https://www.facebook.com/picmenubr" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a href="https://www.instagram.com/picmenubr" class="instagram" target="_blank"><i class="fa fa-instagram"></i></a>
+                <a href="https://api.whatsapp.com/send?l=pt&phone=5524981110883" target="_blank" class="instagram"><i class="fa fa-whatsapp"></i></a>
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+    </footer><!-- End Footer -->
+
+    <a href="https://api.whatsapp.com/send?l=pt&phone=5524981110883" target="_blank" class="back-to-top bg-success"><i class="fa fa-whatsapp"></i></a>
+
+
+
+    <!-- INICIO MODAL termos //-->
+    <div class="modalfarma fade effect-scale show" v-cloak v-if="modal_termos" style="display: block; padding-right: 16px;">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content bd-0 tx-14">
+          <div class="modal-header pd-y-20 pd-x-25">
+            <h6><strong>TERMOS DE USO</strong></h6>
+
+            <button type="button" class="close float-right" data-dismiss="modal" aria-label="Fechar" v-on:click.stop.prevent="modal_termos = false;">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="modal-body align-middle text-center">
+
+
+
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left tx-11">
+
+                <p>O PicMenu &eacute; uma plataforma que te permite automatizar o atendimento via WhatsApp criando um cat&aacute;logo virtual que envia diretamente o resumo do pedido para seu telefone de atendimento.</p>
+
+                <p>N&atilde;o fazemos a parte de pagamento nem de entrega, assim voc&ecirc; foge das taxas dos aplicativos de delivery e fica com todo o lucro pra voc&ecirc;.</p>
+
+                <p>Ao acessar cadastrar-se na picmenu, o Usu&aacute;rio expressa sua concord&acirc;ncia e consentimento com tudo apresentado no &ldquo;Termo de Uso&rdquo; e na &ldquo;Pol&iacute;tica de Privacidade&rdquo;.</p>
+
+                <p>Em caso de d&uacute;vidas acesse Perguntas Frequentes no site picmenu.com.br disponibilizado em nosso site para maiores esclarecimentos, ou entre em contato via e-mail: contato@picmenu.com.br.</p>
+
+                <p>Caso o Usu&aacute;rio n&atilde;o esteja de acordo e/ou deseje cancelar o us, solicitamos que entre em contato com a picmenu, via e-mail: contato@picmenu.com.br.</p>
+
+                <p>I. PRODUTOS E SERVI&Ccedil;OS</p>
+
+                <p>I.1. Estas Condi&ccedil;&otilde;es Gerais t&ecirc;m como objetivo central estabelecer as regras e os termos para a utiliza&ccedil;&atilde;o e a aquisi&ccedil;&atilde;o dos servi&ccedil;os citados acima.</p>
+
+                <p>II. LICEN&Ccedil;A PARA ACESSO AOS PRODUTOS E SERVI&Ccedil;OS</p>
+
+                <p>II.1. Ao aceitar o Termo de Uso, o Usu&aacute;rio tem garantido o direito n&atilde;o exclusivo, intransfer&iacute;vel, n&atilde;o sublicenci&aacute;vel e limitado de acessar os Produtos e Servi&ccedil;os dispon&iacute;veis via site da picmenu.</p>
+
+                <p>II.2. Os direitos n&atilde;o garantidos expressamente no Termo de Uso est&atilde;o reservados a picmenu.</p>
+
+                <p>II.3. O acesso completo aos Produtos e Servi&ccedil;os &eacute; garantido por meio de conta cadastrada para uso exclusivo do Usu&aacute;rio. Ningu&eacute;m al&eacute;m do Usu&aacute;rio cadastrado poder&aacute; usufruir dos Produtos e Servi&ccedil;os, em seu nome.</p>
+
+                <p>II.4. O Usu&aacute;rio n&atilde;o tem o direito de copiar ou reproduzir, no todo ou em parte, produto e/ou servi&ccedil;o disponibilizado pela picmenu.</p>
+
+                <p>II.5. O Usu&aacute;rio aceita e reconhece que todos os direitos em rela&ccedil;&atilde;o aos Produtos e Servi&ccedil;os disponibilizado pela PicMenus&atilde;o limitados por direitos autorais e ou leis de propriedade intelectual e de propriedade da picmenu.</p>
+
+                <p>II.6. O Usu&aacute;rio poder&aacute; ter acesso aos Produtos e Servi&ccedil;os de forma gratuita, por tempo indeterminado, podendo esta condi&ccedil;&atilde;o ser alterada a qualquer momento, com aviso pr&eacute;vio de 30 dias. Ap&oacute;s esse prazo, ser&aacute; automaticamente efetivado seu acesso ininterrupto, por prazo indeterminado, podendo existir cobran&ccedil;a mensal, ao pre&ccedil;o da tabela vigente (&ldquo;Assinatura&rdquo;), at&eacute; que seja cancelada.</p>
+
+                <p>III. PROMO&Ccedil;&Otilde;ES</p>
+
+                <p>III.1. A PicMenuse reserva ao direito promover publicidade ou apresentar ofertas promocionais e materiais para acesso e cadastro de novos clientes a seus Produtos e Servi&ccedil;os.</p>
+
+                <p>III.1.1. A participa&ccedil;&atilde;o de qualquer Usu&aacute;rio em qualquer promo&ccedil;&atilde;o ou oferta est&aacute; sujeita &agrave;s regras aplic&aacute;veis associadas &agrave; promo&ccedil;&atilde;o ou oferta.</p>
+
+                <p>IV. REGRAS E POL&Iacute;TICAS DA picmenu</p>
+
+                <p>IV.1. Ao acessar a picmenu, o Usu&aacute;rio estar&aacute; sujeito a todas as regras aplic&aacute;veis ao mesmo, podendo o site publicar diretrizes modificando ou adicionando novas regras.</p>
+
+                <p>IV.2. Tais diretrizes e regras passar&atilde;o a fazer parte deste Termo de Uso, sendo aplic&aacute;veis a todos aqueles que acessam a picmenu.</p>
+
+                <p>IV.3. A PicMenumonitora as atividades em seu site e plataforma. a PicMenuse reserva ao direto de, sempre que julgar necess&aacute;rio, implementar sistemas visando a preserva&ccedil;&atilde;o dos dados dos Usu&aacute;rios, a seguran&ccedil;a da picmenu, e evitar fraudes.</p>
+
+                <p>IV.4. O Usu&aacute;rio concorda em n&atilde;o utilizar os Produtos e Servi&ccedil;os da PicMenude modo a exibir, compartilhar, comercializar, divulgar, tornar dispon&iacute;vel ou transmitir quaisquer conte&uacute;dos, produtos, materiais ou servi&ccedil;os:</p>
+
+                <p>(a) Ilegais, amea&ccedil;adores, obscenos, de natureza spam, invasivas de privacidade ou difamat&oacute;rias; (b) Que infrinjam e ou violem quaisquer direitos autorais, patentes, segredos comerciais, marcas comerciais, direito de privacidade ou publicidade, outros direitos de propriedade intelectual e, quaisquer outras leis aplic&aacute;veis; (c) Que prejudiquem, de qualquer forma, menores de idade; (d) Campanha pol&iacute;tica; e/ou (e) V&iacute;rus de software ou outros c&oacute;digos de programa&ccedil;&atilde;o projetados para interferir na funcionalidade de quaisquer sistemas de computador ou redes de internet, e-mail, etc.</p>
+
+                <p>IV.5. O Usu&aacute;rio, ao realizar o cadastro atesta que todas as informa&ccedil;&otilde;es fornecidas s&atilde;o verdadeiras, inclusive de dados de pagamento, responsabilizando-se civil e criminalmente pela veracidade das informa&ccedil;&otilde;es prestadas &agrave; picmenu.</p>
+
+                <p>IV.5.1. A PicMenuse reserva ao direito de suspender preventivamente e cancelar o acesso do Us&aacute;rio ao site da StyApp caso tome conhecimento de informa&ccedil;&otilde;es imprecisas ou inver&iacute;dicas em seu cadastro, sem direito a reembolso.</p>
+
+                <p>IV.6. A picmenu, n&atilde;o se responsabiliza pelas informa&ccedil;&otilde;es incorretas cedidas pelo Usu&aacute;rio no ato da realiza&ccedil;&atilde;o da Assinatura, que possa inviabilizar de qualquer forma a presta&ccedil;&atilde;o de servi&ccedil;o oferecido pela picmenu.</p>
+
+                <p>IV.7. Os direitos previstos neste Termo de Uso, n&atilde;o garantem ao Usu&aacute;rio direito de:</p>
+
+                <p>(a) Ingressar em acordos com qualquer sistema de transmiss&atilde;o gerador de lucros (terrestre, sat&eacute;lite, cabo e/ou outros canais de distribui&ccedil;&atilde;o); (b) Distribuir a terceiros Produtos e Servi&ccedil;os em outros sites, plataformas e/ou sistemas de distribui&ccedil;&atilde;o de Produtos e/ou Servi&ccedil;os ou em m&iacute;dias f&iacute;sicas; (c) Reprodu&ccedil;&atilde;o ou uso promocional dos Produtos e Servi&ccedil;os; e/ou (d) Distribuir, modificar, intercambiar, vender, revender ou retransmitir acesso, no todo, ou em parte, dos Produtos e Servi&ccedil;os fornecidos pela PicMenu&agrave; terceiros, para qualquer pessoa ou finalidade empresarial, comercial ou p&uacute;blica.</p>
+
+                <p>V. PAGAMENTO E PRE&Ccedil;O</p>
+
+                <p>V.1. Para acesso dos Produtos e Servi&ccedil;os da PicMenu- Cat&aacute;logo Digital, o Usu&aacute;rio dever&aacute; concluir cadastro, apresentar todas as informa&ccedil;&otilde;es cadastrais e aceitar os Termos de Uso e Pol&iacute;ticas de Privacidade da picmenu.</p>
+
+                <p>V.3. Poder&aacute; a PicMenualterar, reajustar seus pre&ccedil;os mediante a altera&ccedil;&atilde;o simples de pre&ccedil;os praticados e/ou mediante a cria&ccedil;&atilde;o, modifica&ccedil;&atilde;o ou extin&ccedil;&atilde;o de planos, pacotes, promo&ccedil;&otilde;es e/o condi&ccedil;&otilde;es. A PicMenutamb&eacute;m poder&aacute; ajustar o valor da Assinatura anualmente, ou com maior frequ&ecirc;ncia, conforme permitido pela legisla&ccedil;&atilde;o vigente, de acordo com a infla&ccedil;&atilde;o estabelecida pelo &Iacute;ndice Geral de Pre&ccedil;os do Mercado (IGP-M), publicado pela Funda&ccedil;&atilde;o Get&uacute;lio Vargas, ou outro &iacute;ndice equivalente aplic&aacute;vel a picmenu. Quaisquer altera&ccedil;&otilde;es de pre&ccedil;o, planos ou condi&ccedil;&otilde;es de assinatura ser&atilde;o aplicadas somente 30 dias ap&oacute;s a notifica&ccedil;&atilde;o enviada ao Usu&aacute;rio via e-mail de cadastro e contato fornecido pelo Usu&aacute;rio.</p>
+
+                <p>VI. REEMBOLSO E RESCIS&Atilde;O</p>
+
+                <p>VI.1. Nenhuma despesa &eacute; reembols&aacute;vel. Ao adquirir a Assinatura, o Usu&aacute;rio poder&aacute; usufruir dos Produtos e Servi&ccedil;os.</p>
+
+                <p>VI.2. A PicMenuse reserva ao direito de rescindir a sua conta e impedir o seu acesso a qualquer tempo, caso seja constatada qualquer viola&ccedil;&atilde;o ao Termo de Uso ou Pol&iacute;tica de Privacidade.</p>
+
+                <p>VI.2.1. Caso ocorra a possibilidade acima descrita, nenhuma taxa ou despesa ser&aacute; reembols&aacute;vel.</p>
+
+                <p>VI.3. Caso o Usu&aacute;rio deseje realizar o cancelamento de sua Assinatura, dever&aacute; enviar solicita&ccedil;&atilde;o de cancelamento ao e-mail: contato@picmenu.com.br e aguardar o retorno da &aacute;rea de atendimento para finalizar o procedimento.</p>
+
+                <p> VII. PRIVACIDADE</p>
+
+                <p>VII.1. Ao registrar-se na picmenu, o Usu&aacute;rio consente na coleta e processamento de todas as informa&ccedil;&otilde;es relacionadas ao uso, inclus&atilde;o de informa&ccedil;&otilde;es e acessos, incluindo as fornecidas para Assinatura.</p>
+
+                <p>VII.2. Tais informa&ccedil;&otilde;es est&atilde;o, igualmente, sujeitas &agrave; Pol&iacute;tica de Privacidade da picmenu.</p>
+
+                <p>VIII. GARANTIAS E LIMITA&Ccedil;&Otilde;ES DE RESPONSABILIDADE</p>
+
+                <p>VIII.1. Os Produtos e Servi&ccedil;os fornecidos pela PicMenus&atilde;o disponibilizados ao Usu&aacute;rio no estado em que se encontram, sem garantias ou condi&ccedil;&otilde;es. Os Produtos e Servi&ccedil;os podem n&atilde;o estar livres de interrup&ccedil;&otilde;es ou erros. O Usu&aacute;rio renuncia a todas e quaisquer indeniza&ccedil;&otilde;es por danos indiretos, morais e materiais contra a picmenu. A PicMenun&atilde;o &eacute; respons&aacute;vel pela qualidade de sua conex&atilde;o com de internet. estes Termos de Uso n&atilde;o limitar&atilde;o nenhuma garantia ou direitos n&atilde;o renunci&aacute;veis de prote&ccedil;&atilde;o ao consumidor, aos quais o Usu&aacute;rio tenha direito de acordo com as leis da Rep&uacute;blica Federativa do Brasil.</p>
+
+                <p>VIII.2. A PicMenuse reserva ao direito de qualquer erro de digita&ccedil;&atilde;o, podendo alterar, a qualquer momento, sem pr&eacute;vio aviso, os termos e condi&ccedil;&otilde;es do Termo de Uso e da Pol&iacute;tica de Privacidade, comprometendo-se a informar o Usu&aacute;rio sempre que houver altera&ccedil;&otilde;es.</p>
+
+                <p>IX. PROPRIEDADE INTELECTUAL E DIREITO AUTORAL</p>
+
+                <p>IX.1. A PicMenucont&eacute;m segredos comerciais, inven&ccedil;&otilde;es patenteadas e ou patentes, bem como outros materiais de propriedade intelectual da picmenu. Todos os direitos e propriedade dos Produtos e Servi&ccedil;os s&atilde;o de posse da picmenu. Ao realizar cadastro e Assinatura, o Usu&aacute;rio concorda que tais informa&ccedil;&otilde;es s&atilde;o confidenciais e devem ser mantidas como tal, n&atilde;o podendo transferir a terceiros sem pr&eacute;vio consentimento da picmenu.</p>
+
+                <p>IX.2. &Eacute; proibida qualquer tentativa de desmontar, reconfigurar ou fazer engenharia reversa do site da picmenu, ou dos Produtos e Servi&ccedil;os nele disponibilizado.</p>
+
+                <p>IX.3. Os Produtos e Servi&ccedil;os disponibilizados na PicMenus&atilde;o protegidos pelas leis e tratados de direitos autorais aplic&aacute;veis.</p>
+
+                <p>IX.4. Voc&ecirc; concorda em cumprir com todas as leis de prote&ccedil;&atilde;o dos direitos autorais em conex&atilde;o com o uso da PicMenue de Seus Produtos e Servi&ccedil;os.</p>
+
+                <p>IX.5. &Eacute; vedado o uso de qualquer marca comercial da picmenu, ficando vedada sua c&oacute;pia ou exibi&ccedil;&atilde;o sem o consentimento pr&eacute;vio do detentor dos direitos da referida marca comercial.</p>
+
+                <p>X. LEI E JURISDI&Ccedil;&Atilde;O</p>
+
+                <p>X.1. Estes Termos de Uso est&atilde;o em conformidade com todo o ordenamento jur&iacute;dico. Qualquer reclama&ccedil;&atilde;o ou disputa com a Empresa, ser&aacute; tratada na comarca da Capital do Estado de S&atilde;o Paulo, Brasil.</p>
+
+                <p>XI. CONSIDERA&Ccedil;&Otilde;ES FINAIS</p>
+
+                <p>XI.1. A PicMenureserva-se o direito de revisar periodicamente o Termo de Uso e Pol&iacute;tica de Privacidade. Para conclus&atilde;o da Assinatura, o Usu&aacute;rio &eacute; obrigado a conferir e aceitar o Termo de Uso e Pol&iacute;tica de Privacidade.</p>
+
+                <p>XI.2. O Usu&aacute;rio est&aacute; ciente que &eacute; respons&aacute;vel pela seguran&ccedil;a de sua navega&ccedil;&atilde;o, sendo assim, concorda expressamente que a PicMenun&atilde;o poder&aacute; ser responsabilizada por quaisquer danos ou v&iacute;rus que possam danificar o seu equipamento ou outras propriedades por causa do seu acesso, uso, download ou navega&ccedil;&atilde;o na picmenu.</p>
+
+                <p>XI.2.1. A PicMenun&atilde;o se responsabiliza pelo conte&uacute;do dispon&iacute;vel de quaisquer RSS Feeds ou sites com links para a PicMenuou, sites de terceiros com link para a picmenu.</p>
+
+                <p>XI.2.2. A PicMenun&atilde;o garante que o equipamento do Usu&aacute;rio &eacute; compat&iacute;vel com todos os Produtos e Servi&ccedil;os disponibilizados pela picmenu, sendo recomendado a manuten&ccedil;&atilde;o e atualiza&ccedil;&atilde;o regular dos programas e plug-ins instalados.</p>
+
+                <p>XI.3. A PicMenupoder&aacute; adotar medidas judiciais caso seja apurado que o Usu&aacute;rio est&aacute; causando preju&iacute;zos aos demais Usu&aacute;rios ou &agrave; picmenu, sendo o Usu&aacute;rio que causar preju&iacute;zo o respons&aacute;vel pela repara&ccedil;&atilde;o de eventual dano.</p>
+
+                <p>XI.4. O Usu&aacute;rio concorda em indenizar a PicMenuem caso de danos causados pelo seu uso fora do previsto neste Termo de Uso.</p>
+
+                <p>Todos os direitos n&atilde;o garantidos expressamente aqui s&atilde;o reservados.</p>
+
+                <p>Termos de Uso atualizado em Julho de 2020.</p>
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+        </div>
+      </div><!-- modal-dialog -->
+    </div>
+    <!-- FIM MODAL termos //-->
+
+
+
+    <!-- INICIO MODAL termos //-->
+    <div class="modalfarma fade effect-scale show" v-cloak v-if="modal_video" style="display: block; padding-right: 16px;">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content bd-0 tx-14">
+          <div class="modal-header pd-y-20 pd-x-25">
+            <h6><strong>VIDEO DEMONSTRATIVO</strong></h6>
+
+            <button type="button" class="close float-right" data-dismiss="modal" aria-label="Fechar" v-on:click.stop.prevent="modal_video = false;">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="modal-body align-middle text-center">
+
+
+
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left tx-11">
+
+                <span>EM BREVE</span>
+                <!-- <iframe width="100%" height="500px" src="https://www.youtube.com/embed/YIFEdDV64OU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+        </div>
+      </div><!-- modal-dialog -->
+    </div>
+    <!-- FIM MODAL video //-->
+
+
+    <div class="modal-backdrop fade show" v-if="modal_termos || modal_video"></div>
+
+
+  </body>
+</div>
+
+
+<script>
+  Vue.component('v-select', VueSelect.VueSelect);
+  Vue.filter('formata_preco', function(value) {
+    let val = (value / 1).toFixed(2).replace('.', ',')
+    return 'R$ ' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+
+  });
+  Vue.use(VueScrollTo, {
+    container: "body",
+    duration: 800,
+    easing: "ease",
+    offset: -100,
+    force: true,
+    cancelable: true,
+    onStart: false,
+    onDone: false,
+    onCancel: false,
+    x: false,
+    y: true
+  })
+
+  vm = new Vue({
+    el: "#home",
+    data: {
+      aceito: false,
+      modal_termos: false,
+      modal_video: false,
+      lista_planos: [],
+      arquivo_acao: 'site/acao.php',
+      carregando: false,
+      plano_selecionado: '',
+      show_menu: false,
+      tipo_cadastro: 'F',
+      logado: false,
+      tab_ativa: 'dados',
+      tab_ativa_cad: 'dados',
+      lista_cidades: [],
+      show_msg: false,
+      status_msg: false,
+      msg_retorno: '',
+      estados: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'],
+      msg_status: 'alert-success',
+      foto: 'imagem/sem_foto.png',
+
+      cod_cli: '',
+      nome_cli: '',
+      nome_fantasia: '',
+      cpf_cli: '',
+      dtnas_cli: '',
+      loading: false,
+      tel1_cli: '',
+      email_cli: '',
+      cep_cli: '',
+      num_cli: '',
+      rua_cli: '',
+      compl_cli: '',
+      bairro_cli: '',
+      estado_cli: '',
+      cidade_cli: {
+        'label': '',
+        'value': ''
+      },
+      lista_bairros: [],
+      bairro_manual: false,
+      login_cli: '',
+      senha_cli: '',
+      senha_cli2: '',
+      status_gravacao: {
+        'status': '',
+        'msg': ''
+      },
+      tipo_campo_senha: 'password',
+      erro_login: false,
+      erro_senha: false,
+      passo: 1,
+      cadastro_efetuado: false,
+      aceito_termos: false,
+    },
+
+    methods: {
+      zera_page: function() {
+        this.cadastro_efetuado = false;
+        this.passo = 1;
+      },
+      tg_menu: function() {
+        this.show_menu = !this.show_menu;
+      },
+
+      salvar: function() {
+
+        const params = new URLSearchParams();
+
+        if (!this.aceito_termos) {
+          alert('Para continuar você precisa aceitar o termo de serviço');
+          return;
+        }
+        params.append("acao", "gravar");
+        params.append("nome_cli", this.nome_cli);
+        params.append("aceito", this.aceito);
+        params.append("plano", this.lista_planos[this.plano_selecionado].id);
+        params.append("fantasia_cli", this.nome_fantasia);
+        params.append("cpf_cli", this.cpf_cli);
+        params.append("tel1_cli", this.tel1_cli);
+        params.append("email_cli", this.email_cli);
+        params.append("cel1_cli", this.cel1_cli);
+        params.append("cep_cli", this.cep_cli);
+        params.append("rua_cli", this.rua_cli);
+        params.append("num_cli", this.num_cli);
+        params.append("compl_cli", this.compl_cli);
+        params.append("bairro_cli", this.bairro_cli.value);
+        params.append("estado_cli", this.estado_cli);
+        params.append("cidade_cli", this.cidade_cli.value);
+        params.append("nome_municipio", this.cidade_cli.label);
+        params.append("tipo_cadastro", this.tipo_cadastro);
+        params.append("login_cli", this.login_cli);
+        params.append("senha_cli", this.senha_cli); //verificar gravacao de arquivos
+
+        this.loading = true;
+
+        axios.post(this.arquivo_acao, params).then((response) => {
+
+          this.loading = false;
+
+          if (response.data.status == 'success') {
+            if (response.data.acao == 'gravar') {
+              this.cadastro_efetuado = true;
+              // location.href = '?action=menu&c=1';
+            } else {
+              this.msg_status = 'alert-success';
+              this.show_msg = 'true';
+              this.msg_retorno = response.data.msg;
+              this.get_dados_usuario(response.data.cod_cli);
+              var self = this;
+              clearTimeout();
+              setTimeout(function() {
+
+                self.show_msg = false;
+              }, 10000);
+            }
+
+          } else {
+            this.loading = false;
+            this.msg_status = 'alert-danger';
+            this.show_msg = 'true';
+            this.msg_retorno = response.data.msg;
+            var self = this;
+            clearTimeout();
+            setTimeout(function() {
+
+              self.show_msg = false;
+            }, 10000);
+
+          }
+        }, (error) => {
+
+        });
+      },
+      mostra_senha: function() {
+
+        if (this.tipo_campo_senha == 'password') {
+          this.tipo_campo_senha = 'text';
+        } else {
+          this.tipo_campo_senha = 'password';
+        }
+      },
+      verifica_senha: function() {
+        if (this.senha_cli2.length > 0 && this.senha_cli2 != this.senha_cli) {
+          this.erro_senha = true;
+          this.msg_erro_senha = 'A confirmação de senha não confere';
+        } else if (this.senha_cli.length < 4 || this.senha_cli.length > 30) {
+          this.erro_senha = true;
+          this.msg_erro_senha = 'A senha deve ter no mínimo 4 e no máximo 30 caracteres';
+
+        } else {
+          this.erro_senha = false;
+          this.msg_erro_senha = '';
+        }
+
+      },
+      get_cidades: function(estado, cobranca = false) {
+
+        this.cidade_cli = [];
+        this.bairro_cli = [];
+
+        const params = new URLSearchParams();
+        params.append("acao", 'get_cidade');
+        params.append("estado", estado);
+
+        axios.post(this.arquivo_acao, params).then((response) => {
+
+
+          this.lista_cidades = response.data;
+
+
+        }, (error) => {});
+
+      },
+
+
+      get_endereco: function(cep, cobranca) {
+
+
+        if (cep != '') {
+          const params = new URLSearchParams();
+          params.append("acao", "get_endereco");
+          params.append("cep", cep.replace(/-/g, ""));
+          https: //cepbr.nixsistemas.com.br/?acao=endereco&valor
+            axios.post(this.arquivo_acao, params).then((response) => {
+
+              this.rua_cli = response.data.logradouro;
+              this.estado_cli = response.data.uf;
+
+              this.get_cidades(this.estado_cli, false);
+
+              this.cidade_cli = {
+                label: response.data.cidade,
+                value: response.data.cod_ibge
+              };
+
+              this.bairro_cli = response.data.bairro;
+
+              this.$nextTick(() => this.$refs.num_cli.focus());
+
+            }, (error) => {});
+        }
+
+      },
+
+      enviar_foto_usuario: function(e) {
+        const file = e.target.files[0];
+        arquivoform.submit();
+        this.foto = URL.createObjectURL(file);
+      },
+
+
+      assina_plano: function(cod_plano) {
+        this.passo = 2;
+
+        this.plano_selecionado = cod_plano;
+      },
+
+
+      valida_login: function() {
+        this.loading_valida_login = true;
+        const params = new URLSearchParams();
+        params.append("acao", 'valida_login');
+        params.append("login", this.login_cli);
+
+        axios.post(this.arquivo_acao, params).then((response) => {
+          console.log(response.data.status);
+          this.loading_valida_login = false;
+          if (response.data.status == 'success') {
+            this.erro_login = false;
+            this.msg_erro_login = '';
+          } else {
+            this.erro_login = true;
+            this.msg_erro_login = response.data.msg;
+          }
+
+          this.lista_categorias = response.data;
+
+        });
+      },
+
+      carregar_planos: function(id_pedido) {
+
+        const params = new URLSearchParams();
+        params.append("acao", 'carregar_planos');
+
+        this.carregando = true;
+        var self = this;
+        axios.post(this.arquivo_acao, params).then((response) => {
+
+          this.carregando = true;
+          if (response.data['status'] == 'success') {
+            this.lista_planos = response.data['dados'];
+          }
+
+        }, (error) => {
+          this.carregando = false;
+        });
+
+
+      },
+
+    },
+    computed: {
+
+    },
+
+    mounted() {
+      this.carregar_planos();
+    }
+  })
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="site/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="site/assets/css/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<script src="site/assets/vendor/jquery/jquery.min.js"></script>
+<script src="site/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="site/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="site/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="site/assets/vendor/counterup/counterup.min.js"></script>
+<script src="site/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="site/assets/vendor/venobox/venobox.min.js"></script>
+<script src="site/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="site/assets/vendor/aos/aos.js"></script>
+<script src="site/assets/js/main.js"></script>
+
+</html>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168683321-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-168683321-1');
+</script>
