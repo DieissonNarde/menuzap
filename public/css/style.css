@@ -1,0 +1,152 @@
+.main-container {
+    min-height: 100vh;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.header-a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.alink {
+    /* background-color: red; */
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.alink {
+    color: black;
+}
+
+.nav-link {
+    color: black !important;
+}
+
+.alink ul {
+    float: left;
+}
+
+.nav-container .start {
+    font-weight: 600;
+    color: black;
+}
+
+.navbar-nav>li {
+    padding-right: 20px;
+}
+
+.start {
+    border: 1px solid #0f9e9e;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-left: 15px;
+}
+
+.start:hover {
+    color: white;
+    background-color: #0f9e9e;
+}
+
+.brand {
+    font-weight: bolder;
+}
+
+.content {
+    /* margin-top: 0px; */
+}
+
+.talk {
+    padding-top: 100px;
+}
+
+.talk .img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner {
+    height: calc(100vh - 100px);
+}
+
+.showcase-img {
+    margin: 0;
+    width: 100%;
+    align-self: center;
+}
+
+.circle {}
+
+.no-bold {
+    font-weight: 100;
+}
+
+.bold-two {
+    font-weight: 200;
+}
+
+.bold-three {
+    font-weight: 300;
+}
+
+.bold-four {
+    font-weight: 400;
+    text-align: justify;
+}
+
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-two {
+    background-color: #372F7F;
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    padding: 10px 30px;
+}
+
+.start-two:hover {
+    background-color: #0f9e9e;
+    color: white;
+}
+
+.det-ails {
+    margin-top: 50px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.icon-bra-ails {
+    padding-bottom: 30px;
+}
+
+.icon-ails {
+    color: #3F3D56 !important;
+    font-size: 40px;
+}
+
+.text-benef {
+    text-align: justify;
+}
+
+.footer {
+    color: white;
+    text-align: center;
+    background-color: #212529;
+    padding-top: 25px;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+
+.author {
+    text-decoration: none !important;
+}
