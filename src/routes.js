@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Categoria from "./pages/Categoria";
+import Produto from "./pages/Produto";
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -29,6 +31,8 @@ const Routes = () => (
       <Route exact path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/categoria" component={Categoria} />
+      <Route path="/produto" component={Produto} />
       <PrivateRoute path="/app" component={() => <h1>App</h1>} />
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
