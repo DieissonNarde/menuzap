@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom'
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
+import ListIcon from '@material-ui/icons/List';
+import HomeIcon from '@material-ui/icons/Home';
+import CropFreeIcon from '@material-ui/icons/CropFree';
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-export const menuDash = (
+
+export const menuAdmin = (
   <div>
     <Link to="/dashboard">
       <ListItem button>
@@ -24,58 +27,79 @@ export const menuDash = (
     <Link to="/categoria">
       <ListItem button>
         <ListItemIcon>
-          <BarChartIcon />
+          <RestaurantMenuIcon />
         </ListItemIcon>
         <ListItemText primary="Cardápio" />
       </ListItem>
     </Link>
-    
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Pedidos" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Gerar QR Code" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Relatórios" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Minha Conta" />
-    </ListItem>
+    <Link to="/pedidos/admin">
+      <ListItem button>
+        <ListItemIcon>
+          <ListIcon />
+        </ListItemIcon>
+        <ListItemText primary="Pedidos" />
+      </ListItem>
+    </Link>
+    <Link to="/qrcode">
+      <ListItem button>
+        <ListItemIcon>
+          <CropFreeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Gerar QR Code" />
+      </ListItem>
+    </Link>
+    <Link to="/relatorios">
+      <ListItem button>
+        <ListItemIcon>
+          <ListAltIcon />
+        </ListItemIcon>
+        <ListItemText primary="Relatórios" />
+      </ListItem>
+    </Link>
+    <Link to="/profile">
+      <ListItem button>
+        <ListItemIcon>
+          <AccountCircleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Minha Conta" />
+      </ListItem>
+    </Link>
+    <Link to="/logout">
+      <ListItem button>
+        <ListItemIcon>
+          <ExitToAppIcon />
+        </ListItemIcon>
+        <ListItemText primary="Sair" />
+      </ListItem>
+    </Link>
   </div>
 );
 
 export const menuClient = (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Menu" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Carrinho" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Pedidos" />
-    </ListItem>
+    <Link to="/menu">
+      <ListItem button>
+        <ListItemIcon>
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Menu" />
+      </ListItem>
+    </Link>
+    <Link to="/cart">
+      <ListItem button>
+        <ListItemIcon>
+          <ShoppingCartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Carrinho" />
+      </ListItem>
+    </Link>
+    <Link to="/pedidos">
+      <ListItem button>
+        <ListItemIcon>
+          <ListIcon />
+        </ListItemIcon>
+        <ListItemText primary="Pedidos" />
+      </ListItem>
+    </Link>
   </div>
 );
