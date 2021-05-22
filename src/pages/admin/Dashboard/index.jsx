@@ -9,7 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import Menu from '../../../components/Menu';
 import Footer from "../../../components/FooterGer";
 
-export default function Dashboard() {
+
+const Dashboard = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   
@@ -50,31 +51,16 @@ export default function Dashboard() {
   );
 }
 
+export default Dashboard;
+
+
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  title: {
-    flexGrow: 1,
-  },
+  root: {display: 'flex', },
+  title: {flexGrow: 1, },
   appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
+  content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
+  container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
+  paper: {padding: theme.spacing(2), display: 'flex', overflow: 'auto', flexDirection: 'column', },
+  fixedHeight: {height: 240, },
 }));

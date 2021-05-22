@@ -7,7 +7,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonMaterial from '@material-ui/core/Button';
@@ -25,8 +24,8 @@ export default function Categoria() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <Menu>Categorias</Menu>
+
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
@@ -68,6 +67,7 @@ export default function Categoria() {
             ))}
           </Grid>
         </Container>
+
         <Box pt={4}>
           <Footer />
         </Box>
@@ -78,35 +78,13 @@ export default function Categoria() {
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  icon: {
-    marginRight: theme.spacing(2),
-  },
+  root: {display: 'flex', },
+  icon: {marginRight: theme.spacing(2), },
   appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
+  content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
+  container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
+  cardGrid: {paddingTop: theme.spacing(8), paddingBottom: theme.spacing(8), },
+  card: {height: '100%', display: 'flex', flexDirection: 'column', },
+  cardMedia: {paddingTop: '56.25%', }, // 16:9
+  cardContent: {flexGrow: 1, },
 }));

@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+
 import Title from '../Title';
 
 // Generate Order Data
@@ -25,13 +26,8 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-}));
 
-export default function Pedidos() {
+const Pedidos = () => {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -66,3 +62,10 @@ export default function Pedidos() {
     </React.Fragment>
   );
 }
+
+export default Pedidos;
+
+
+const useStyles = makeStyles((theme) => ({
+  seeMore: {marginTop: theme.spacing(3), },
+}));

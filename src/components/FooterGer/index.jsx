@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary">
@@ -17,24 +18,11 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  footer: {
-    padding: theme.spacing(2, 0),
-    marginTop: 'auto',
-    textAlign: 'center',
-  },
-}));
-
-export default function FooterGer() {
+const FooterGer = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body1">Menu Play</Typography>
@@ -44,3 +32,12 @@ export default function FooterGer() {
     </div>
   );
 }
+
+export default FooterGer;
+
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {display: 'flex', flexDirection: 'column', },
+  footer: {padding: theme.spacing(2, 0), marginTop: 'auto', textAlign: 'center', },
+}));
