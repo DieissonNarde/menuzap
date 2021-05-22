@@ -6,10 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Menu from '../../../components/Menu';
-import Button from '../../../components/Button';
-import FormAdd from '../../../components/FormAdd';
-import Footer from '../../../components/FooterGer';
+import Menu from '../../../../components/Menu';
+import Button from '../../../../components/Button';
+// import FormCateg from '../../../../components/FormCateg';
+import Footer from '../../../../components/FooterGer';
 
 
 
@@ -31,7 +31,7 @@ export default function AddCategoria() {
             </Grid>
           </Grid>
           <Grid container spacing={4}>
-            <FormAdd />
+            
           </Grid>
         </Container>
         <Box pt={4}>

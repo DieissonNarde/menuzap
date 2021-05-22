@@ -12,9 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonMaterial from '@material-ui/core/Button';
 
-import Menu from '../../components/Menu';
-import Button from '../../components/Button';
-import Footer from '../../components/FooterGer';
+import Menu from '../../../components/Menu';
+import Button from '../../../components/Button';
+import Footer from '../../../components/FooterGer';
 
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];

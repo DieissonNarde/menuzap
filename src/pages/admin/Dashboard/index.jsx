@@ -6,13 +6,12 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 
-import Menu from '../../components/Menu';
-import Chart from '../../components/Chart';
-import Pendents from '../../components/Pendents';
-import Pedidos from '../../components/Pedidos';
-import Footer from '../../components/FooterGer';
+import Menu from '../../../components/Menu';
+import Chart from '../../../components/Chart';
+import Pendents from '../../../components/Pendents';
+import Pedidos from '../../../components/Pedidos';
+import Footer from '../../../components/FooterGer';
 
 
 
