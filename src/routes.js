@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Categoria from "./pages/Categoria";
+import AddCategoria from "./pages/Categoria/AddCategoria";
 import Produto from "./pages/Produto";
 
 
@@ -32,6 +33,7 @@ const Routes = () => (
       <Route path="/register" component={Register} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/categoria" component={Categoria} />
+      <Route path="/add-categoria" component={AddCategoria} />
       <Route path="/produto" component={Produto} />
       <PrivateRoute path="/app" component={() => <h1>App</h1>} />
       <Route path="*" component={() => <h1>Page not found</h1>} />

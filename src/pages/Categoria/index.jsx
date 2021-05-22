@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -7,12 +8,12 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+import ButtonMaterial from '@material-ui/core/Button';
 
 import Menu from '../../components/Menu';
+import Button from '../../components/Button';
 import Footer from '../../components/FooterGer';
 
 
@@ -29,7 +30,14 @@ export default function Categoria() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          {/* End hero unit */}
+          <Grid container spacing={6} justify="flex-end">
+            <Grid item>
+              <Link to="/add-categoria" >
+                <Button>Nova Categoria</Button>
+              </Link>
+              
+            </Grid>
+          </Grid>
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -48,12 +56,12 @@ export default function Categoria() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <ButtonMaterial size="small" color="primary">
                       Editar
-                    </Button>
-                    <Button size="small" color="primary">
+                    </ButtonMaterial>
+                    <ButtonMaterial size="small" color="primary">
                       Remover
-                    </Button>
+                    </ButtonMaterial>
                   </CardActions>
                 </Card>
               </Grid>
