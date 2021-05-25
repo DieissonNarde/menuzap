@@ -5,7 +5,7 @@ import { isAuthenticated } from "./services/auth";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Checkout from "./pages/Checkout";
 // GERENCIADOR
 import Dashboard from "./pages/admin/Dashboard";
 import Categoria from "./pages/admin/Categoria";
@@ -21,6 +21,7 @@ import Profile from "./pages/admin/Profile";
 import Menu from "./pages/client/Menu";
 import DetailProduto from "./pages/client/Menu/DetailProduto";
 import Cart from "./pages/client/Cart";
+import NewPedido from "./pages/client/Cart/NewPedido";
 import Pedidos from "./pages/client/Pedidos";
 
 
@@ -42,9 +43,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      {/* <Route exact path="/validateemail" component={ValidateEmail} />
-      <Route exact path="/register/fail" component={RegisterFail} /> */}
+      <Route exact path="/checkout" component={Checkout} />
       {/* ROTAS GERENCIADOR */}
       <Route exact path="/dashboard" component={Dashboard} />
       <Route exact path="/categoria" component={Categoria} />
@@ -60,6 +59,7 @@ const Routes = () => (
       <Route exact path="/menu" component={Menu} />
       <Route exact path="/menu/detail" component={DetailProduto} />
       <Route exact path="/cart" component={Cart} />
+      <Route exact path="/newpedido" component={NewPedido} />
       <Route exact path="/pedidos" component={Pedidos} />
 
       <PrivateRoute exact path="/app" component={() => <h1>App</h1>} />
