@@ -93,8 +93,8 @@ export default function AddCategoria() {
                       autoComplete="cor"
                     />
                   </Grid>
-                  <Grid item xs={12} sm={12}>
-                    <input type="submit" value="Salvar" />
+                  <Grid className={classes.gridSubmit} item xs={12} sm={12}>
+                    <input className={classes.submit} type="submit" value="SALVAR" />
                   </Grid>
                 </Grid>
               </form>
@@ -119,4 +119,6 @@ const useStyles = makeStyles((theme) => ({
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
   grid: {margin: 'auto', },
   paper: {padding: 25, display: 'flex', overflow: 'auto', flexDirection: 'column', alignSelf: 'center', },
+  gridSubmit: {display: 'flex', justifyContent: 'flex-end', },
+  submit: {backgroundColor: '#14bb14', color: 'white', fontSize: '16px', padding: '10px 26px', border: 'none', borderRadius: '5px', },
 }));

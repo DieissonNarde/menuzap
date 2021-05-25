@@ -31,10 +31,9 @@ export default function Categoria() {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={6} justify="flex-end">
             <Grid item>
-              <Link to="/add-categoria" >
+              <Link to="/categoria/new" >
                 <Button>Nova Categoria</Button>
               </Link>
-              
             </Grid>
           </Grid>
           <Grid container spacing={4}>
@@ -47,20 +46,22 @@ export default function Categoria() {
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Categoria
-                    </Typography>
+                    <Link to="/produto">
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Categoria
+                      </Typography>
+                    </Link>
                     <Typography>
                       This is a media card. You can use this section to describe the content.
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <ButtonMaterial size="small" color="primary">
-                      Editar
-                    </ButtonMaterial>
-                    <ButtonMaterial size="small" color="primary">
-                      Remover
-                    </ButtonMaterial>
+                    <Link to="/categoria/edit">
+                      <ButtonMaterial size="small" color="primary">Editar</ButtonMaterial>
+                    </Link>
+                    <Link to="/categoria/delete">
+                      <ButtonMaterial size="small" color="secondary">Remover</ButtonMaterial>
+                    </Link>
                   </CardActions>
                 </Card>
               </Grid>
@@ -79,7 +80,6 @@ export default function Categoria() {
 
 const useStyles = makeStyles((theme) => ({
   root: {display: 'flex', },
-  icon: {marginRight: theme.spacing(2), },
   appBarSpacer: theme.mixins.toolbar,
   content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
