@@ -29,7 +29,7 @@ export default function Categoria() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={6} justify="flex-end">
+          <Grid container spacing={4} justify="flex-end">
             <Grid item>
               <Link to="/categoria/new" >
                 <Button>Nova Categoria</Button>

@@ -27,7 +27,7 @@ function Content() {
                         </h5>
                         <br />
                         <div className="action-button">
-                            <h6><a className="btn start-two" href="/register">ASSINE</a></h6>
+                            <h6><a className="btn start-two" href="#planos">ASSINE</a></h6>
                         </div>
                     </div>
                     <div className="col-sm-7 showcase-img">

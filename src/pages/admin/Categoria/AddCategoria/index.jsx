@@ -12,7 +12,8 @@ import Parse from '../../../../services/api';
 import Menu from '../../../../components/Menu';
 import Footer from '../../../../components/FooterGer';
 
-export default function AddCategoria() {
+
+const AddCategoria = () => {
   const history = useHistory();
   const classes = useStyles();
 
@@ -109,6 +110,8 @@ export default function AddCategoria() {
     </div>
   )
 }
+
+export default AddCategoria;
  
 
 const useStyles = makeStyles((theme) => ({

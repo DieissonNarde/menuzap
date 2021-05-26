@@ -16,7 +16,17 @@ const tiers = [
   {
     title: 'Mensal',
     price: '55',
-    description: ['Assinatura de 30 dias', 'Pedidos Ilimitados', 'Itens Ilimitados', 'Fotos nos Itens', 'Adicione Logo Marca', 'Adicione Plano de Fundo', 'Página de Contato', 'Imagens nos Itens', 'Cupom de Desconto'],
+    description: [
+      'Assinatura de 30 dias',
+      'Pedidos Ilimitados', 
+      'Itens Ilimitados', 
+      'Fotos nos Itens', 
+      'Adicione Logo Marca', 
+      'Adicione Plano de Fundo', 
+      'Página de Contato', 
+      'Imagens nos Itens', 
+      'Cupom de Desconto'
+    ],
     buttonText: 'ASSINE',
     buttonVariant: 'outlined',
   },
@@ -62,10 +72,10 @@ const Planos = () => {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       <Container maxWidth="md" component="main">
-        <h2 className="text-center">PLANOS</h2>
+        <h2 id="planos" className="text-center">PLANOS</h2>
         <Grid container spacing={5} alignItems="flex-end">
           {tiers.map((tier) => (
             // Enterprise card is full width at sm breakpoint
@@ -85,7 +95,6 @@ const Planos = () => {
                       ${tier.price}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
-                      /mo
                     </Typography>
                   </div>
                   <ul>
@@ -106,7 +115,7 @@ const Planos = () => {
           ))}
         </Grid>
       </Container>
-    </React.Fragment>
+    </>
   );
 }
 

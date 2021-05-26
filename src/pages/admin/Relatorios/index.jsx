@@ -1,9 +1,112 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+import Menu from '../../../components/Menu';
+import Button from '../../../components/Button';
+import Footer from "../../../components/FooterGer";
+
+
 
 const Relatorios = () => {
-    return ( 
-        <h1>Relatorios de Vendas e Pedidos</h1>
-    );
+  const classes = useStyles();
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  
+  const [pedidos, setPedidos] = useState([]);
+
+  // useEffect(() => {
+
+  //   async function loadPedidos() {
+  //     const response = await api.get("/api/pedidos");
+
+  //     setPedidos(response.data);
+  //   }
+  //   loadPedidos();
+  // }, [])
+
+  return (
+    <div className={classes.root}>
+      <Menu>Relatórios</Menu>
+      
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={4} justify="flex-end">
+            <Grid item>
+              <Link to="/relatorio/generatepdf" >
+                <Button>Gerar PDF</Button>
+              </Link>
+            </Grid>
+          </Grid>
+          <Grid container spacing={4}>
+            <Grid item sm={12}>
+              <Paper className={classes.paper}>
+                <h4>Pedidos Finalizados</h4>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} sm={12}>
+                    <TableContainer component={Paper}>
+                      <Table className={classes.table} size="small" aria-label="a dense table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Nome</TableCell>
+                            <TableCell align="right">CPF</TableCell>
+                            <TableCell align="right">Tipo Pagamento</TableCell>
+                            <TableCell align="right">Valor Total</TableCell>
+                            <TableCell align="right">Data</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {/* {pedidos.map((pedido) => {
+                            if(pedido.status === "finalizado") {
+                              <TableRow key={pedido.id}>
+                                <TableCell component="th" scope="row">
+                                  {pedido.nome}
+                                </TableCell>
+                                <TableCell align="center">{pedido.cpf}</TableCell>
+                                <TableCell align="center">{pedido.tipoPagamento}</TableCell>
+                                <TableCell align="center">{pedido.valorTotal}</TableCell>
+                                <TableCell align="right">{new Date(pedido.createdAt).toLocateString('pt-br')}</TableCell>
+                              </TableRow>
+                            }
+                          })} */}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+
+        <Box pt={4}>
+          <Footer />
+        </Box>
+      </main>
+    </div>
+  );
 }
- 
+
 export default Relatorios;
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {display: 'flex', },
+  title: {flexGrow: 1, },
+  appBarSpacer: theme.mixins.toolbar,
+  content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
+  container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
+  paper: {padding: theme.spacing(2), display: 'flex', overflow: 'auto', flexDirection: 'column', },
+  fixedHeight: {height: 240, },
+}));
