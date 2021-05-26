@@ -11,6 +11,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import Menu from '../../../components/Menu';
 import Footer from "../../../components/FooterGer";
@@ -21,6 +23,7 @@ const PedidosGer = () => {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   
   const [pedidos, setPedidos] = useState([]);
+  
 
   // useEffect(() => {
 
@@ -31,6 +34,12 @@ const PedidosGer = () => {
   //   }
   //   loadPedidos();
   // }, [])
+
+  function handleUpdateStatus(event) {
+    const status = event.target.value;
+
+
+  }
 
   return (
     <div className={classes.root}>
@@ -68,7 +77,20 @@ const PedidosGer = () => {
                                 <TableCell align="center">{pedido.tipoPagamento}</TableCell>
                                 <TableCell align="center">{pedido.tipoEntrega}</TableCell>
                                 <TableCell align="center">{pedido.valorTotal}</TableCell>
-                                <TableCell align="center">{pedido.status}</TableCell>
+                                <TableCell align="center">
+                                  <Select
+                                    id="pedido-status"
+                                    value={pedido.status}
+                                    onChange={handleUpdateStatus}
+                                    fullWidth
+                                  >
+                                    <MenuItem value="novo">Novo</MenuItem>
+                                    <MenuItem value="em andamento">Em andamento</MenuItem>
+                                    <MenuItem value="pronto">Pronto</MenuItem>
+                                    <MenuItem value="em transporte">Em transporte</MenuItem>
+                                    <MenuItem value="finalizado">Finalizado</MenuItem>
+                                  </Select>
+                                </TableCell>
                                 <TableCell align="right">{new Date(pedido.createdAt).toLocateString('pt-br')}</TableCell>
                               </TableRow>
                             }

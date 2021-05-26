@@ -12,6 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import Menu from '../../../components/Menu';
 import Button from '../../../components/Button';
@@ -24,16 +26,22 @@ const Relatorios = () => {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   
   const [pedidos, setPedidos] = useState([]);
+  const [relatorio, setRelatorio] = useState('default');
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   async function loadPedidos() {
-  //     const response = await api.get("/api/pedidos");
+    async function loadPedidos() {
+      // const response = await api.get("/api/pedidos");
 
-  //     setPedidos(response.data);
-  //   }
-  //   loadPedidos();
-  // }, [])
+      // setPedidos(response.data);
+    }
+    loadPedidos();
+  }, [])
+
+  const handleChange = (event) => {
+    setRelatorio(event.target.value);
+
+  };
 
   return (
     <div className={classes.root}>
@@ -52,7 +60,23 @@ const Relatorios = () => {
           <Grid container spacing={4}>
             <Grid item sm={12}>
               <Paper className={classes.paper}>
-                <h4>Pedidos Finalizados</h4>
+                <Grid className={classes.selectRelatorio} container spacing={3}>
+                  <Grid item xs={12} sm={4}>
+                    <Select
+                      id="select-relatorio"
+                      value={relatorio}
+                      onChange={handleChange}
+                      fullWidth
+                    >
+                      <MenuItem value="default">
+                        <em>Selecione um Relatório</em>
+                      </MenuItem>
+                      {/* <MenuItem value={'venda'}>Vendas</MenuItem> */}
+                      <MenuItem value={'finalizado'}>Pedidos Finalizados</MenuItem>
+                      <MenuItem value={'cancelado'}>Pedidos Cancelados</MenuItem>
+                    </Select>
+                  </Grid>
+                </Grid>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={12}>
                     <TableContainer component={Paper}>
@@ -67,8 +91,8 @@ const Relatorios = () => {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {/* {pedidos.map((pedido) => {
-                            if(pedido.status === "finalizado") {
+                          {pedidos.map((pedido) => {
+                            if(pedido.status === {relatorio}) {
                               <TableRow key={pedido.id}>
                                 <TableCell component="th" scope="row">
                                   {pedido.nome}
@@ -79,7 +103,7 @@ const Relatorios = () => {
                                 <TableCell align="right">{new Date(pedido.createdAt).toLocateString('pt-br')}</TableCell>
                               </TableRow>
                             }
-                          })} */}
+                          })}
                         </TableBody>
                       </Table>
                     </TableContainer>
@@ -108,5 +132,6 @@ const useStyles = makeStyles((theme) => ({
   content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
   paper: {padding: theme.spacing(2), display: 'flex', overflow: 'auto', flexDirection: 'column', },
+  selectRelatorio: {marginBottom: 20, },
   fixedHeight: {height: 240, },
 }));

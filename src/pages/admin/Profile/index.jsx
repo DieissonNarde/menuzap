@@ -179,73 +179,70 @@ const Profile = () => {
                       </Select>
                     </Grid>
                   </Grid>
-                  
-                  
-                  
+          
                   <Grid item xs={12} sm={6}>
-                  <Grid className={classes.gridSelect} container xs={12} sm={12} justify="space-between">
-                    <Grid item xs={12} sm={12}>
-                      <h6>Horário Normal</h6>
-                    </Grid>
-                    <Grid item xs={12} sm={5}>
-                      <TextField
-                        required
-                        type="number"
-                        id="inico-horario-normal"
-                        name="inicio-horario-normal"
-                        label="Início"
-                        value={inicioHorarioNormal}
-                        onChange={e => setInicioHorarioNormal(e.target.value)}
-                        fullWidth
-                      />
-                    </Grid>
-                      <span className={classes.spanHorario}>ÀS</span>
-                    <Grid item xs={12} sm={5}>
-                      <TextField
-                        required
-                        type="number"
-                        id="fim-horario-normal"
-                        name="fim-horario-normal"
-                        label="Final"
-                        value={fimHorarioNormal}
-                        onChange={e => setFimHorarioNormal(e.target.value)}
-                        fullWidth
-                      />
+                    <Grid className={classes.gridSelect} container xs={12} sm={12} justify="space-between">
+                      <Grid item xs={12} sm={12}>
+                        <h6>Horário Normal</h6>
+                      </Grid>
+                      <Grid item xs={12} sm={5}>
+                        <TextField
+                          required
+                          type="number"
+                          id="inico-horario-normal"
+                          name="inicio-horario-normal"
+                          label="Início"
+                          value={inicioHorarioNormal}
+                          onChange={e => setInicioHorarioNormal(e.target.value)}
+                          fullWidth
+                        />
+                      </Grid>
+                        <span className={classes.spanHorario}>ÀS</span>
+                      <Grid item xs={12} sm={5}>
+                        <TextField
+                          required
+                          type="number"
+                          id="fim-horario-normal"
+                          name="fim-horario-normal"
+                          label="Final"
+                          value={fimHorarioNormal}
+                          onChange={e => setFimHorarioNormal(e.target.value)}
+                          fullWidth
+                        />
+                      </Grid>
                     </Grid>
                   </Grid>
-                  </Grid>
-
                   <Grid item xs={12} sm={6}>
-                  <Grid className={classes.gridSelect} container xs={12} sm={12} justify="space-between">
-                    <Grid item xs={12} sm={12}>
-                      <h6>Horário Feriado</h6>
+                    <Grid className={classes.gridSelect} container xs={12} sm={12} justify="space-between">
+                      <Grid item xs={12} sm={12}>
+                        <h6>Horário Feriado</h6>
+                      </Grid>
+                      <Grid item xs={12} sm={5}>
+                        <TextField
+                          required
+                          type="number"
+                          id="inico-horario-feriado"
+                          name="inicio-horario-feriado"
+                          label="Início"
+                          value={inicioHorarioFeriado}
+                          onChange={e => setInicioHorarioFeriado(e.target.value)}
+                          fullWidth
+                        />
+                      </Grid>
+                        <span className={classes.spanHorario}>ÀS</span>
+                      <Grid item xs={12} sm={5}>
+                        <TextField
+                          required
+                          type="number"
+                          id="fim-horario-feriado"
+                          name="fim-horario-feriado"
+                          label="Final"
+                          value={fimHorarioFeriado}
+                          onChange={e => setFimHorarioFeriado(e.target.value)}
+                          fullWidth
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={5}>
-                      <TextField
-                        required
-                        type="number"
-                        id="inico-horario-feriado"
-                        name="inicio-horario-feriado"
-                        label="Início"
-                        value={inicioHorarioFeriado}
-                        onChange={e => setInicioHorarioFeriado(e.target.value)}
-                        fullWidth
-                      />
-                    </Grid>
-                      <span className={classes.spanHorario}>ÀS</span>
-                    <Grid item xs={12} sm={5}>
-                      <TextField
-                        required
-                        type="number"
-                        id="fim-horario-feriado"
-                        name="fim-horario-feriado"
-                        label="Final"
-                        value={fimHorarioFeriado}
-                        onChange={e => setFimHorarioFeriado(e.target.value)}
-                        fullWidth
-                      />
-                    </Grid>
-                  </Grid>
                   </Grid>
                   
                   <Grid item xs={12} sm={12}>
