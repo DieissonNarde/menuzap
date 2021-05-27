@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -69,15 +70,17 @@ const Menu = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid className={classes.empresa} container spacing={3} justify="center">
-            <Grid item>
-              <Avatar alt="Logo Empresa" src={Logo} className={classes.large} />
+          <Paper className={classes.paper}>
+            <Grid className={classes.empresa} container spacing={3} justify="center">
+              <Grid item>
+                <Avatar alt="Logo Empresa" src={Logo} className={classes.large} />
+              </Grid>
+              <h3>Nome da Empresa</h3>
             </Grid>
-            <h3>Nome da Empresa</h3>
-          </Grid>
-          <Grid container justify="center">
-            <p className={classes.descEmp}>ABERTO</p>
-          </Grid>
+            <Grid container justify="center">
+              <p className={classes.descEmp}>ABERTO</p>
+            </Grid>
+          </Paper>
 
           <AppBar position="static" color="default">
             <Tabs
@@ -167,6 +170,7 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
+  paper: {padding: 28, display: 'flex', overflow: 'auto', flexDirection: 'column', alignSelf: 'center', marginBottom: 14, },
   large: {width: theme.spacing(9), height: theme.spacing(9), },
   empresa: {alignItems: 'center', marginRight: 16, marginBottom: 0, },
   descEmp: {color: 'green', fontSize: 24, fontWeight: 'bold', marginTop: 12, },

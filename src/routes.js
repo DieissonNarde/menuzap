@@ -19,6 +19,7 @@ import Relatorios from "./pages/admin/Relatorios";
 import Profile from "./pages/admin/Profile";
 // CLIENTE
 import Menu from "./pages/client/Menu";
+import DetailEmpresa from "./pages/client/Menu/DetailEmpresa";
 import DetailProduto from "./pages/client/Menu/DetailProduto";
 import Cart from "./pages/client/Cart";
 import NewPedido from "./pages/client/Cart/NewPedido";
@@ -57,9 +58,10 @@ const Routes = () => (
       <Route exact path="/profile" component={Profile} />
       {/* ROTAS CLIENTE */}
       <Route exact path="/menu" component={Menu} />
-      <Route exact path="/menu/detail" component={DetailProduto} />
+      <Route exact path="/menu/empresa" component={DetailEmpresa} />
+      <Route exact path="/menu/produto" component={DetailProduto} />
       <Route exact path="/cart" component={Cart} />
-      <Route exact path="/newpedido" component={NewPedido} />
+      <Route exact path="/cart/newpedido" component={NewPedido} />
       <Route exact path="/pedidos" component={Pedidos} />
 
       <PrivateRoute exact path="/app" component={() => <h1>App</h1>} />
