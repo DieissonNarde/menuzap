@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import Divider from "@material-ui/core/Divider";
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -85,6 +86,7 @@ export const menuClient = (
         <ListItemText primary="Menu" />
       </ListItem>
     </Link>
+    <Divider />
     <Link to="/cart">
       <ListItem button>
         <ListItemIcon>
@@ -93,6 +95,7 @@ export const menuClient = (
         <ListItemText primary="Carrinho" />
       </ListItem>
     </Link>
+    <Divider />
     <Link to="/pedidos">
       <ListItem button>
         <ListItemIcon>
@@ -101,5 +104,6 @@ export const menuClient = (
         <ListItemText primary="Pedidos" />
       </ListItem>
     </Link>
+    <Divider />
   </div>
 );

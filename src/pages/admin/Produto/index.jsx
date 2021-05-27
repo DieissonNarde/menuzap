@@ -29,14 +29,14 @@ const Produto = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={6} justify="flex-end">
+          <Grid container spacing={3} justify="flex-end">
             <Grid item>
               <Link to="/produto/new" >
                 <Button>Novo Produto</Button>
               </Link>
             </Grid>
           </Grid>
-          <Grid container spacing={4}>
+          <Grid container spacing={3}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
