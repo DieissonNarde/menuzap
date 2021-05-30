@@ -44,6 +44,7 @@ const Profile = () => {
       'cnpj': cnpj,
       'email': email,
       'celular': celular,
+      
       'inicioSemanaAberto': inicioSemanaAberto,
       'fimSemanaAberto': fimSemanaAberto,
       'inicioHorarioNormal': inicioHorarioNormal,

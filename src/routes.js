@@ -6,6 +6,7 @@ import { isAuthenticated } from "./services/auth";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
+import Register from "./pages/Register";
 // GERENCIADOR
 import Dashboard from "./pages/admin/Dashboard";
 import Categoria from "./pages/admin/Categoria";
@@ -45,6 +46,7 @@ const Routes = () => (
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/checkout" component={Checkout} />
+      <Route exact path="/register" component={Register} />
       {/* ROTAS GERENCIADOR */}
       <Route exact path="/dashboard" component={Dashboard} />
       <Route exact path="/categoria" component={Categoria} />
