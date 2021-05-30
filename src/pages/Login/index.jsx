@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import Parse from "parse";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,6 +18,23 @@ import Footer from '../../components/FooterGer'
 
 export default function Login() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function handleSubmit(ev) {
+    ev.preventDefault();
+
+    await Parse.User.logIn(username, password)
+    .then((user) => {
+      alert("Logged in! " + user);
+      history.push('/dashboard');
+    }).catch((error) => {
+      // Show the error message somewhere and let the user try again.
+      alert("Error: " + error.code + " " + error.message);
+    })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -27,16 +46,18 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
             autoFocus
           />
           <TextField
@@ -48,7 +69,9 @@ export default function Login() {
             label="Senha"
             type="password"
             id="password"
-            autoComplete="current-password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            autoComplete="password"
           />
           <Button
             type="submit"
@@ -66,8 +89,8 @@ export default function Login() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Não possui uma conta? Cadastra-se"}
+              <Link href="/checkout" variant="body2">
+                {"Não possui uma conta? clique aqui"}
               </Link>
             </Grid>
           </Grid>
