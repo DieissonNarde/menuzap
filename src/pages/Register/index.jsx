@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Parse from "parse";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,8 +11,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-import Parse from '../../services/api';
 
 import Footer from '../../components/FooterGer';
 
@@ -34,12 +33,14 @@ export default function Register() {
       'password': password,
     }
 
-    var user = new Parse.User();
-    await user.save(data)
-    .then((response) => {
-      alert('New object create with success! ObjectId: ' + response.id + ', '+ user.get('username'));
+    let user = new Parse.User();
+
+    await user.signUp(data)
+    .then((user) => {
+      alert("User created! " + user);
     }).catch((error) => {
-      alert('Error: ' + error.message);
+      // Show the error message somewhere and let the user try again.
+      alert("Error: " + error.code + " " + error.message);
     });
   }
 

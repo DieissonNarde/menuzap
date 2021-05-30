@@ -9,8 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import Parse from '../../../services/api';
-
 import Menu from '../../../components/Menu';
 import Footer from '../../../components/FooterGer';
 
@@ -36,44 +34,44 @@ const Profile = () => {
   const [bairro, setBairro] = useState('');
   const [numero, setNumero] = useState('');
   
-  async function handleSubmit(ev) {
-    ev.preventDefault();
+  // async function handleSubmit(ev) {
+  //   ev.preventDefault();
 
-    const data = {
-      'nome': nome,
-      'cnpj': cnpj,
-      'email': email,
-      'celular': celular,
+  //   const data = {
+  //     'nome': nome,
+  //     'cnpj': cnpj,
+  //     'email': email,
+  //     'celular': celular,
       
-      'inicioSemanaAberto': inicioSemanaAberto,
-      'fimSemanaAberto': fimSemanaAberto,
-      'inicioHorarioNormal': inicioHorarioNormal,
-      'fimHorarioNormal': fimHorarioNormal,
-      'inicioHorarioFeriado': inicioHorarioFeriado,
-      'fimHorarioFeriado': fimHorarioFeriado,
-      'cep': cep,
-      'uf': uf,
-      'cidade': cidade,
-      'logradouro': logradouro,
-      'bairro': bairro,
-      'numero': numero,
-    }
+  //     'inicioSemanaAberto': inicioSemanaAberto,
+  //     'fimSemanaAberto': fimSemanaAberto,
+  //     'inicioHorarioNormal': inicioHorarioNormal,
+  //     'fimHorarioNormal': fimHorarioNormal,
+  //     'inicioHorarioFeriado': inicioHorarioFeriado,
+  //     'fimHorarioFeriado': fimHorarioFeriado,
+  //     'cep': cep,
+  //     'uf': uf,
+  //     'cidade': cidade,
+  //     'logradouro': logradouro,
+  //     'bairro': bairro,
+  //     'numero': numero,
+  //   }
 
-    const B4aVehicle = Parse.Object.extend('B4aVehicle');
-    const myNewObject = new B4aVehicle();
+  //   const B4aVehicle = Parse.Object.extend('B4aVehicle');
+  //   const myNewObject = new B4aVehicle();
 
-    myNewObject.set(data);
+  //   myNewObject.set(data);
 
-    await myNewObject.save().then(
-      (result) => {
-        history.push('/dashboard');
-      },
-      (error) => {
-        alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-        console.error('Error while creating Minha Conta: ', error);
-      }
-    );
-  }
+  //   await myNewObject.save().then(
+  //     (result) => {
+  //       history.push('/dashboard');
+  //     },
+  //     (error) => {
+  //       alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
+  //       console.error('Error while creating Minha Conta: ', error);
+  //     }
+  //   );
+  // }
 
   return ( 
     <div className={classes.root}>
@@ -85,7 +83,7 @@ const Profile = () => {
           <Grid item xs={12} sm={8} className={classes.grid}>
             <Paper className={classes.paper}>
               <h3>Dados da Empresa</h3>
-              <form onSubmit={handleSubmit}>
+              <form >
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <TextField

@@ -7,8 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
-import Parse from '../../../../services/api';
-
 import Menu from '../../../../components/Menu';
 import Footer from '../../../../components/FooterGer';
 
@@ -20,30 +18,30 @@ const AddProduto = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
 
-  async function handleSubmit(ev) {
-    ev.preventDefault();
+  // async function handleSubmit(ev) {
+  //   ev.preventDefault();
 
-    const data = {
-      'name': name,
-      'price': parseInt(price),
-      'description': description,
-    }
+  //   const data = {
+  //     'name': name,
+  //     'price': parseInt(price),
+  //     'description': description,
+  //   }
 
-    const B4aVehicle = Parse.Object.extend('B4aVehicle');
-    const myNewObject = new B4aVehicle();
+  //   const B4aVehicle = Parse.Object.extend('B4aVehicle');
+  //   const myNewObject = new B4aVehicle();
 
-    myNewObject.set(data);
+  //   myNewObject.set(data);
 
-    await myNewObject.save().then(
-      (result) => {
-        history.push('/produto');
-      },
-      (error) => {
-        alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-        console.error('Error while creating Produto: ', error);
-      }
-    );
-  }
+  //   await myNewObject.save().then(
+  //     (result) => {
+  //       history.push('/produto');
+  //     },
+  //     (error) => {
+  //       alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
+  //       console.error('Error while creating Produto: ', error);
+  //     }
+  //   );
+  // }
 
   return (
     <div className={classes.root}>
@@ -54,7 +52,7 @@ const AddProduto = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid item xs={12} sm={7} className={classes.grid}>
             <Paper className={classes.paper}>
-              <form onSubmit={handleSubmit}>
+              <form >
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={12}>
                     <TextField

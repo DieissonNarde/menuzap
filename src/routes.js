@@ -1,8 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import { isAuthenticated } from "./services/auth";
-
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
@@ -26,19 +24,24 @@ import Cart from "./pages/client/Cart";
 import NewPedido from "./pages/client/Cart/NewPedido";
 import Pedidos from "./pages/client/Pedidos";
 
+import * as Env from "./services/environments";
+import Parse from 'parse';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      isAuthenticated() ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
-      )
-    }
-  />
-);
+Parse.initialize(Env.APPLICATION_ID, Env.JAVASCRIPT_KEY);
+Parse.serverURL = Env.SERVER_URL;
+
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route
+//     {...rest}
+//     render={props =>
+//       isAuthenticated() ? (
+//         <Component {...props} />
+//       ) : (
+//         <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+//       )
+//     }
+//   />
+// );
 
 const Routes = () => (
   <BrowserRouter>
@@ -66,7 +69,6 @@ const Routes = () => (
       <Route exact path="/cart/newpedido" component={NewPedido} />
       <Route exact path="/pedidos" component={Pedidos} />
 
-      <PrivateRoute exact path="/app" component={() => <h1>App</h1>} />
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
   </BrowserRouter>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Parse from "parse";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -35,6 +36,8 @@ const Checkout = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
 
+  // const dataTeste = dataUser();
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -42,6 +45,21 @@ const Checkout = () => {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  async function signUp() {
+    let data = "teste";
+
+    let user = new Parse.User();
+
+    await user.signUp(data)
+    .then((user) => {
+      alert("User created! " + user);
+      handleNext();
+    }).catch((error) => {
+      // Show the error message somewhere and let the user try again.
+      alert("Error: " + error.code + " " + error.message);
+    });
+  }
 
   return (
     <>
@@ -67,7 +85,7 @@ const Checkout = () => {
                   Obrigado pela sua Assinatura.
                 </Typography>
                 <Typography variant="subtitle1">
-                  O número do seu pedido é #2001539. Enviamos por e-mail um link de confirmação do seu cadastro e
+                  Enviamos por e-mail um link de confirmação do seu cadastro e
                   aproveite o acesso ilimitado por 15 dias grátis da sua assinatura.
                 </Typography>
               </React.Fragment>
@@ -80,14 +98,28 @@ const Checkout = () => {
                       Voltar
                     </Button>
                   )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Confirmar' : 'Avançar'}
-                  </Button>
+                  {activeStep === steps.length - 1 
+                    ?
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      onClick={signUp}
+                      className={classes.button}
+                    >
+                      Confirmar
+                    </Button> 
+                    :
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      Avançar
+                    </Button>
+                  }
                 </div>
               </React.Fragment>
             )}
