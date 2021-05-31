@@ -9,6 +9,9 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Typography from '@material-ui/core/Typography';
 
 import Menu from '../../../components/Menu';
 import Footer from '../../../components/FooterGer';
@@ -18,7 +21,8 @@ const Profile = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [imagem, setImagem] = useState({ selectedFile: null });
+  var file;
+  var fileName;
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [celular, setCelular] = useState('');
@@ -36,11 +40,25 @@ const Profile = () => {
   const [logradouro, setLogradouro] = useState('');
   const [bairro, setBairro] = useState('');
   const [numero, setNumero] = useState('');
+
+  function handleChange(ev) {
+    if(ev.target.files.length > 0) {
+      file = ev.target.files[0];
+      fileName = file.name.toString();
+      
+      console.log("Files", file.name);
+    }
+  }
   
-  async function handleSubmit() {
+  async function handleSubmit(ev) {
+    ev.preventDefault();
+
+    const parseFile = new Parse.File('images.png', file);
+
     const Empresa = Parse.Object.extend('Empresa');
     const newEmpresa = new Empresa();
 
+    newEmpresa.set('logo', parseFile);
     newEmpresa.set('nome', nome);
     newEmpresa.set('cnpj', cnpj);
     newEmpresa.set('celular', celular);
@@ -60,7 +78,7 @@ const Profile = () => {
     newEmpresa.set('numero', numero);
     newEmpresa.set('id_user', Parse.User.current());
 
-    newEmpresa.save().then(
+    await newEmpresa.save().then(
       (result) => {
         alert('Empresa created', result);
         history.push('/profile');
@@ -84,15 +102,23 @@ const Profile = () => {
               <h3>Dados da Empresa</h3>
               <form onSubmit={handleSubmit} enctype="multipart/form-data">
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      type="file"
-                      id="imagem"
-                      name="imagem"
-                      label="Selecione uma Imagem"
-                      onChange={e => setImagem(e.target.files[0])}
-                      fullWidth
-                    />
+                  <Grid container className={classes.gridFile} justify="center">
+                    <Grid item xs={12} sm={12}>
+                      <Typography
+                        className={classes.title}
+                        gutterBottom
+                        variant="h6"
+                        component="h4"
+                      >
+                        Logo da Empresa
+                      </Typography>
+                    </Grid>
+                    <label htmlFor="icon-button-file">
+                      <IconButton color="primary" aria-label="upload picture" component="span">
+                        <PhotoCamera />
+                      </IconButton>
+                    </label>
+                    <input accept="image/*" onChange={handleChange} className={classes.input} id="icon-button-file" type="file" />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -369,14 +395,15 @@ export default Profile;
 
 const useStyles = makeStyles((theme) => ({
   root: {display: 'flex', },
-  title: {flexGrow: 1, },
+  title: {flexGrow: 1, marginLeft: 12, },
   appBarSpacer: theme.mixins.toolbar,
   content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
   grid: {margin: 'auto', },
   paper: {padding: 25, display: 'flex', overflow: 'auto', flexDirection: 'column', alignSelf: 'center', },
+  gridFile: {marginTop: 20, },
+  input: {marginTop: 10, color: '#A9A9A9', },
   gridSelect: {marginLeft: 1, marginRight: 1, },
-  
   span: {fontSize: 14, fontWeight: 'bold', textAlign: 'center', padding: 0, lineHeight: 5, },
   spanHorario: {fontSize: 12, fontWeight: 'bold', textAlign: 'center', padding: 0, lineHeight: 6, },
   gridSubmit: {display: 'flex', justifyContent: 'flex-end', },

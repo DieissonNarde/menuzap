@@ -7,6 +7,9 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 import Menu from '../../../../components/Menu';
 import Footer from '../../../../components/FooterGer';
@@ -16,8 +19,15 @@ const AddCategoria = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  const [imagem, setImagem] = useState({ selectedFile: null });
+  var fileName, file;
   const [nome, setNome] = useState('');
+
+  function handleChange(ev) {
+    file = ev.target.files[0];
+    fileName = file.name;
+
+    console.log("Files", file.name, file);
+  }
 
   async function handleSubmit(ev) {
     ev.preventDefault();
@@ -25,7 +35,7 @@ const AddCategoria = () => {
     const Categoria = Parse.Object.extend('Categoria');
     const newCategoria = new Categoria();
 
-    newCategoria.set('imagem', new Parse.File("imagem.png", { base64: btoa(imagem) }));
+    newCategoria.set('imagem', new Parse.File(fileName, file));
     newCategoria.set('nome', nome);
     newCategoria.set('id_empresa', new Parse.Object("Empresa"));
 
@@ -41,6 +51,8 @@ const AddCategoria = () => {
     );
   }
 
+  
+
   return (
     <div className={classes.root}>
       <Menu>Nova Categoria</Menu>
@@ -52,15 +64,13 @@ const AddCategoria = () => {
             <Paper className={classes.paper}>
               <form onSubmit={handleSubmit} enctype="multipart/form-data">
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      type="file"
-                      id="imagem"
-                      name="imagem"
-                      label="Selecione uma Imagem"
-                      onChange={e => setImagem(e.target.files[0])}
-                      fullWidth
-                    />
+                  <Grid container justify="center">
+                    <label htmlFor="icon-button-file">
+                      <IconButton color="primary" aria-label="upload picture" component="span">
+                        <PhotoCamera />
+                      </IconButton>
+                    </label>
+                    <input accept="image/*" onChange={handleChange} className={classes.input} id="icon-button-file" type="file" />
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
@@ -102,6 +112,7 @@ const useStyles = makeStyles((theme) => ({
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
   grid: {margin: 'auto', },
   paper: {padding: 25, display: 'flex', overflow: 'auto', flexDirection: 'column', alignSelf: 'center', },
+  input: {marginTop: 10, color: '#A9A9A9', },
   gridSubmit: {display: 'flex', justifyContent: 'flex-end', },
   submit: {backgroundColor: '#14bb14', color: 'white', fontSize: '16px', padding: '10px 26px', border: 'none', borderRadius: '5px', },
 }));
