@@ -18,6 +18,7 @@ const Profile = () => {
   const classes = useStyles();
   const history = useHistory();
 
+  const [imagem, setImagem] = useState({ selectedFile: null });
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [celular, setCelular] = useState('');
@@ -81,8 +82,18 @@ const Profile = () => {
           <Grid item xs={12} sm={8} className={classes.grid}>
             <Paper className={classes.paper}>
               <h3>Dados da Empresa</h3>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} enctype="multipart/form-data">
                 <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      type="file"
+                      id="imagem"
+                      name="imagem"
+                      label="Selecione uma Imagem"
+                      onChange={e => setImagem(e.target.files[0])}
+                      fullWidth
+                    />
+                  </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       required

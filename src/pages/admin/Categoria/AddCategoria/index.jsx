@@ -16,6 +16,7 @@ const AddCategoria = () => {
   const history = useHistory();
   const classes = useStyles();
 
+  const [imagem, setImagem] = useState({ selectedFile: null });
   const [nome, setNome] = useState('');
 
   async function handleSubmit(ev) {
@@ -24,7 +25,7 @@ const AddCategoria = () => {
     const Categoria = Parse.Object.extend('Categoria');
     const newCategoria = new Categoria();
 
-    newCategoria.set('imagem', new Parse.File("resume.txt", { base64: btoa("My file content") }));
+    newCategoria.set('imagem', new Parse.File("imagem.png", { base64: btoa(imagem) }));
     newCategoria.set('nome', nome);
     newCategoria.set('id_empresa', new Parse.Object("Empresa"));
 
@@ -49,8 +50,18 @@ const AddCategoria = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid item xs={12} sm={7} className={classes.grid}>
             <Paper className={classes.paper}>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} enctype="multipart/form-data">
                 <Grid container spacing={3}>
+                  <Grid item xs={12} sm={12}>
+                    <TextField
+                      type="file"
+                      id="imagem"
+                      name="imagem"
+                      label="Selecione uma Imagem"
+                      onChange={e => setImagem(e.target.files[0])}
+                      fullWidth
+                    />
+                  </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
                       required
