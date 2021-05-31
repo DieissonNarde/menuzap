@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Parse from "parse";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -15,34 +16,29 @@ const AddCategoria = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [color, setColor] = useState('');
+  const [nome, setNome] = useState('');
 
-  // async function handleSubmit(ev) {
-  //   ev.preventDefault();
+  async function handleSubmit(ev) {
+    ev.preventDefault();
 
-  //   const data = {
-  //     'name': name,
-  //     'price': parseInt(price),
-  //     'color': color,
-  //   }
+    const Categoria = Parse.Object.extend('Categoria');
+    const newCategoria = new Categoria();
 
-  //   const B4aVehicle = Parse.Object.extend('B4aVehicle');
-  //   const myNewObject = new B4aVehicle();
+    newCategoria.set('imagem', new Parse.File("resume.txt", { base64: btoa("My file content") }));
+    newCategoria.set('nome', nome);
+    newCategoria.set('id_empresa', new Parse.Object("Empresa"));
 
-  //   myNewObject.set(data);
-
-  //   await myNewObject.save().then(
-  //     (result) => {
-  //       history.push('/categoria');
-  //     },
-  //     (error) => {
-  //       alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-  //       console.error('Error while creating Categoria: ', error);
-  //     }
-  //   );
-  // }
+    await newCategoria.save().then(
+      (result) => {
+        alert('Categoria created', result);
+        history.push('/categoria');
+      },
+      (error) => {
+        alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
+        console.error('Error while creating Categoria: ', error);
+      }
+    );
+  }
 
   return (
     <div className={classes.root}>
@@ -53,7 +49,7 @@ const AddCategoria = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid item xs={12} sm={7} className={classes.grid}>
             <Paper className={classes.paper}>
-              <form >
+              <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={12}>
                     <TextField
@@ -61,35 +57,10 @@ const AddCategoria = () => {
                       id="name"
                       name="name"
                       label="Nome"
-                      value={name}
-                      onChange={e => setName(e.target.value)}
+                      value={nome}
+                      onChange={e => setNome(e.target.value)}
                       fullWidth
                       autoComplete="nome"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      required
-                      type="number"
-                      id="price"
-                      name="price"
-                      label="Preço"
-                      value={price}
-                      onChange={e => setPrice(e.target.value)}
-                      fullWidth
-                      autoComplete="preco"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      required
-                      id="color"
-                      name="color"
-                      label="Cor"
-                      value={color}
-                      onChange={e => setColor(e.target.value)}
-                      fullWidth
-                      autoComplete="cor"
                     />
                   </Grid>
                   <Grid className={classes.gridSubmit} item xs={12} sm={12}>

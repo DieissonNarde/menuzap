@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Parse from "parse";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -14,13 +15,14 @@ import Footer from '../../../components/FooterGer';
 
 
 const Profile = () => {
-  const history = useHistory();
   const classes = useStyles();
+  const history = useHistory();
 
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
-  const [email, setEmail] = useState('');
   const [celular, setCelular] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [email, setEmail] = useState('');
   const [inicioSemanaAberto, setInicioSemanaAberto] = useState('segunda');
   const [fimSemanaAberto, setFimSemanaAberto] = useState('sexta');
   const [inicioHorarioNormal, setInicioHorarioNormal] = useState('');
@@ -34,44 +36,40 @@ const Profile = () => {
   const [bairro, setBairro] = useState('');
   const [numero, setNumero] = useState('');
   
-  // async function handleSubmit(ev) {
-  //   ev.preventDefault();
+  async function handleSubmit() {
+    const Empresa = Parse.Object.extend('Empresa');
+    const newEmpresa = new Empresa();
 
-  //   const data = {
-  //     'nome': nome,
-  //     'cnpj': cnpj,
-  //     'email': email,
-  //     'celular': celular,
-      
-  //     'inicioSemanaAberto': inicioSemanaAberto,
-  //     'fimSemanaAberto': fimSemanaAberto,
-  //     'inicioHorarioNormal': inicioHorarioNormal,
-  //     'fimHorarioNormal': fimHorarioNormal,
-  //     'inicioHorarioFeriado': inicioHorarioFeriado,
-  //     'fimHorarioFeriado': fimHorarioFeriado,
-  //     'cep': cep,
-  //     'uf': uf,
-  //     'cidade': cidade,
-  //     'logradouro': logradouro,
-  //     'bairro': bairro,
-  //     'numero': numero,
-  //   }
+    newEmpresa.set('nome', nome);
+    newEmpresa.set('cnpj', cnpj);
+    newEmpresa.set('celular', celular);
+    newEmpresa.set('telefone', telefone);
+    newEmpresa.set('email', email);
+    newEmpresa.set('cep', cep);
+    newEmpresa.set('inicioSemanaAberto', inicioSemanaAberto);
+    newEmpresa.set('fimSemanaAberto', fimSemanaAberto);
+    newEmpresa.set('inicioHorarioNormal', inicioHorarioNormal);
+    newEmpresa.set('fimHorarioNormal', fimHorarioNormal);
+    newEmpresa.set('inicioHorarioFeriado', inicioHorarioFeriado);
+    newEmpresa.set('fimHorarioFeriado', fimHorarioFeriado);
+    newEmpresa.set('uf', uf);
+    newEmpresa.set('cidade', cidade);
+    newEmpresa.set('logradouro', logradouro);
+    newEmpresa.set('bairro', bairro);
+    newEmpresa.set('numero', numero);
+    newEmpresa.set('id_user', Parse.User.current());
 
-  //   const B4aVehicle = Parse.Object.extend('B4aVehicle');
-  //   const myNewObject = new B4aVehicle();
-
-  //   myNewObject.set(data);
-
-  //   await myNewObject.save().then(
-  //     (result) => {
-  //       history.push('/dashboard');
-  //     },
-  //     (error) => {
-  //       alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-  //       console.error('Error while creating Minha Conta: ', error);
-  //     }
-  //   );
-  // }
+    newEmpresa.save().then(
+      (result) => {
+        alert('Empresa created', result);
+        history.push('/profile');
+      },
+      (error) => {
+        alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
+        console.error('Error while creating Empresa: ', error);
+      }
+    );
+  }
 
   return ( 
     <div className={classes.root}>
@@ -83,7 +81,7 @@ const Profile = () => {
           <Grid item xs={12} sm={8} className={classes.grid}>
             <Paper className={classes.paper}>
               <h3>Dados da Empresa</h3>
-              <form >
+              <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -119,6 +117,19 @@ const Profile = () => {
                       label="Celular"
                       value={celular}
                       onChange={e => setCelular(e.target.value)}
+                      fullWidth
+                      autoComplete="celular"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      required
+                      type="number"
+                      id="telefone"
+                      name="telefone"
+                      label="Telefone"
+                      value={telefone}
+                      onChange={e => setTelefone(e.target.value)}
                       fullWidth
                       autoComplete="celular"
                     />

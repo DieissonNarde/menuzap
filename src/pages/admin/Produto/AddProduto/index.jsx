@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Parse from "parse";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -11,37 +12,36 @@ import Menu from '../../../../components/Menu';
 import Footer from '../../../../components/FooterGer';
 
 const AddProduto = () => {
-  const history = useHistory();
   const classes = useStyles();
+  const history = useHistory();
 
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState('');
+  const [nome, setNome] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [preco, setPreco] = useState('');
 
-  // async function handleSubmit(ev) {
-  //   ev.preventDefault();
+  async function handleSubmit(ev) {
+    ev.preventDefault();
 
-  //   const data = {
-  //     'name': name,
-  //     'price': parseInt(price),
-  //     'description': description,
-  //   }
+    const Produto = Parse.Object.extend('Produto');
+    const newProduto = new Produto();
 
-  //   const B4aVehicle = Parse.Object.extend('B4aVehicle');
-  //   const myNewObject = new B4aVehicle();
+    newProduto.set('imagem', new Parse.File("resume.txt", { base64: btoa("My file content") }));
+    newProduto.set('nome', nome);
+    newProduto.set('descricao', descricao);
+    newProduto.set('preco', preco);
+    newProduto.set('id_categoria', new Parse.Object("Categoria"));
 
-  //   myNewObject.set(data);
-
-  //   await myNewObject.save().then(
-  //     (result) => {
-  //       history.push('/produto');
-  //     },
-  //     (error) => {
-  //       alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-  //       console.error('Error while creating Produto: ', error);
-  //     }
-  //   );
-  // }
+    await newProduto.save().then(
+      (result) => {
+        alert('Produto created', result);
+        history.push('/produto');
+      },
+      (error) => {
+        alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
+        console.error('Error while creating Produto: ', error);
+      }
+    );
+  }
 
   return (
     <div className={classes.root}>
@@ -52,7 +52,7 @@ const AddProduto = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid item xs={12} sm={7} className={classes.grid}>
             <Paper className={classes.paper}>
-              <form >
+              <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={12}>
                     <TextField
@@ -60,10 +60,22 @@ const AddProduto = () => {
                       id="name"
                       name="name"
                       label="Nome"
-                      value={name}
-                      onChange={e => setName(e.target.value)}
+                      value={nome}
+                      onChange={e => setNome(e.target.value)}
                       fullWidth
                       autoComplete="name"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12}>
+                    <TextField
+                      required
+                      id="description"
+                      name="description"
+                      label="Descrição"
+                      value={descricao}
+                      onChange={e => setDescricao(e.target.value)}
+                      fullWidth
+                      autoComplete="description"
                     />
                   </Grid>
                   <Grid item xs={12} sm={12}>
@@ -73,22 +85,10 @@ const AddProduto = () => {
                       id="price"
                       name="price"
                       label="Preço"
-                      value={price}
-                      onChange={e => setPrice(e.target.value)}
+                      value={preco}
+                      onChange={e => setPreco(e.target.value)}
                       fullWidth
                       autoComplete="price"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      required
-                      id="description"
-                      name="description"
-                      label="Descrição"
-                      value={description}
-                      onChange={e => setDescription(e.target.value)}
-                      fullWidth
-                      autoComplete="description"
                     />
                   </Grid>
                   <Grid className={classes.gridSubmit} item xs={12} sm={12}>
