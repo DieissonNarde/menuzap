@@ -39,7 +39,7 @@ const Categoria = () => {
           // Access the Parse Object attributes using the .GET method
           const imagem = object.get('imagem');
           const nome = object.get('nome');
-          const id= object.id;
+          const id = object.id;
 
           response.push({
             'imagem': imagem._url,
@@ -47,7 +47,7 @@ const Categoria = () => {
             'id': id,
           })
         }
-        console.log(response);
+
         setCategorias(response);
       },
       (error) => {
@@ -102,14 +102,14 @@ const Categoria = () => {
                     title={categoria.nome}
                   />
                   <CardContent className={classes.cardContent}>
-                    <Link to="/produto">
+                    <Link to={"/produto/" + categoria.id}>
                       <Typography gutterBottom variant="h5" component="h2">
                         {categoria.nome}
                       </Typography>
                     </Link>
                   </CardContent>
                   <CardActions>
-                    <Link to="/categoria/edit">
+                    <Link to={"/categoria/edit/" + categoria.id}>
                       <ButtonMaterial size="small" color="primary">Editar</ButtonMaterial>
                     </Link>
                     <ButtonMaterial size="small" color="secondary" onClick={() => handleDelete(categoria.id)}>

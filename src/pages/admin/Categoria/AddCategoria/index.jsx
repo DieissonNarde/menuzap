@@ -25,7 +25,6 @@ const AddCategoria = () => {
     if(e.target.files.length > 0) {
       let eventFile = e.target.files[0];
       setFile(eventFile);
-      console.log('change', setFile);
     }
   }
 
@@ -39,18 +38,16 @@ const AddCategoria = () => {
       const Empresa = Parse.Object.extend("Empresa");
       const query = new Parse.Query(Empresa);
       query.equalTo("id_user", Parse.User.current());
-      const object = await query.first();
-      
+      const empresa = await query.first();
+
       const Categoria = Parse.Object.extend('Categoria');
       const newCategoria = new Categoria();
 
-      newCategoria.set('id_empresa', object);
+      newCategoria.set('id_empresa', empresa);
       newCategoria.set('imagem', parseFile);
       newCategoria.set('nome', nome);
 
-      newCategoria.save().then(
-        (result) => {
-          alert('Categoria created', result);
+      newCategoria.save().then(() => {
           history.push('/categoria');
         },
         (error) => {
