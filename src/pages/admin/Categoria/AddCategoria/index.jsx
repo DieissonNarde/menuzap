@@ -18,40 +18,52 @@ const AddCategoria = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  var fileData;
+  const [file, setFile] = useState('');
   const [nome, setNome] = useState('');
 
-  function handleChange(ev) {
-    if(ev.target.files.length > 0) {
-      fileData = ev.target.files[0];
-      console.log(fileData)
+  function handleChange(e) {
+    if(e.target.files.length > 0) {
+      let eventFile = e.target.files[0];
+      setFile(eventFile);
+      console.log('change', setFile);
     }
   }
 
   async function handleSubmit(ev) {
     ev.preventDefault();
 
-    const parseFile = new Parse.File("imagem.png", fileData);
-    parseFile.save().then(function() {
-      console.log(parseFile.url());
+    const name = "imagem.png";
+    const parseFile = new Parse.File(name, file);
+
+    await parseFile.save().then(async () => {
+      const Empresa = Parse.Object.extend("Empresa");
+      const query = new Parse.Query(Empresa);
+      query.equalTo("id_user", Parse.User.current());
+      const object = await query.first();
+      
+      const Categoria = Parse.Object.extend('Categoria');
+      const newCategoria = new Categoria();
+
+      newCategoria.set('id_empresa', object);
+      newCategoria.set('imagem', parseFile);
+      newCategoria.set('nome', nome);
+
+      newCategoria.save().then(
+        (result) => {
+          alert('Categoria created', result);
+          history.push('/categoria');
+        },
+        (error) => {
+          alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
+          console.error('Error while creating Categoria: ', error);
+        }
+      );
+    },
+    (err) => {
+      // The file either could not be read, or could not be saved to Parse.
+      alert('Infelizmente não foi possível salvar a imagem na base de dados, tente novamente. Erro: ', err);
+      console.error('Not be sabed to Parse: ', err);
     });
-    const Categoria = Parse.Object.extend('Categoria');
-    const newCategoria = new Categoria();
-
-    newCategoria.set('imagem', parseFile);
-    newCategoria.set('nome', nome);
-    newCategoria.set('id_empresa', new Parse.Object("Empresa"));
-
-    await newCategoria.save().then(
-      (result) => {
-        alert('Categoria created', result);
-        history.push('/categoria');
-      },
-      (error) => {
-        alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-        console.error('Error while creating Categoria: ', error);
-      }
-    );
   }
 
   return (

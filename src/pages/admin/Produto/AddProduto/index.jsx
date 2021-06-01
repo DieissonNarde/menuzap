@@ -7,41 +7,72 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 import Menu from '../../../../components/Menu';
 import Footer from '../../../../components/FooterGer';
+
 
 const AddProduto = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [imagem, setImagem] = useState({ selectedFile: null });
+  const [file, setFile] = useState('');
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
 
+  function handleChange(e) {
+    if(e.target.files.length > 0) {
+      let eventFile = e.target.files[0];
+      setFile(eventFile);
+      console.log('change', setFile);
+    }
+  }
+
   async function handleSubmit(ev) {
     ev.preventDefault();
 
-    const Produto = Parse.Object.extend('Produto');
-    const newProduto = new Produto();
+    const name = "imagem.png";
+    const parseFile = new Parse.File(name, file);
 
-    newProduto.set('imagem', new Parse.File("imagem.png", { base64: btoa(imagem) }));
-    newProduto.set('nome', nome);
-    newProduto.set('descricao', descricao);
-    newProduto.set('preco', preco);
-    newProduto.set('id_categoria', new Parse.Object("Categoria"));
+    await parseFile.save().then(async () => {
+      const Empresa = Parse.Object.extend("Empresa");
+      const queryEmpresa = new Parse.Query(Empresa);
+      queryEmpresa.equalTo("id_user", Parse.User.current());
+      const objectEmpresa = await queryEmpresa.first();
 
-    await newProduto.save().then(
-      (result) => {
-        alert('Produto created', result);
-        history.push('/produto');
-      },
-      (error) => {
-        alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-        console.error('Error while creating Produto: ', error);
-      }
-    );
+      const Categoria = Parse.Object.extend("Categoria");
+      const query = new Parse.Query(Categoria);
+      query.equalTo("id_empresa", objectEmpresa);
+      const objectCategoria = await query.first();
+      
+      const Produto = Parse.Object.extend('Produto');
+      const newProduto = new Produto();
+
+      newProduto.set('id_categoria', objectCategoria);
+      newProduto.set('imagem', parseFile);
+      newProduto.set('nome', nome);
+      newProduto.set('descricao', descricao);
+      newProduto.set('preco', preco);
+      
+      newProduto.save().then(
+        (result) => {
+          alert('Produto created', result);
+          history.push('/produto');
+        },
+        (error) => {
+          alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
+          console.error('Error while creating Produto: ', error);
+        }
+      );
+    },
+    (err) => {
+      // The file either could not be read, or could not be saved to Parse.
+      alert('Infelizmente não foi possível salvar a imagem na base de dados, tente novamente. Erro: ', err);
+      console.error('Not be sabed to Parse: ', err);
+    });
   }
 
   return (
@@ -53,17 +84,15 @@ const AddProduto = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid item xs={12} sm={7} className={classes.grid}>
             <Paper className={classes.paper}>
-              <form onSubmit={handleSubmit} enctype="multipart/form-data">
+              <form onSubmit={handleSubmit} method="POST">
                 <Grid container spacing={3}>
-                <Grid item xs={12} sm={12}>
-                <TextField
-                      type="file"
-                      id="imagem"
-                      name="imagem"
-                      label="Selecione uma Imagem"
-                      onChange={e => setImagem(e.target.files[0])}
-                      fullWidth
-                    />
+                  <Grid container justify="center">
+                    <label htmlFor="icon-button-file2">
+                      <IconButton color="primary" aria-label="upload picture" component="span">
+                        <PhotoCamera />
+                      </IconButton>
+                    </label>
+                    <input accept="image/*" onChange={handleChange} className={classes.input} id="icon-button-file2" type="file" />
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
