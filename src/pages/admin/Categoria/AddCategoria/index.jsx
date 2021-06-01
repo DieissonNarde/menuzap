@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
@@ -19,23 +18,27 @@ const AddCategoria = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  var fileName, file;
+  var fileData;
   const [nome, setNome] = useState('');
 
   function handleChange(ev) {
-    file = ev.target.files[0];
-    fileName = file.name;
-
-    console.log("Files", file.name, file);
+    if(ev.target.files.length > 0) {
+      fileData = ev.target.files[0];
+      console.log(fileData)
+    }
   }
 
   async function handleSubmit(ev) {
     ev.preventDefault();
 
+    const parseFile = new Parse.File("imagem.png", fileData);
+    parseFile.save().then(function() {
+      console.log(parseFile.url());
+    });
     const Categoria = Parse.Object.extend('Categoria');
     const newCategoria = new Categoria();
 
-    newCategoria.set('imagem', new Parse.File(fileName, file));
+    newCategoria.set('imagem', parseFile);
     newCategoria.set('nome', nome);
     newCategoria.set('id_empresa', new Parse.Object("Empresa"));
 
@@ -51,8 +54,6 @@ const AddCategoria = () => {
     );
   }
 
-  
-
   return (
     <div className={classes.root}>
       <Menu>Nova Categoria</Menu>
@@ -62,21 +63,21 @@ const AddCategoria = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid item xs={12} sm={7} className={classes.grid}>
             <Paper className={classes.paper}>
-              <form onSubmit={handleSubmit} enctype="multipart/form-data">
+              <form onSubmit={handleSubmit} method="POST">
                 <Grid container spacing={3}>
                   <Grid container justify="center">
-                    <label htmlFor="icon-button-file">
+                    <label htmlFor="icon-button-file2">
                       <IconButton color="primary" aria-label="upload picture" component="span">
                         <PhotoCamera />
                       </IconButton>
                     </label>
-                    <input accept="image/*" onChange={handleChange} className={classes.input} id="icon-button-file" type="file" />
+                    <input accept="image/*" onChange={handleChange} className={classes.input} id="icon-button-file2" type="file" />
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
                       required
-                      id="name"
-                      name="name"
+                      id="nome"
+                      name="nome"
                       label="Nome"
                       value={nome}
                       onChange={e => setNome(e.target.value)}

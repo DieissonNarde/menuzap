@@ -21,8 +21,6 @@ const Profile = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  var file;
-  var fileName;
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [celular, setCelular] = useState('');
@@ -40,54 +38,62 @@ const Profile = () => {
   const [logradouro, setLogradouro] = useState('');
   const [bairro, setBairro] = useState('');
   const [numero, setNumero] = useState('');
+  const [file, setFile] = useState('');
 
-  function handleChange(ev) {
-    if(ev.target.files.length > 0) {
-      file = ev.target.files[0];
-      fileName = file.name.toString();
-      
-      console.log("Files", file.name);
+  function handleChange(e) {
+    if(e.target.files.length > 0) {
+      let eventFile = e.target.files[0];
+      setFile(eventFile);
     }
   }
   
   async function handleSubmit(ev) {
     ev.preventDefault();
 
-    const parseFile = new Parse.File('images.png', file);
+    const name = "logo.png";
+    const parseFile = new Parse.File(name, file);
 
-    const Empresa = Parse.Object.extend('Empresa');
-    const newEmpresa = new Empresa();
+    await parseFile.save().then(() => {
+      // The file has been saved to Parse.
+      const Empresa = Parse.Object.extend('Empresa');
+      const newEmpresa = new Empresa();
 
-    newEmpresa.set('logo', parseFile);
-    newEmpresa.set('nome', nome);
-    newEmpresa.set('cnpj', cnpj);
-    newEmpresa.set('celular', celular);
-    newEmpresa.set('telefone', telefone);
-    newEmpresa.set('email', email);
-    newEmpresa.set('cep', cep);
-    newEmpresa.set('inicioSemanaAberto', inicioSemanaAberto);
-    newEmpresa.set('fimSemanaAberto', fimSemanaAberto);
-    newEmpresa.set('inicioHorarioNormal', inicioHorarioNormal);
-    newEmpresa.set('fimHorarioNormal', fimHorarioNormal);
-    newEmpresa.set('inicioHorarioFeriado', inicioHorarioFeriado);
-    newEmpresa.set('fimHorarioFeriado', fimHorarioFeriado);
-    newEmpresa.set('uf', uf);
-    newEmpresa.set('cidade', cidade);
-    newEmpresa.set('logradouro', logradouro);
-    newEmpresa.set('bairro', bairro);
-    newEmpresa.set('numero', numero);
-    newEmpresa.set('id_user', Parse.User.current());
+      newEmpresa.set('id_user', Parse.User.current());
+      newEmpresa.set('logo', parseFile);
+      newEmpresa.set('nome', nome);
+      newEmpresa.set('cnpj', cnpj);
+      newEmpresa.set('celular', celular);
+      newEmpresa.set('telefone', telefone);
+      newEmpresa.set('email', email);
+      newEmpresa.set('cep', cep);
+      newEmpresa.set('inicioSemanaAberto', inicioSemanaAberto);
+      newEmpresa.set('fimSemanaAberto', fimSemanaAberto);
+      newEmpresa.set('inicioHorarioNormal', inicioHorarioNormal);
+      newEmpresa.set('fimHorarioNormal', fimHorarioNormal);
+      newEmpresa.set('inicioHorarioFeriado', inicioHorarioFeriado);
+      newEmpresa.set('fimHorarioFeriado', fimHorarioFeriado);
+      newEmpresa.set('uf', uf);
+      newEmpresa.set('cidade', cidade);
+      newEmpresa.set('logradouro', logradouro);
+      newEmpresa.set('bairro', bairro);
+      newEmpresa.set('numero', numero);
 
-    await newEmpresa.save().then(
-      (result) => {
-        alert('Empresa created', result);
-        history.push('/profile');
-      },
-      (error) => {
-        alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-        console.error('Error while creating Empresa: ', error);
-      }
-    );
+      newEmpresa.save().then(
+        (result) => {
+          alert('Empresa created', result);
+          history.push('/profile');
+        },
+        (error) => {
+          alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
+          console.error('Error while creating Empresa: ', error);
+        }
+      );
+    },
+    (err) => {
+      // The file either could not be read, or could not be saved to Parse.
+      alert('Infelizmente não foi possível salvar a imagem na base de dados, tente novamente. Erro: ', err);
+      console.error('Not be sabed to Parse: ', err);
+    });
   }
 
   return ( 
@@ -108,7 +114,7 @@ const Profile = () => {
                         className={classes.title}
                         gutterBottom
                         variant="h6"
-                        component="h4"
+                        component="h5"
                       >
                         Logo da Empresa
                       </Typography>
