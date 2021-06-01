@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Parse from "parse";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -17,6 +17,7 @@ import Footer from '../../../../components/FooterGer';
 const AddProduto = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { id } = useParams();
 
   const [file, setFile] = useState('');
   const [nome, setNome] = useState('');
@@ -38,15 +39,9 @@ const AddProduto = () => {
     const parseFile = new Parse.File(name, file);
 
     await parseFile.save().then(async () => {
-      const Empresa = Parse.Object.extend("Empresa");
-      const queryEmpresa = new Parse.Query(Empresa);
-      queryEmpresa.equalTo("id_user", Parse.User.current());
-      const objectEmpresa = await queryEmpresa.first();
-
       const Categoria = Parse.Object.extend("Categoria");
-      const query = new Parse.Query(Categoria);
-      query.equalTo("id_empresa", objectEmpresa);
-      const objectCategoria = await query.first();
+      const queryCategoria = new Parse.Query(Categoria);
+      const objectCategoria = await queryCategoria.get(id);
       
       const Produto = Parse.Object.extend('Produto');
       const newProduto = new Produto();
@@ -57,10 +52,8 @@ const AddProduto = () => {
       newProduto.set('descricao', descricao);
       newProduto.set('preco', preco);
       
-      newProduto.save().then(
-        (result) => {
-          alert('Produto created', result);
-          history.push('/produto');
+      newProduto.save().then(() => {
+          history.push('/produto/' + id);
         },
         (error) => {
           alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
@@ -159,6 +152,7 @@ const useStyles = makeStyles((theme) => ({
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
   grid: {margin: 'auto', },
   paper: {padding: 25, display: 'flex', overflow: 'auto', flexDirection: 'column', alignSelf: 'center', },
+  input: {marginTop: 10, color: '#A9A9A9', },
   gridSubmit: {display: 'flex', justifyContent: 'flex-end', },
   submit: {backgroundColor: '#14bb14', color: 'white', fontSize: '16px', padding: '10px 26px', border: 'none', borderRadius: '5px', },
 }));

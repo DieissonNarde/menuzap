@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Parse from "parse";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -17,13 +17,70 @@ import Button from '../../../components/Button';
 import Footer from '../../../components/FooterGer';
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-
 const Produto = () => {
   const classes = useStyles();
 
+  const { id } = useParams();
   const [produtos, setProdutos] = useState([]);
+
+  useEffect(() => {
+    async function loadProdutos() {
+      const Categoria = Parse.Object.extend('Categoria');
+      const queryCategoria = new Parse.Query(Categoria);
+      const objectCategoria = await queryCategoria.get(id);
+
+      const Produto = Parse.Object.extend('Produto');
+      const query = new Parse.Query(Produto);
+      query.equalTo('id_categoria', objectCategoria);
+
+      await query.find().then((produtos) => {
+        let response = [];
+        for(const produto of produtos) {
+          // Access the Parse Object attributes using the .GET method
+          const imagem = produto.get('imagem');
+          const nome = produto.get('nome');
+          const descricao = produto.get('descricao');
+          const preco = produto.get('preco');
+          const id = produto.id;
+
+          response.push({
+            'imagem': imagem._url,
+            'nome': nome,
+            'descricao': descricao,
+            'preco': preco,
+            'id': id,
+          })
+        }
+
+        setProdutos(response);
+      },
+      (error) => {
+        console.error('Error while fetching Produto', error);
+      });
+    }
+
+    loadProdutos();
+  }, [produtos])
+
+  async function handleDelete(id) {
+    if(window.confirm("Deseja realmente excluir este Produto?")) {
+      const query = new Parse.Query('Produto');
+      // here you put the objectId that you want to delete
+      await query.get(id).then(async (produto) => {
+        await produto.destroy().then((response) => {
+          console.log('Deleted ParseObject', response);
+        },
+        (error) => {
+          alert("Não foi possível fazer a exclusão da categoria. Tente novamente!");
+          console.error('Error while deleting ParseObject', error);
+        })
+          
+      },
+      (err) => {
+        console.error('Error while retrieving ParseObject', err);
+      });
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -34,39 +91,48 @@ const Produto = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3} justify="flex-end">
             <Grid item>
-              <Link to="/produto/new" >
+              <Link to={"/produto/new/" + id}>
                 <Button>Novo Produto</Button>
               </Link>
             </Grid>
           </Grid>
           <Grid container spacing={3}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography className={classes.title} gutterBottom variant="h5" component="h2">
-                      <span>Produto</span><span className={classes.price}>R$ 53,99</span>
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Link to="/produto/edit">
-                      <ButtonMaterial size="small" color="primary">Editar</ButtonMaterial>
-                    </Link>
-                    <Link to="/produto/delete">
-                      <ButtonMaterial size="small" color="secondary">Remover</ButtonMaterial>
-                    </Link>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+            {produtos.length < 1 ? (
+                <Grid container justify="center">
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Categoria Vazia
+                  </Typography>
+                </Grid>
+              ) : (
+                produtos.map((produto) => (
+                  <Grid item key={produto.id} xs={12} sm={6} md={4}>
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={produto.imagem}
+                        title={produto.nome}
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Typography className={classes.title} gutterBottom variant="h5" component="h2">
+                          <span>{produto.nome}</span><span className={classes.price}>{produto.preco}</span>
+                        </Typography>
+                        <Typography>
+                          {produto.descricao}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Link to={"/produto/edit/" + produto.id}>
+                          <ButtonMaterial size="small" color="primary">Editar</ButtonMaterial>
+                        </Link>
+                        <ButtonMaterial size="small" color="secondary" onClick={() => handleDelete(produto.id)}>
+                          Remover
+                        </ButtonMaterial>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))
+              )
+            }
           </Grid>
         </Container>
 

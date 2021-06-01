@@ -33,13 +33,13 @@ const Categoria = () => {
       const query = new Parse.Query(Categoria);
       query.equalTo('id_empresa', objectEmpresa);
 
-      await query.find().then((results) => {
+      await query.find().then((categorias) => {
         let response = [];
-        for(const object of results) {
+        for(const categoria of categorias) {
           // Access the Parse Object attributes using the .GET method
-          const imagem = object.get('imagem');
-          const nome = object.get('nome');
-          const id = object.id;
+          const imagem = categoria.get('imagem');
+          const nome = categoria.get('nome');
+          const id = categoria.id;
 
           response.push({
             'imagem': imagem._url,
@@ -59,7 +59,7 @@ const Categoria = () => {
   }, [categorias])
 
   async function handleDelete(id) {
-    if(window.confirm("Deseja realmente excluir esta categoria?")) {
+    if(window.confirm("Deseja realmente excluir esta Categoria?")) {
       const query = new Parse.Query('Categoria');
       // here you put the objectId that you want to delete
       await query.get(id).then(async (categoria) => {
@@ -93,32 +93,41 @@ const Categoria = () => {
             </Grid>
           </Grid>
           <Grid container spacing={4}>
-            {categorias.map((categoria) => (
-              <Grid item key={categoria.id} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={categoria.imagem}
-                    title={categoria.nome}
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Link to={"/produto/" + categoria.id}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {categoria.nome}
-                      </Typography>
-                    </Link>
-                  </CardContent>
-                  <CardActions>
-                    <Link to={"/categoria/edit/" + categoria.id}>
-                      <ButtonMaterial size="small" color="primary">Editar</ButtonMaterial>
-                    </Link>
-                    <ButtonMaterial size="small" color="secondary" onClick={() => handleDelete(categoria.id)}>
-                      Remover
-                    </ButtonMaterial>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+            {categorias.length < 1 ? (
+                <Grid container justify="center">
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Cardápio Vazio
+                  </Typography>
+                </Grid>
+              ) : (
+                categorias.map((categoria) => (
+                  <Grid item key={categoria.id} xs={12} sm={6} md={4}>
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={categoria.imagem}
+                        title={categoria.nome}
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Link to={"/produto/" + categoria.id}>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {categoria.nome}
+                          </Typography>
+                        </Link>
+                      </CardContent>
+                      <CardActions>
+                        <Link to={"/categoria/edit/" + categoria.id}>
+                          <ButtonMaterial size="small" color="primary">Editar</ButtonMaterial>
+                        </Link>
+                        <ButtonMaterial size="small" color="secondary" onClick={() => handleDelete(categoria.id)}>
+                          Remover
+                        </ButtonMaterial>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))
+              )
+            }
           </Grid>
         </Container>
 
