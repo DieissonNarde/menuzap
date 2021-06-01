@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Parse from "parse";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -16,11 +17,66 @@ import Button from '../../../components/Button';
 import Footer from '../../../components/FooterGer';
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-
-export default function Categoria() {
+const Categoria = () => {
   const classes = useStyles();
+
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    async function loadCategorias() {
+      const Empresa = Parse.Object.extend("Empresa");
+      const queryEmpresa = new Parse.Query(Empresa);
+      queryEmpresa.equalTo("id_user", Parse.User.current());
+      const objectEmpresa = await queryEmpresa.first();
+
+      const Categoria = Parse.Object.extend('Categoria');
+      const query = new Parse.Query(Categoria);
+      query.equalTo('id_empresa', objectEmpresa);
+
+      await query.find().then((results) => {
+        let response = [];
+        for(const object of results) {
+          // Access the Parse Object attributes using the .GET method
+          const imagem = object.get('imagem');
+          const nome = object.get('nome');
+          const id= object.id;
+
+          response.push({
+            'imagem': imagem._url,
+            'nome': nome,
+            'id': id,
+          })
+        }
+        console.log(response);
+        setCategorias(response);
+      },
+      (error) => {
+        console.error('Error while fetching Categoria', error);
+      });
+    }
+
+    loadCategorias();
+  }, [categorias])
+
+  async function handleDelete(id) {
+    if(window.confirm("Deseja realmente excluir esta categoria?")) {
+      const query = new Parse.Query('Categoria');
+      // here you put the objectId that you want to delete
+      await query.get(id).then(async (categoria) => {
+        await categoria.destroy().then((response) => {
+          console.log('Deleted ParseObject', response);
+        },
+        (error) => {
+          alert("Não foi possível fazer a exclusão da categoria. Tente novamente!");
+          console.error('Error while deleting ParseObject', error);
+        })
+          
+      },
+      (err) => {
+        console.error('Error while retrieving ParseObject', err);
+      });
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -37,31 +93,28 @@ export default function Categoria() {
             </Grid>
           </Grid>
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {categorias.map((categoria) => (
+              <Grid item key={categoria.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
+                    image={categoria.imagem}
+                    title={categoria.nome}
                   />
                   <CardContent className={classes.cardContent}>
                     <Link to="/produto">
                       <Typography gutterBottom variant="h5" component="h2">
-                        Categoria
+                        {categoria.nome}
                       </Typography>
                     </Link>
-                    <Typography>
-                      This is a media card. You can use this section to describe the content.
-                    </Typography>
                   </CardContent>
                   <CardActions>
                     <Link to="/categoria/edit">
                       <ButtonMaterial size="small" color="primary">Editar</ButtonMaterial>
                     </Link>
-                    <Link to="/categoria/delete">
-                      <ButtonMaterial size="small" color="secondary">Remover</ButtonMaterial>
-                    </Link>
+                    <ButtonMaterial size="small" color="secondary" onClick={() => handleDelete(categoria.id)}>
+                      Remover
+                    </ButtonMaterial>
                   </CardActions>
                 </Card>
               </Grid>
@@ -76,6 +129,8 @@ export default function Categoria() {
     </div>
   );
 }
+
+export default Categoria;
 
 
 const useStyles = makeStyles((theme) => ({

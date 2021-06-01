@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Parse from "parse";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -21,6 +22,8 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Produto = () => {
   const classes = useStyles();
+
+  const [produtos, setProdutos] = useState([]);
 
   return (
     <div className={classes.root}>
