@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import Footer from '../../components/FooterGer'
 
 
-export default function Login() {
+const Login = () => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -27,13 +27,14 @@ export default function Login() {
     ev.preventDefault();
 
     await Parse.User.logIn(username, password)
-    .then((user) => {
-      alert("Logged in! " + user);
-      history.push('/dashboard');
-    }).catch((error) => {
-      // Show the error message somewhere and let the user try again.
-      alert("Error: " + error.code + " " + error.message);
-    })
+      .then(() => {
+        history.push('/dashboard');
+      })
+      .catch((error) => {
+        // Show the error message somewhere and let the user try again.
+        alert("Infelizmente houve algum erro ao tentar logar. Tente novamente! Erro: " + error.code);
+        console.log("Error Login: " + error.code + " " + error.message)
+      })
   }
 
   return (
@@ -102,6 +103,8 @@ export default function Login() {
     </Container>
   );
 }
+
+export default Login;
 
 
 const useStyles = makeStyles((theme) => ({

@@ -56,6 +56,7 @@ const Menu = ({ children }) => {
           >
             {children}
           </Typography>
+          
         </Toolbar>
       </AppBar>
       <Drawer

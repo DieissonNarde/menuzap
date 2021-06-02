@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+
 import Divider from "@material-ui/core/Divider";
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,7 +13,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+import Logout from "../Logout";
 
 
 export const menuAdmin = (
@@ -65,14 +67,7 @@ export const menuAdmin = (
         <ListItemText primary="Minha Conta" />
       </ListItem>
     </Link>
-    <Link to="/logout">
-      <ListItem button>
-        <ListItemIcon>
-          <ExitToAppIcon />
-        </ListItemIcon>
-        <ListItemText primary="Sair" />
-      </ListItem>
-    </Link>
+    <Logout />
   </div>
 );
 
