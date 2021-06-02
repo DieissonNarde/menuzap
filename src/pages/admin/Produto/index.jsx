@@ -20,14 +20,14 @@ import Footer from '../../../components/FooterGer';
 const Produto = () => {
   const classes = useStyles();
 
-  const { id } = useParams();
+  const { idCategoria } = useParams();
   const [produtos, setProdutos] = useState([]);
 
   useEffect(() => {
     async function loadProdutos() {
       const Categoria = Parse.Object.extend('Categoria');
       const queryCategoria = new Parse.Query(Categoria);
-      const objectCategoria = await queryCategoria.get(id);
+      const objectCategoria = await queryCategoria.get(idCategoria);
 
       const Produto = Parse.Object.extend('Produto');
       const query = new Parse.Query(Produto);
@@ -91,7 +91,7 @@ const Produto = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3} justify="flex-end">
             <Grid item>
-              <Link to={"/produto/new/" + id}>
+              <Link to={`/categoria/${idCategoria}/produto/new/`}>
                 <Button>Novo Produto</Button>
               </Link>
             </Grid>
@@ -121,7 +121,7 @@ const Produto = () => {
                         </Typography>
                       </CardContent>
                       <CardActions>
-                        <Link to={"/produto/edit/" + produto.id}>
+                        <Link to={`/categoria/${idCategoria}/produto/edit/${produto.id}`}>
                           <ButtonMaterial size="small" color="primary">Editar</ButtonMaterial>
                         </Link>
                         <ButtonMaterial size="small" color="secondary" onClick={() => handleDelete(produto.id)}>

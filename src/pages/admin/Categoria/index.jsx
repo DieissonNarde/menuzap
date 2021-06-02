@@ -109,7 +109,7 @@ const Categoria = () => {
                         title={categoria.nome}
                       />
                       <CardContent className={classes.cardContent}>
-                        <Link to={"/produto/" + categoria.id}>
+                        <Link to={`/categoria/${categoria.id}/produto/`}>
                           <Typography gutterBottom variant="h5" component="h2">
                             {categoria.nome}
                           </Typography>

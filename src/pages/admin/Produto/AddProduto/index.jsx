@@ -17,7 +17,7 @@ import Footer from '../../../../components/FooterGer';
 const AddProduto = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { id } = useParams();
+  const { idCategoria } = useParams();
 
   const [file, setFile] = useState('');
   const [nome, setNome] = useState('');
@@ -28,7 +28,6 @@ const AddProduto = () => {
     if(e.target.files.length > 0) {
       let eventFile = e.target.files[0];
       setFile(eventFile);
-      console.log('change', setFile);
     }
   }
 
@@ -41,7 +40,7 @@ const AddProduto = () => {
     await parseFile.save().then(async () => {
       const Categoria = Parse.Object.extend("Categoria");
       const queryCategoria = new Parse.Query(Categoria);
-      const objectCategoria = await queryCategoria.get(id);
+      const objectCategoria = await queryCategoria.get(idCategoria);
       
       const Produto = Parse.Object.extend('Produto');
       const newProduto = new Produto();
@@ -53,7 +52,7 @@ const AddProduto = () => {
       newProduto.set('preco', preco);
       
       newProduto.save().then(() => {
-          history.push('/produto/' + id);
+          history.push(`/categoria/${idCategoria}/produto/`);
         },
         (error) => {
           alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -54,10 +54,10 @@ const Routes = () => (
       <Route exact path="/dashboard" component={Dashboard} />
       <Route exact path="/categoria" component={Categoria} />
       <Route exact path="/categoria/new" component={AddCategoria} />
-      <Route exact path="/categoria/edit/:id" component={EditCategoria} />
-      <Route exact path="/produto/:id" component={Produto} />
-      <Route exact path="/produto/new/:id" component={AddProduto} />
-      <Route exact path="/produto/edit" component={EditProduto} />
+      <Route exact path="/categoria/edit/:idCategoria" component={EditCategoria} />
+      <Route exact path="/categoria/:idCategoria/produto/" component={Produto} />
+      <Route exact path="/categoria/:idCategoria/produto/new" component={AddProduto} />
+      <Route exact path="/categoria/:idCategoria/produto/edit/:idProduto" component={EditProduto} />
       <Route exact path="/pedidos/admin" component={PedidosGer} />
       <Route exact path="/relatorios" component={Relatorios} />
       <Route exact path="/profile" component={Profile} />
