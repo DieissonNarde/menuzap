@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
+import Parse from "parse";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,19 +14,31 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import { menuAdmin } from '../MenuList';
+import LogoName from "../../assets/images/logo-nome.png";
 
 const drawerWidth = 240;
 
 const Menu = ({ children }) => {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(true);
+  const [username, setUsername] = useState('');
+  const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    async function getUser() {
+      const user = await Parse.User.current();
+      setUsername(user.getUsername());
+    }
+
+    getUser();
+  }, [])
+
   const handleDrawerOpen = () => {
     setOpen(true);
-  };
+  }
   const handleDrawerClose = () => {
     setOpen(false);
-  };
+  }
 
   return (
     <>
@@ -56,7 +69,7 @@ const Menu = ({ children }) => {
           >
             {children}
           </Typography>
-          
+          {username}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -67,6 +80,7 @@ const Menu = ({ children }) => {
         open={open}
       >
         <div className={classes.toolbarIcon}>
+          <img className={classes.logoName} src={LogoName} />
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
           </IconButton>
@@ -85,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
   root: {display: 'flex', },
   toolbar: {paddingRight: 24, }, // keep right padding when drawer closed
   toolbarIcon: {display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 8px', ...theme.mixins.toolbar, },
+  logoName: {width: '72%', },
   appBar: {zIndex: theme.zIndex.drawer + 1, transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp, duration: theme.transitions.duration.leavingScreen, }),
   },

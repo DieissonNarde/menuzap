@@ -8,7 +8,7 @@ const Auth = ({ component: Component, ...rest }) => {
 
   useEffect(() => {
     async function verify() {
-      const user = await Parse.User.current()
+      const user = await Parse.User.current();
       
       if (user !== null) {
         const authen = user.authenticated();
@@ -43,5 +43,6 @@ const Auth = ({ component: Component, ...rest }) => {
     />
   );
 };
+
 
 export default Auth;
