@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Parse from "parse";
+import Cep from 'cep-promise';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -15,11 +15,11 @@ import Typography from '@material-ui/core/Typography';
 
 import Menu from '../../../components/Menu';
 import Footer from '../../../components/FooterGer';
+import { InputCep, InputPhone, InputHour } from "../../../components/InputMasks";
 
 
 const Profile = () => {
   const classes = useStyles();
-  const history = useHistory();
 
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
@@ -44,6 +44,31 @@ const Profile = () => {
     if(e.target.files.length > 0) {
       let eventFile = e.target.files[0];
       setFile(eventFile);
+    }
+  }
+
+  function handleCep(e) {
+    const value = e.target.value;
+    setCep(value);
+    if (value.length === 8) {
+      Cep(value)
+        .then((response) => {
+          setUf(response.state);
+          setCidade(response.city);
+          setLogradouro(response.street);
+          setBairro(response.neighborhood);
+        }).catch(() => {
+          console.error("Erro Api Cep");
+          setUf('');
+          setCidade('');
+          setLogradouro('');
+          setBairro('');
+        })
+    } else {
+      setUf('');
+      setCidade('');
+      setLogradouro('');
+      setBairro('');
     }
   }
   
@@ -81,7 +106,6 @@ const Profile = () => {
       newEmpresa.save().then(
         (result) => {
           alert('Empresa created', result);
-          history.push('/profile');
         },
         (error) => {
           alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
@@ -139,42 +163,22 @@ const Profile = () => {
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      type="number"
-                      id="cnpj"
-                      name="cnpj"
-                      label="CNPJ"
+                    <InputCep
                       value={cnpj}
                       onChange={e => setCnpj(e.target.value)}
-                      fullWidth
-                      autoComplete="cnpj"
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      type="number"
-                      id="celular"
-                      name="celular"
-                      label="Celular"
+                    <InputPhone
                       value={celular}
                       onChange={e => setCelular(e.target.value)}
-                      fullWidth
-                      autoComplete="celular"
                     />
+
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      type="number"
-                      id="telefone"
-                      name="telefone"
-                      label="Telefone"
+                    <InputPhone
                       value={telefone}
                       onChange={e => setTelefone(e.target.value)}
-                      fullWidth
-                      autoComplete="celular"
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -239,28 +243,16 @@ const Profile = () => {
                         <h6>Horário Normal</h6>
                       </Grid>
                       <Grid item xs={12} sm={5}>
-                        <TextField
-                          required
-                          type="number"
-                          id="inico-horario-normal"
-                          name="inicio-horario-normal"
-                          label="Início"
+                        <InputHour
                           value={inicioHorarioNormal}
                           onChange={e => setInicioHorarioNormal(e.target.value)}
-                          fullWidth
                         />
                       </Grid>
                         <span className={classes.spanHorario}>ÀS</span>
                       <Grid item xs={12} sm={5}>
-                        <TextField
-                          required
-                          type="number"
-                          id="fim-horario-normal"
-                          name="fim-horario-normal"
-                          label="Final"
+                        <InputHour
                           value={fimHorarioNormal}
                           onChange={e => setFimHorarioNormal(e.target.value)}
-                          fullWidth
                         />
                       </Grid>
                     </Grid>
@@ -271,28 +263,16 @@ const Profile = () => {
                         <h6>Horário Feriado</h6>
                       </Grid>
                       <Grid item xs={12} sm={5}>
-                        <TextField
-                          required
-                          type="number"
-                          id="inico-horario-feriado"
-                          name="inicio-horario-feriado"
-                          label="Início"
+                        <InputHour
                           value={inicioHorarioFeriado}
                           onChange={e => setInicioHorarioFeriado(e.target.value)}
-                          fullWidth
                         />
                       </Grid>
                         <span className={classes.spanHorario}>ÀS</span>
                       <Grid item xs={12} sm={5}>
-                        <TextField
-                          required
-                          type="number"
-                          id="fim-horario-feriado"
-                          name="fim-horario-feriado"
-                          label="Final"
+                        <InputHour
                           value={fimHorarioFeriado}
                           onChange={e => setFimHorarioFeriado(e.target.value)}
-                          fullWidth
                         />
                       </Grid>
                     </Grid>
@@ -309,7 +289,7 @@ const Profile = () => {
                       name="cep"
                       label="CEP"
                       value={cep}
-                      onChange={e => setCep(e.target.value)}
+                      onChange={handleCep}
                       fullWidth
                       autoComplete="cep"
                     />
