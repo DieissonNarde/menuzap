@@ -46,19 +46,32 @@ const Checkout = () => {
     setActiveStep(activeStep - 1);
   };
 
-  async function signUp() {
-    let data = "teste";
+  async function handleSignUp(ev) {
+    ev.preventDefault();
 
+    let data = "teste";
     let user = new Parse.User();
 
     await user.signUp(data)
-    .then((user) => {
-      alert("User created! " + user);
-      handleNext();
-    }).catch((error) => {
-      // Show the error message somewhere and let the user try again.
-      alert("Error: " + error.code + " " + error.message);
-    });
+      .then(async (user) => {
+        console.log('User: ', user);
+        const Empresa = Parse.Object.extend('Empresa');
+        const newEmpresa = new Empresa();
+
+        newEmpresa.set('id_user', user.id);
+        await newEmpresa.save().then(
+          (result) => {
+            console.log('Empresa created', result);
+            handleNext();
+          },
+          (error) => {
+            console.error('Error while creating Empresa: ', error);
+          }
+        );
+      }).catch((err) => {
+        // Show the error message somewhere and let the user try again.
+        console.log("Error: " + err.code + " " + err.message);
+      });
   }
 
   return (
@@ -104,7 +117,7 @@ const Checkout = () => {
                       type="submit"
                       variant="contained"
                       color="primary"
-                      onClick={signUp}
+                      onClick={handleSignUp}
                       className={classes.button}
                     >
                       Confirmar
@@ -125,6 +138,7 @@ const Checkout = () => {
             )}
           </React.Fragment>
         </Paper>
+
         <Footer />
       </main>
     </>

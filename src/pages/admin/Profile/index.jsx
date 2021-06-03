@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Parse from "parse";
 import Cep from 'cep-promise';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Menu from '../../../components/Menu';
 import Footer from '../../../components/FooterGer';
-import { InputCep, InputPhone, InputHour } from "../../../components/InputMasks";
+import { InputCnpj, InputPhone, InputHour } from "../../../components/InputMasks";
 
 
 const Profile = () => {
@@ -39,6 +39,36 @@ const Profile = () => {
   const [bairro, setBairro] = useState('');
   const [numero, setNumero] = useState('');
   const [file, setFile] = useState('');
+
+  useEffect(() => {
+    async function getEmpresa() {
+      const Empresa = Parse.Object.extend('Empresa');
+      const query = new Parse.Query(Empresa);
+      // here you put the objectId that you want to update
+      query.equalTo("id_user", Parse.User.current());
+      const empresa = await query.first();
+
+      setNome(empresa.get('nome'));
+      setCnpj(empresa.get('cnpj'));
+      setCelular(empresa.get('celular'));
+      setTelefone(empresa.get('telefone'));
+      setEmail(empresa.get('email'));
+      setInicioSemanaAberto(empresa.get('inicioSemanaAberto'));
+      setFimSemanaAberto(empresa.get('fimSemanaAberto'));
+      setInicioHorarioNormal(empresa.get('inicioHorarioNormal'));
+      setFimHorarioNormal(empresa.get('fimHorarioNormal'));
+      setInicioHorarioFeriado(empresa.get('inicioHorarioFeriado'));
+      setFimHorarioFeriado(empresa.get('fimHorarioFeriado'));
+      setCep(empresa.get('cep'));
+      setUf(empresa.get('uf'));
+      setCidade(empresa.get('cidade'));
+      setLogradouro(empresa.get('logradouro'));
+      setBairro(empresa.get('bairro'));
+      setNumero(empresa.get('numero'));
+    }
+
+    getEmpresa();
+  }, [])
 
   function handleChange(e) {
     if(e.target.files.length > 0) {
@@ -75,49 +105,53 @@ const Profile = () => {
   async function handleSubmit(ev) {
     ev.preventDefault();
 
-    const name = "logo.png";
-    const parseFile = new Parse.File(name, file);
+    const Empresa = Parse.Object.extend('Empresa');
+    const query = new Parse.Query(Empresa);
+    // here you put the objectId that you want to update
+    query.equalTo("id_user", Parse.User.current());
+    const empresa = await query.first();
 
-    await parseFile.save().then(() => {
-      // The file has been saved to Parse.
-      const Empresa = Parse.Object.extend('Empresa');
-      const newEmpresa = new Empresa();
-
-      newEmpresa.set('id_user', Parse.User.current());
-      newEmpresa.set('logo', parseFile);
-      newEmpresa.set('nome', nome);
-      newEmpresa.set('cnpj', cnpj);
-      newEmpresa.set('celular', celular);
-      newEmpresa.set('telefone', telefone);
-      newEmpresa.set('email', email);
-      newEmpresa.set('cep', cep);
-      newEmpresa.set('inicioSemanaAberto', inicioSemanaAberto);
-      newEmpresa.set('fimSemanaAberto', fimSemanaAberto);
-      newEmpresa.set('inicioHorarioNormal', inicioHorarioNormal);
-      newEmpresa.set('fimHorarioNormal', fimHorarioNormal);
-      newEmpresa.set('inicioHorarioFeriado', inicioHorarioFeriado);
-      newEmpresa.set('fimHorarioFeriado', fimHorarioFeriado);
-      newEmpresa.set('uf', uf);
-      newEmpresa.set('cidade', cidade);
-      newEmpresa.set('logradouro', logradouro);
-      newEmpresa.set('bairro', bairro);
-      newEmpresa.set('numero', numero);
-
-      newEmpresa.save().then(
-        (result) => {
-          alert('Empresa created', result);
+    if(file !== '') {
+      const name = "logo.png";
+      const parseFile = new Parse.File(name, file);
+      await parseFile.save().then(() => {
+          empresa.set('logo', parseFile);
         },
-        (error) => {
-          alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-          console.error('Error while creating Empresa: ', error);
+        (err) => {
+          // The file either could not be read, or could not be saved to Parse.
+          alert('Infelizmente não foi possível salvar a imagem na base de dados, tente novamente. Erro: ', err);
+          console.error('Not be sabed to Parse: ', err);
         }
       );
-    },
-    (err) => {
-      // The file either could not be read, or could not be saved to Parse.
-      alert('Infelizmente não foi possível salvar a imagem na base de dados, tente novamente. Erro: ', err);
-      console.error('Not be sabed to Parse: ', err);
-    });
+    }
+
+    empresa.set('nome', nome);
+    empresa.set('cnpj', cnpj);
+    empresa.set('celular', celular);
+    empresa.set('telefone', telefone);
+    empresa.set('email', email);
+    empresa.set('cep', cep);
+    empresa.set('inicioSemanaAberto', inicioSemanaAberto);
+    empresa.set('fimSemanaAberto', fimSemanaAberto);
+    empresa.set('inicioHorarioNormal', inicioHorarioNormal);
+    empresa.set('fimHorarioNormal', fimHorarioNormal);
+    empresa.set('inicioHorarioFeriado', inicioHorarioFeriado);
+    empresa.set('fimHorarioFeriado', fimHorarioFeriado);
+    empresa.set('uf', uf);
+    empresa.set('cidade', cidade);
+    empresa.set('logradouro', logradouro);
+    empresa.set('bairro', bairro);
+    empresa.set('numero', numero);
+
+    await empresa.save().then(
+      (result) => {
+        alert('Empresa Update', result);
+      },
+      (error) => {
+        alert('Infelizmente não foi possível atualizar os dados da Empresa. Tente novamente! Erro: ', error);
+        console.error('Error while creating Empresa: ', error);
+      }
+    );
   }
 
   return ( 
@@ -127,7 +161,7 @@ const Profile = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid item xs={12} sm={8} className={classes.grid}>
+          <Grid item xs={12} sm={9} className={classes.grid}>
             <Paper className={classes.paper}>
               <h3>Dados da Empresa</h3>
               <form onSubmit={handleSubmit} enctype="multipart/form-data">
@@ -135,7 +169,7 @@ const Profile = () => {
                   <Grid container className={classes.gridFile} justify="center">
                     <Grid item xs={12} sm={12}>
                       <Typography
-                        className={classes.title}
+                        className={classes.titleLogo}
                         gutterBottom
                         variant="h6"
                         component="h5"
@@ -152,7 +186,6 @@ const Profile = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      required
                       id="name"
                       name="name"
                       label="Nome"
@@ -163,7 +196,7 @@ const Profile = () => {
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <InputCep
+                    <InputCnpj
                       value={cnpj}
                       onChange={e => setCnpj(e.target.value)}
                     />
@@ -183,7 +216,6 @@ const Profile = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      required
                       type="email"
                       id="email"
                       name="email"
@@ -196,10 +228,17 @@ const Profile = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={12}>
-                    <h4>Horário de Funcionamento</h4>
+                    <h5>Horário de Funcionamento</h5>
                   </Grid>
                   <Grid item xs={12} sm={12}>
-                    <h6>Semana</h6>
+                    <Typography
+                      className={classes.title}
+                      gutterBottom
+                      variant="h6"
+                      component="h6"
+                    >
+                      Semana
+                    </Typography>
                   </Grid>
                   <Grid className={classes.gridSelect} container spacing={3} justify="space-between">
                     <Grid item xs={12} sm={5}>
@@ -240,7 +279,14 @@ const Profile = () => {
                   <Grid item xs={12} sm={6}>
                     <Grid className={classes.gridSelect} container xs={12} sm={12} justify="space-between">
                       <Grid item xs={12} sm={12}>
-                        <h6>Horário Normal</h6>
+                        <Typography
+                          className={classes.title}
+                          gutterBottom
+                          variant="h6"
+                          component="h6"
+                        >
+                          Horário Normal
+                        </Typography>
                       </Grid>
                       <Grid item xs={12} sm={5}>
                         <InputHour
@@ -260,7 +306,14 @@ const Profile = () => {
                   <Grid item xs={12} sm={6}>
                     <Grid className={classes.gridSelect} container xs={12} sm={12} justify="space-between">
                       <Grid item xs={12} sm={12}>
-                        <h6>Horário Feriado</h6>
+                        <Typography
+                          className={classes.title}
+                          gutterBottom
+                          variant="h6"
+                          component="h6"
+                        >
+                          Horário Feriado
+                        </Typography>
                       </Grid>
                       <Grid item xs={12} sm={5}>
                         <InputHour
@@ -279,11 +332,10 @@ const Profile = () => {
                   </Grid>
                   
                   <Grid item xs={12} sm={12}>
-                    <h4>Endereço da Empresa</h4>
+                    <h5>Endereço da Empresa</h5>
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <TextField
-                      required
                       type="number"
                       id="cep"
                       name="cep"
@@ -296,8 +348,6 @@ const Profile = () => {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <TextField
-                      required
-                      type="text"
                       id="uf"
                       name="uf"
                       label="UF"
@@ -309,8 +359,6 @@ const Profile = () => {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <TextField
-                      required
-                      type="text"
                       id="cidade"
                       name="cidade"
                       label="Cidade"
@@ -322,8 +370,6 @@ const Profile = () => {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <TextField
-                      required
-                      type="text"
                       id="logradouro"
                       name="logradouro"
                       label="Logradouro"
@@ -335,8 +381,6 @@ const Profile = () => {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <TextField
-                      required
-                      type="text"
                       id="bairro"
                       name="bairro"
                       label="Bairro"
@@ -348,7 +392,6 @@ const Profile = () => {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <TextField
-                      required
                       type="number"
                       id="numero"
                       name="numero"
@@ -381,7 +424,8 @@ export default Profile;
 
 const useStyles = makeStyles((theme) => ({
   root: {display: 'flex', },
-  title: {flexGrow: 1, marginLeft: 12, },
+  titleLogo: {flexGrow: 1, marginLeft: 12, color: '#A9A9A9', },
+  title: {flexGrow: 1, color: '#A9A9A9', },
   appBarSpacer: theme.mixins.toolbar,
   content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },

@@ -66,6 +66,7 @@ const EditCategoria = () => {
     }
 
     categoria.set('nome', nome);
+
     await categoria.save().then(() => {
         history.push('/categoria');
       },
