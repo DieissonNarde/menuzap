@@ -97,7 +97,7 @@ const Produto = () => {
             </Grid>
           </Grid>
           <Grid container spacing={3}>
-            {produtos.length < 1 ? (
+            {produtos.length === 0 ? (
                 <Grid container justify="center">
                   <Typography gutterBottom variant="h5" component="h2">
                     Categoria Vazia

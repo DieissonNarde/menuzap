@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import Parse from "parse";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -49,6 +50,7 @@ TabPanel.propTypes = {
 };
 
 function a11yProps(index) {
+  console.log('index: ', index);
   return {
     id: `scrollable-auto-tab-${index}`,
     'aria-controls': `scrollable-auto-tabpanel-${index}`,
@@ -57,9 +59,58 @@ function a11yProps(index) {
 
 const Menu = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+
+  const { subdominio } = useParams();
+  const [value, setValue] = useState('');
+  const [empresa, setEmpresa] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  let i = 0;
+
+  useEffect(() => {
+    async function loadCategorias() {
+      const Empresa = Parse.Object.extend("Empresa");
+      const queryEmpresa = new Parse.Query(Empresa);
+      queryEmpresa.equalTo("subdominio", subdominio);
+      const objectEmpresa = await queryEmpresa.first();
+      const logo = objectEmpresa.get('logo');
+      const nome = objectEmpresa.get('nome');
+      const id = objectEmpresa.id;
+
+      setEmpresa({
+        'logo': logo._url,
+        'nome': nome,
+        'id': id,
+      })
+
+      const Categoria = Parse.Object.extend('Categoria');
+      const query = new Parse.Query(Categoria);
+      query.equalTo('id_empresa', objectEmpresa);
+
+      await query.find().then((categorias) => {
+        let response = [];
+        for(const categoria of categorias) {
+          // Access the Parse Object attributes using the .GET method
+          const nome = categoria.get('nome');
+          const id = categoria.id;
+
+          response.push({
+            'nome': nome,
+            'id': id,
+          })
+        }
+
+        setCategorias(response);
+      },
+      (error) => {
+        console.error('Error while fetching Categoria', error);
+      });
+    }
+
+    loadCategorias();
+  }, [])
 
   const handleChange = (event, newValue) => {
+    console.log('value: ', newValue);
     setValue(newValue);
   };
 
@@ -73,9 +124,9 @@ const Menu = () => {
           <Paper className={classes.paper}>
             <Grid className={classes.empresa} container spacing={3} justify="center">
               <Grid item>
-                <Avatar alt="Logo Empresa" src={Logo} className={classes.large} />
+                <Avatar alt="Logo Empresa" src={empresa.logo} className={classes.large} />
               </Grid>
-              <h3>Nome da Empresa</h3>
+              <h3>{empresa.nome}</h3>
             </Grid>
             <Grid container justify="center">
               <p className={classes.descEmp}>ABERTO</p>
@@ -92,38 +143,34 @@ const Menu = () => {
               scrollButtons="auto"
               aria-label="scrollable auto tabs example"
             >
-              <Tab label="Item One" {...a11yProps(0)} />
-              <Tab label="Item Two" {...a11yProps(1)} />
-              <Tab label="Item Three" {...a11yProps(2)} />
-              <Tab label="Item Four" {...a11yProps(3)} />
-              <Tab label="Item Five" {...a11yProps(4)} />
-              <Tab label="Item Six" {...a11yProps(5)} />
-              <Tab label="Item Seven" {...a11yProps(6)} />
+              {categorias.length === 0 ? (
+                <Tab label="Default" {...a11yProps(0)} />
+              ) : (
+                categorias.map((categoria) => (
+                  <Tab label={categoria.nome} {...a11yProps(categoria.id)} />
+                ))
+              )}
             </Tabs>
           </AppBar>
-          <TabPanel value={value} index={0}>
-            Item One
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            Item Two
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            Item Three
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            Item Four
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-            Item Five
-          </TabPanel>
-          <TabPanel value={value} index={5}>
-            Item Six
-          </TabPanel>
-          <TabPanel value={value} index={6}>
-            Item Seven
-          </TabPanel>
-
           <Grid container spacing={3}>
+          {categorias.length === 0 ? (
+            <TabPanel value={value} index={0}>
+              <Grid container justify="center">
+                <Typography gutterBottom variant="h5" component="h2">
+                  Cardápio Vazio
+                </Typography>
+              </Grid>
+            </TabPanel>
+          ) : (
+            categorias.map((categoria) => (
+              <TabPanel value={categoria.id} index={categoria.id}>
+                <h1>{categoria.nome}</h1>
+              </TabPanel>
+            ))
+          )}
+          </Grid>
+
+          {/* <Grid container spacing={3}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
@@ -151,8 +198,8 @@ const Menu = () => {
                 </Card>
               </Grid>
             ))}
-          </Grid>
-        </Container>
+          </Grid>*/}
+        </Container> 
 
         <Box pt={4}>
           <Footer />

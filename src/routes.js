@@ -51,14 +51,14 @@ const Routes = () => (
       <PrivateRoute exact path="/relatorios" component={Relatorios} />
       <PrivateRoute exact path="/profile" component={Profile} />
       {/* ROTAS CLIENTE */}
-      <Route exact path="/menu" component={Menu} />
-      <Route exact path="/menu/empresa" component={DetailEmpresa} />
-      <Route exact path="/menu/produto" component={DetailProduto} />
-      <Route exact path="/cart" component={Cart} />
-      <Route exact path="/cart/newpedido" component={NewPedido} />
+      <Route exact path="/:subdominio/menu" component={Menu} />
+      <Route exact path="/:subdominio/empresa" component={DetailEmpresa} />
+      <Route exact path="/:subdominio/menu/item/:id" component={DetailProduto} />
+      <Route exact path="/:subdominio/cart" component={Cart} />
+      <Route exact path="/:subdominio/newpedido" component={NewPedido} />
       <Route exact path="/pedidos" component={Pedidos} />
 
-      <Route path="*" component={() => <h1>Page not found</h1>} />
+      <PrivateRoute path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
   </BrowserRouter>
 );

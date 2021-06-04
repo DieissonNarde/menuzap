@@ -93,7 +93,7 @@ const Categoria = () => {
             </Grid>
           </Grid>
           <Grid container spacing={4}>
-            {categorias.length < 1 ? (
+            {categorias.length === 0 ? (
                 <Grid container justify="center">
                   <Typography gutterBottom variant="h5" component="h2">
                     Cardápio Vazio
