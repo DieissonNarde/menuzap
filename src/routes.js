@@ -56,7 +56,7 @@ const Routes = () => (
       <Route exact path="/:subdominio/menu/item/:id" component={DetailProduto} />
       <Route exact path="/:subdominio/cart" component={Cart} />
       <Route exact path="/:subdominio/newpedido" component={NewPedido} />
-      <Route exact path="/pedidos" component={Pedidos} />
+      <Route exact path="/:subdominio/pedidos" component={Pedidos} />
 
       <PrivateRoute path="*" component={() => <h1>Page not found</h1>} />
     </Switch>

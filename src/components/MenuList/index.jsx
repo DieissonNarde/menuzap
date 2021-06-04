@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import Divider from "@material-ui/core/Divider";
 import ListItem from '@material-ui/core/ListItem';
@@ -71,34 +71,38 @@ export const menuAdmin = (
   </div>
 );
 
-export const menuClient = (
-  <div>
-    <Link to="/menu">
-      <ListItem button>
-        <ListItemIcon>
-          <HomeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Menu" />
-      </ListItem>
-    </Link>
-    <Divider />
-    <Link to="/cart">
-      <ListItem button>
-        <ListItemIcon>
-          <ShoppingCartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Carrinho" />
-      </ListItem>
-    </Link>
-    <Divider />
-    <Link to="/pedidos">
-      <ListItem button>
-        <ListItemIcon>
-          <ListIcon />
-        </ListItemIcon>
-        <ListItemText primary="Pedidos" />
-      </ListItem>
-    </Link>
-    <Divider />
-  </div>
-);
+export const MenuClient = () => {
+  const { subdominio } = useParams();
+
+  return (
+    <div>
+      <Link to={`/${subdominio}/menu`}>
+        <ListItem button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Menu" />
+        </ListItem>
+      </Link>
+      <Divider />
+      <Link to={`/${subdominio}/cart`}>
+        <ListItem button>
+          <ListItemIcon>
+            <ShoppingCartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Carrinho" />
+        </ListItem>
+      </Link>
+      <Divider />
+      <Link to={`/${subdominio}/pedidos`}>
+        <ListItem button>
+          <ListItemIcon>
+            <ListIcon />
+          </ListItemIcon>
+          <ListItemText primary="Pedidos" />
+        </ListItem>
+      </Link>
+      <Divider />
+    </div>
+  )
+};

@@ -12,7 +12,7 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
-import { menuClient } from "../MenuList";
+import { MenuClient } from "../MenuList";
 
 const drawerWidth = 240;
 
@@ -71,7 +71,9 @@ const Menu = ({ children }) => {
           </IconButton>
         </div>
         <Divider />
-        <List>{menuClient}</List>
+        <List>
+          <MenuClient />
+        </List>
       </Drawer>
     </>
   );
