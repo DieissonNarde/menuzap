@@ -23,7 +23,7 @@ const Menu = () => {
   const classes = useStyles();
 
   const { subdominio } = useParams();
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState('');
   const [empresa, setEmpresa] = useState([]);
   const [categorias, setCategorias] = useState([]);
 
@@ -81,48 +81,56 @@ const Menu = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Paper className={classes.paper}>
-            <Link to={`/${subdominio}/empresa`}>
-              <Grid className={classes.empresa} container spacing={3} justify="center">
-                <Grid item>
-                  <Avatar alt="Logo Empresa" src={empresa.logo} className={classes.large} />
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={10} className={classes.grid}>
+              <Paper className={classes.paper}>
+                <Link to={`/${subdominio}/empresa`}>
+                  <Grid container spacing={3} justify="center">
+                    <Grid item justify="center">
+                      <Avatar alt="Logo Empresa" src={empresa.logo} className={classes.logo} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <Typography className={classes.nomeEmpresa} gutterBottom variant="h3" component="h4">
+                        {empresa.nome}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Link>
+                <Grid container justify="center">
+                  <p className={classes.descEmp}>ABERTO</p>
                 </Grid>
-                <h3>{empresa.nome}</h3>
-              </Grid>
-            </Link>
-            <Grid container justify="center">
-              <p className={classes.descEmp}>ABERTO</p>
-            </Grid>
-          </Paper>
+              </Paper>
 
-          <TabContext value={value}>
-            <AppBar position="static">
-              <TabList onChange={handleChange} aria-label="simple tabs example">
+              <TabContext value={value}>
+                <AppBar position="static">
+                  <TabList onChange={handleChange} aria-label="simple tabs example">
+                    {categorias.length === 0 ? (
+                      <Tab label="Default" value="" />
+                    ) : (
+                      categorias.map((categoria) => (
+                        <Tab key={categoria.id} label={categoria.nome} value={categoria.id} />
+                      ))
+                    )}
+                  </TabList>
+                </AppBar>
                 {categorias.length === 0 ? (
-                  <Tab label="Default" value="1" />
+                  <TabPanel value="">
+                    <Grid container justify="center">
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Cardápio Vazio
+                      </Typography>
+                    </Grid>
+                  </TabPanel>
                 ) : (
                   categorias.map((categoria) => (
-                    <Tab label={categoria.nome} value={categoria.id} />
+                    <TabPanel value={categoria.id}>
+                      <CardProdutos idCategoria={categoria.id} />
+                    </TabPanel>
                   ))
                 )}
-              </TabList>
-            </AppBar>
-            {categorias.length === 0 ? (
-              <TabPanel value="1">
-                <Grid container justify="center">
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Cardápio Vazio
-                  </Typography>
-                </Grid>
-              </TabPanel>
-            ) : (
-              categorias.map((categoria) => (
-                <TabPanel value={categoria.id}>
-                  <CardProdutos idCategoria={categoria.id} />
-                </TabPanel>
-              ))
-            )}
-          </TabContext>
+              </TabContext>
+            </Grid>
+          </Grid>
         </Container> 
 
         <Box pt={4}>
@@ -141,9 +149,10 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
+  grid: {margin: 'auto', },
   paper: {padding: 28, display: 'flex', overflow: 'hidden', flexDirection: 'column', alignSelf: 'center', marginBottom: 14, },
-  large: {width: theme.spacing(9), height: theme.spacing(9), },
-  empresa: {alignItems: 'center', marginRight: 16, marginBottom: 0, },
+  logo: {width: theme.spacing(11), height: theme.spacing(11), },
+  nomeEmpresa: {color: 'black', textAlign: 'center', fontWeight: 500, },
   descEmp: {color: 'green', fontSize: 24, fontWeight: 'bold', marginTop: 12, },
   cardGrid: {paddingTop: theme.spacing(8), paddingBottom: theme.spacing(8), },
 }));
