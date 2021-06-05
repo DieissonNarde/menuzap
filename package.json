@@ -34,6 +34,7 @@
     ]
   },
   "browserslist": {
+    "proxy": "http://localhost:3000",
     "production": [
       ">0.2%",
       "not dead",

@@ -31,36 +31,40 @@ const AddCategoria = () => {
   async function handleSubmit(ev) {
     ev.preventDefault();
 
-    const name = "imagem.png";
-    const parseFile = new Parse.File(name, file);
+    const Empresa = Parse.Object.extend("Empresa");
+    const query = new Parse.Query(Empresa);
+    query.equalTo("id_user", Parse.User.current());
+    const empresa = await query.first();
 
-    await parseFile.save().then(async () => {
-      const Empresa = Parse.Object.extend("Empresa");
-      const query = new Parse.Query(Empresa);
-      query.equalTo("id_user", Parse.User.current());
-      const empresa = await query.first();
+    const Categoria = Parse.Object.extend('Categoria');
+    const newCategoria = new Categoria();
 
-      const Categoria = Parse.Object.extend('Categoria');
-      const newCategoria = new Categoria();
+    if(file !== '') {
+      const name = "imagem.png";
+      const parseFile = new Parse.File(name, file);
 
-      newCategoria.set('id_empresa', empresa);
-      newCategoria.set('imagem', parseFile);
-      newCategoria.set('nome', nome);
-
-      newCategoria.save().then(() => {
-          history.push('/categoria');
+      await parseFile.save().then(() => {
+          newCategoria.set('imagem', parseFile);
         },
-        (error) => {
-          alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-          console.error('Error while creating Categoria: ', error);
+        (err) => {
+          // The file either could not be read, or could not be saved to Parse.
+          alert('Infelizmente não foi possível salvar a imagem na base de dados. Tente novamente! Erro: ', err);
+          console.error('Not be sabed to Parse: ', err);
         }
       );
-    },
-    (err) => {
-      // The file either could not be read, or could not be saved to Parse.
-      alert('Infelizmente não foi possível salvar a imagem na base de dados, tente novamente. Erro: ', err);
-      console.error('Not be sabed to Parse: ', err);
-    });
+    }
+
+    newCategoria.set('id_empresa', empresa);
+    newCategoria.set('nome', nome);
+
+    await newCategoria.save().then(() => {
+        history.push('/categoria');
+      },
+      (error) => {
+        alert('Infelizmente não foi possível salvar na base de dados. Tente novamente! Erro: ', error);
+        console.error('Error while creating Categoria: ', error);
+      }
+    );
   }
 
   return (

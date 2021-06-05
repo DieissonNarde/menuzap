@@ -8,6 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { formatPrice } from '../../util/format';
+
 const CardProdutos = (props) => {
   const classes = useStyles();
 
@@ -38,7 +40,7 @@ const CardProdutos = (props) => {
             'imagem': imagem._url,
             'nome': nome,
             'descricao': descricao,
-            'preco': preco,
+            'preco': formatPrice(preco),
             'id': id,
           })
         }

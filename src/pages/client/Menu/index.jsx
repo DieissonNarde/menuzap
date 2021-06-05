@@ -89,7 +89,7 @@ const Menu = () => {
                     <Grid item justify="center">
                       <Avatar alt="Logo Empresa" src={empresa.logo} className={classes.logo} />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12}>
                       <Typography className={classes.nomeEmpresa} gutterBottom variant="h3" component="h4">
                         {empresa.nome}
                       </Typography>

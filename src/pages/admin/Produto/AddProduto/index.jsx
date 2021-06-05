@@ -34,37 +34,41 @@ const AddProduto = () => {
   async function handleSubmit(ev) {
     ev.preventDefault();
 
-    const name = "imagem.png";
-    const parseFile = new Parse.File(name, file);
+    const Categoria = Parse.Object.extend("Categoria");
+    const queryCategoria = new Parse.Query(Categoria);
+    const objectCategoria = await queryCategoria.get(idCategoria);
 
-    await parseFile.save().then(async () => {
-      const Categoria = Parse.Object.extend("Categoria");
-      const queryCategoria = new Parse.Query(Categoria);
-      const objectCategoria = await queryCategoria.get(idCategoria);
-      
-      const Produto = Parse.Object.extend('Produto');
-      const newProduto = new Produto();
+    const Produto = Parse.Object.extend('Produto');
+    const newProduto = new Produto();
 
-      newProduto.set('id_categoria', objectCategoria);
-      newProduto.set('imagem', parseFile);
-      newProduto.set('nome', nome);
-      newProduto.set('descricao', descricao);
-      newProduto.set('preco', preco);
-      
-      newProduto.save().then(() => {
-          history.push(`/categoria/${idCategoria}/produto/`);
+    if(file !== '') {
+      const name = "imagem.png";
+      const parseFile = new Parse.File(name, file);
+
+      await parseFile.save().then(() => {
+          newProduto.set('imagem', parseFile);
         },
-        (error) => {
-          alert('Infelizmente não foi possível salvar na base de dados, tente novamente. Erro: ', error);
-          console.error('Error while creating Produto: ', error);
+        (err) => {
+          // The file either could not be read, or could not be saved to Parse.
+          alert('Infelizmente não foi possível salvar a imagem na base de dados. Tente novamente! Erro: ', err);
+          console.error('Not be sabed to Parse: ', err);
         }
       );
-    },
-    (err) => {
-      // The file either could not be read, or could not be saved to Parse.
-      alert('Infelizmente não foi possível salvar a imagem na base de dados, tente novamente. Erro: ', err);
-      console.error('Not be sabed to Parse: ', err);
-    });
+    }
+
+    newProduto.set('nome', nome);
+    newProduto.set('descricao', descricao);
+    newProduto.set('preco', preco);
+    newProduto.set('id_categoria', objectCategoria);
+
+    await newProduto.save().then(() => {
+        history.push(`/categoria/${idCategoria}/produto/`);
+      },
+      (error) => {
+        alert('Infelizmente não foi possível salvar na base de dados. Tente novamente! Erro: ', error);
+        console.error('Error while creating Produto: ', error);
+      }
+    );
   }
 
   return (
@@ -113,14 +117,13 @@ const AddProduto = () => {
                   <Grid item xs={12} sm={12}>
                     <TextField
                       required
-                      type="number"
-                      id="price"
-                      name="price"
+                      id="preco"
+                      name="preco"
                       label="Preço"
                       value={preco}
                       onChange={e => setPreco(e.target.value)}
                       fullWidth
-                      autoComplete="price"
+                      autoComplete="preco"
                     />
                   </Grid>
                   <Grid className={classes.gridSubmit} item xs={12} sm={12}>

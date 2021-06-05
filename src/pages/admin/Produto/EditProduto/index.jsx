@@ -129,14 +129,13 @@ const EditProduto = () => {
                   <Grid item xs={12} sm={12}>
                     <TextField
                       required
-                      type="number"
-                      id="price"
-                      name="price"
+                      id="preco"
+                      name="preco"
                       label="Preço"
                       value={preco}
                       onChange={e => setPreco(e.target.value)}
                       fullWidth
-                      autoComplete="price"
+                      autoComplete="preco"
                     />
                   </Grid>
                   <Grid className={classes.gridSubmit} item xs={12} sm={12}>

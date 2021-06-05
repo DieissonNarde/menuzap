@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonMaterial from '@material-ui/core/Button';
 
+import { formatPrice } from '../../../util/format';
 import Menu from '../../../components/Menu';
 import Button from '../../../components/Button';
 import Footer from '../../../components/FooterGer';
@@ -47,7 +48,7 @@ const Produto = () => {
             'imagem': imagem._url,
             'nome': nome,
             'descricao': descricao,
-            'preco': preco,
+            'preco': formatPrice(preco),
             'id': id,
           })
         }

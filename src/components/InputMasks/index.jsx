@@ -56,7 +56,7 @@ export const InputPhone = (props) => (
 
 // INPUT PARA PREÇO / VALOR MONETÁRIO PADRÃO BR
 export const InputPrice = (props) => (
-  <InputMask mask="999 999,99" value={props.value} onChange={props.onChange}>
+  <InputMask mask="999 999.99" value={props.value} onChange={props.onChange}>
     {(inputProps) => <TextField
       {...inputProps}
       type="tel"
