@@ -124,7 +124,7 @@ const Menu = () => {
                 ) : (
                   categorias.map((categoria) => (
                     <TabPanel value={categoria.id}>
-                      <CardProdutos idCategoria={categoria.id} />
+                      <CardProdutos value={categoria.id} />
                     </TabPanel>
                   ))
                 )}

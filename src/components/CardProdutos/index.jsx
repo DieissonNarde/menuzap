@@ -10,17 +10,18 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { formatPrice } from '../../util/format';
 
-const CardProdutos = (props) => {
+const CardProdutos = ({ value }) => {
   const classes = useStyles();
 
   const { subdominio } = useParams();
   const [produtos, setProdutos] = useState([]);
+  const idCategoria = value;
 
   useEffect(() => {
     async function loadProdutos() {
       const Categoria = Parse.Object.extend('Categoria');
       const queryCategoria = new Parse.Query(Categoria);
-      const objectCategoria = await queryCategoria.get(props.idCategoria);
+      const objectCategoria = await queryCategoria.get(idCategoria);
 
       const Produto = Parse.Object.extend('Produto');
       const query = new Parse.Query(Produto);
@@ -100,6 +101,7 @@ export default CardProdutos;
 
 
 const useStyles = makeStyles((theme) => ({
+  cardGrid: {paddingTop: theme.spacing(8), paddingBottom: theme.spacing(8), },
   card: {height: '100%', display: 'flex', flexDirection: 'column', },
   cardMedia: {paddingTop: '56.25%', }, // 16:9
   cardContent: {flexGrow: 1, },

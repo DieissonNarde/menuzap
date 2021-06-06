@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom';
+import Parse from "parse";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -10,12 +11,38 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from "@material-ui/core/Divider";
 
+import { formatPrice } from '../../../../util/format';
 import MenuClient from '../../../../components/MenuClient';
 import Button from '../../../../components/Button';
 import Footer from "../../../../components/FooterGer";
 
 const DetailProduto = () => {
   const classes = useStyles();
+
+  const { subdominio, id } = useParams();
+  const [produto, setProduto] = useState({});
+
+  useEffect(() => {
+    async function loadProduto() {
+      const Produto = Parse.Object.extend('Produto');
+      const query = new Parse.Query(Produto);
+      const produto = await query.get(id);
+
+      const imagem = produto.get('imagem');
+      const nome = produto.get('nome');
+      const descricao = produto.get('descricao');
+      const preco = produto.get('preco');
+
+      setProduto({
+        'imagem': imagem._url,
+        'nome': nome,
+        'descricao': descricao,
+        'preco': formatPrice(preco),
+      })
+    }
+
+    loadProduto();
+  }, [produto])
 
   return (
     <div className={classes.root}>
@@ -25,39 +52,42 @@ const DetailProduto = () => {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            <Grid item sm={12}>
+            <Grid item xs={12} sm={9} className={classes.grid}>
               <Paper className={classes.paper}>
-                <Grid container>
-                    <Grid item xs={12} sm={6}>
+                <Grid container spacing={3} justify="start">
+                    <Grid item xs={12} sm={12}>
                       <CardMedia
                         className={classes.cardMedia}
-                        image="https://source.unsplash.com/random"
-                        title="Image title"
+                        image={produto.imagem}
+                        title={produto.nome}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <CardContent className={classes.cardContent}>
-                        <Typography
-                          className={classes.title}
-                          gutterBottom
-                          variant="h3"
-                          component="h3"
-                        >
-                          Produto
-                        </Typography>
-                        <Typography>
-                          This is a media card. You can use this section to
-                          describe the content.
-                        </Typography>
-                      </CardContent>
-                      <h4 className={classes.price}>R$ 53,99</h4>
-                      <Grid container justify="flex-end">
-                        <Button>Adicionar ao Carrinho</Button>
-                      </Grid>
-                      
-                    </Grid>
                     
-                    <Grid className={classes.acrecimos} item xs={12} sm={6}>
+                      <CardContent className={classes.cardContent}>
+                        <Grid item xs={12} sm={12}>
+                          <Typography
+                            className={classes.title}
+                            gutterBottom
+                            variant="h3"
+                            component="h3"
+                          >
+                            {produto.nome}
+                          </Typography>
+                          </Grid>
+                          <Grid item xs={12} sm={12}>
+                          <p className={classes.descricao}>{produto.descricao}</p>
+                          </Grid>
+                      </CardContent>
+                      <Grid container xs={12} sm={12} justify="space-between">
+
+                        <span className={classes.price}>{produto.preco}</span>
+                      
+                      
+                        <Button>Add ao Carrinho</Button>
+                      </Grid>
+                    
+                    
+                    {/* <Grid className={classes.acrecimos} item xs={12} sm={6}>
                       <Divider />
                       <Typography
                         className={classes.title}
@@ -91,7 +121,7 @@ const DetailProduto = () => {
                           </Grid>
                         </Grid>
                       </Paper>
-                    </Grid>
+                    </Grid> */}
                    
                   
                 </Grid>
@@ -113,17 +143,19 @@ export default DetailProduto;
 
 const useStyles = makeStyles((theme) => ({
   root: {display: 'flex', },
-  title: {flexGrow: 1, },
   appBarSpacer: theme.mixins.toolbar,
   content: {flexGrow: 1, height: '100vh', overflow: 'auto', },
   container: {paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4), },
+  grid: {margin: 'auto', },
   paper: {padding: 28, display: 'flex', overflow: 'auto', flexDirection: 'column', },
   cardGrid: {paddingTop: theme.spacing(8), paddingBottom: theme.spacing(8), },
   card: {height: '100%', display: 'flex', flexDirection: 'column', },
   cardMedia: {paddingTop: '56.25%', borderRadius: 20, }, // 16:9
-  cardContent: {flexGrow: 1, },
-  title: {display: 'flex', justifyContent: 'space-between', },
-  price: {fontWeight: 'bold', color: 'green', fontSize: 22, marginLeft: 15, },
+  cardContent: {display: 'flex', flexDirection: 'column', },
+  title: {textAlign: 'center', fontWeight: 500, fontSize: 32, },
+  descricao: {fontSize: 18, },
+  price: {fontWeight: 'bold', marginLeft: 12, color: 'green', fontSize: 28, },
+  button: { },
   priceAcr: {fontWeight: 'bold', color: 'green', fontSize: 18, textAlign: 'end', },
   acrecimos: {marginTop: 20, },
 }));
