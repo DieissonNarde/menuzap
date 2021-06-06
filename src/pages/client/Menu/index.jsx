@@ -61,6 +61,7 @@ const Menu = () => {
         }
 
         setCategorias(response);
+        setValue(response[0].id);
       },
       (error) => {
         console.error('Error while fetching Categoria', error);
@@ -105,7 +106,7 @@ const Menu = () => {
                 <AppBar position="static">
                   <TabList onChange={handleChange} aria-label="simple tabs example">
                     {categorias.length === 0 ? (
-                      <Tab label="Default" value="" />
+                      <Tab key={1} label="Default" value="" />
                     ) : (
                       categorias.map((categoria) => (
                         <Tab key={categoria.id} label={categoria.nome} value={categoria.id} />
@@ -114,7 +115,7 @@ const Menu = () => {
                   </TabList>
                 </AppBar>
                 {categorias.length === 0 ? (
-                  <TabPanel value="">
+                  <TabPanel key={1} value="">
                     <Grid container justify="center">
                       <Typography gutterBottom variant="h5" component="h2">
                         Cardápio Vazio
@@ -123,7 +124,7 @@ const Menu = () => {
                   </TabPanel>
                 ) : (
                   categorias.map((categoria) => (
-                    <TabPanel value={categoria.id}>
+                    <TabPanel key={categoria.id} value={categoria.id}>
                       <CardProdutos value={categoria.id} />
                     </TabPanel>
                   ))

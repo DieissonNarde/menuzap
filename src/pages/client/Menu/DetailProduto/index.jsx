@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Parse from "parse";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 
-// import CartContext from '../../../../context/cart/CartContext';
 import { useCart } from '../../../../hooks/useCart';
 import { formatPrice } from '../../../../util/format';
 import MenuClient from '../../../../components/MenuClient';
@@ -23,12 +22,7 @@ const DetailProduto = () => {
 
   const { subdominio, id } = useParams();
   const [produto, setProduto] = useState({});
-  // const { addToCart } = useContext(CartContext);
   const { addProduct, cart } = useCart();
-
-  const cartItemsAmount = cart.reduce((sumAmount, product) => {
-
-  }, {})
 
   useEffect(() => {
     async function loadProduto() {
@@ -45,15 +39,16 @@ const DetailProduto = () => {
         'imagem': imagem._url,
         'nome': nome,
         'descricao': descricao,
-        'preco': formatPrice(preco),
+        'preco': preco,
+        'id': id,
       })
     }
 
     loadProduto();
   }, [produto])
 
-  function handleAddProduct(id) {
-    // TODO
+  function handleAddProduct(produto) {
+    addProduct(produto);
   }
 
   return (
@@ -90,8 +85,8 @@ const DetailProduto = () => {
                     </Grid>
                   </CardContent>
                   <Grid container xs={12} sm={12} justify="space-between">
-                    <span className={classes.price}>{produto.preco}</span>
-                    <Button onClick={() => handleAddProduct(produto.id)} size="large" variant="contained" color="primary">Add ao Carrinho</Button>
+                    <span className={classes.price}>{formatPrice(produto.preco)}</span>
+                    <Button onClick={() => handleAddProduct(produto)} size="large" variant="contained" color="primary">Add ao Carrinho</Button>
                   </Grid>
                     
                     

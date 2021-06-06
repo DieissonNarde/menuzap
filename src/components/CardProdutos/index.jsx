@@ -68,7 +68,7 @@ const CardProdutos = ({ value }) => {
         produtos.map((produto) => (
           <Grid item key={produto.id} xs={12} sm={6} md={4}>
             <Link to={`/${subdominio}/menu/item/${produto.id}`}>
-              <Card className={classes.card}>
+              <Card key={produto.id} className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
                   image={produto.imagem}
