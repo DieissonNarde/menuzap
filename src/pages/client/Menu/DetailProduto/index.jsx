@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Parse from "parse";
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,10 +10,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 
+import CartContext from '../../../../context/cart/CartContext';
 import { formatPrice } from '../../../../util/format';
 import MenuClient from '../../../../components/MenuClient';
-import Button from '../../../../components/Button';
 import Footer from "../../../../components/FooterGer";
 
 const DetailProduto = () => {
@@ -21,6 +22,7 @@ const DetailProduto = () => {
 
   const { subdominio, id } = useParams();
   const [produto, setProduto] = useState({});
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     async function loadProduto() {
@@ -55,36 +57,32 @@ const DetailProduto = () => {
             <Grid item xs={12} sm={9} className={classes.grid}>
               <Paper className={classes.paper}>
                 <Grid container spacing={3} justify="start">
+                  <Grid item xs={12} sm={12}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={produto.imagem}
+                      title={produto.nome}
+                    />
+                  </Grid>
+                  <CardContent className={classes.cardContent}>
                     <Grid item xs={12} sm={12}>
-                      <CardMedia
-                        className={classes.cardMedia}
-                        image={produto.imagem}
-                        title={produto.nome}
-                      />
+                      <Typography
+                        className={classes.title}
+                        gutterBottom
+                        variant="h3"
+                        component="h3"
+                      >
+                        {produto.nome}
+                      </Typography>
                     </Grid>
-                    
-                      <CardContent className={classes.cardContent}>
-                        <Grid item xs={12} sm={12}>
-                          <Typography
-                            className={classes.title}
-                            gutterBottom
-                            variant="h3"
-                            component="h3"
-                          >
-                            {produto.nome}
-                          </Typography>
-                          </Grid>
-                          <Grid item xs={12} sm={12}>
-                          <p className={classes.descricao}>{produto.descricao}</p>
-                          </Grid>
-                      </CardContent>
-                      <Grid container xs={12} sm={12} justify="space-between">
-
-                        <span className={classes.price}>{produto.preco}</span>
-                      
-                      
-                        <Button>Add ao Carrinho</Button>
-                      </Grid>
+                    <Grid item xs={12} sm={12}>
+                      <p className={classes.descricao}>{produto.descricao}</p>
+                    </Grid>
+                  </CardContent>
+                  <Grid container xs={12} sm={12} justify="space-between">
+                    <span className={classes.price}>{produto.preco}</span>
+                    <Button onClick={() => addToCart(produto)} size="large" variant="contained" color="primary">Add ao Carrinho</Button>
+                  </Grid>
                     
                     
                     {/* <Grid className={classes.acrecimos} item xs={12} sm={6}>
@@ -122,8 +120,6 @@ const DetailProduto = () => {
                         </Grid>
                       </Paper>
                     </Grid> */}
-                   
-                  
                 </Grid>
               </Paper>
             </Grid>
