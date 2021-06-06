@@ -15,7 +15,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import Logout from "../Logout";
-import CartContext from '../../context/cart/CartContext';
+
 
 
 export const menuAdmin = (
@@ -74,7 +74,6 @@ export const menuAdmin = (
 
 export const MenuClient = () => {
   const { subdominio } = useParams();
-  const { cartItems } = useContext(CartContext);
 
   return (
     <div>
@@ -91,11 +90,7 @@ export const MenuClient = () => {
         <ListItem button>
           <ListItemIcon>
             <ShoppingCartIcon />
-            { cartItems > 0 && (
-              <div className='item__count'>
-                <span>{cartItems.length}</span>
-              </div>
-            )}
+            
           </ListItemIcon>
           <ListItemText primary="Carrinho" />
         </ListItem>

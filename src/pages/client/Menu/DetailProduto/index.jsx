@@ -12,7 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 
-import CartContext from '../../../../context/cart/CartContext';
+// import CartContext from '../../../../context/cart/CartContext';
+import { useCart } from '../../../../hooks/useCart';
 import { formatPrice } from '../../../../util/format';
 import MenuClient from '../../../../components/MenuClient';
 import Footer from "../../../../components/FooterGer";
@@ -22,7 +23,12 @@ const DetailProduto = () => {
 
   const { subdominio, id } = useParams();
   const [produto, setProduto] = useState({});
-  const { addToCart } = useContext(CartContext);
+  // const { addToCart } = useContext(CartContext);
+  const { addProduct, cart } = useCart();
+
+  const cartItemsAmount = cart.reduce((sumAmount, product) => {
+
+  }, {})
 
   useEffect(() => {
     async function loadProduto() {
@@ -45,6 +51,10 @@ const DetailProduto = () => {
 
     loadProduto();
   }, [produto])
+
+  function handleAddProduct(id) {
+    // TODO
+  }
 
   return (
     <div className={classes.root}>
@@ -81,7 +91,7 @@ const DetailProduto = () => {
                   </CardContent>
                   <Grid container xs={12} sm={12} justify="space-between">
                     <span className={classes.price}>{produto.preco}</span>
-                    <Button onClick={() => addToCart(produto)} size="large" variant="contained" color="primary">Add ao Carrinho</Button>
+                    <Button onClick={() => handleAddProduct(produto.id)} size="large" variant="contained" color="primary">Add ao Carrinho</Button>
                   </Grid>
                     
                     

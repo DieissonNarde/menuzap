@@ -27,7 +27,8 @@ import Pedidos from "./pages/client/Pedidos";
 import Parse from 'parse';
 import * as Env from "./services/environments";
 import PrivateRoute from "./services/auth";
-import CartState from './context/cart/CartState';
+import { CartProvider } from './hooks/useCart';
+// import CartState from './context/cart/CartState';
 
 Parse.initialize(Env.APPLICATION_ID, Env.JAVASCRIPT_KEY);
 Parse.serverURL = Env.SERVER_URL;
@@ -52,14 +53,14 @@ const Routes = () => (
       <PrivateRoute exact path="/relatorios" component={Relatorios} />
       <PrivateRoute exact path="/profile" component={Profile} />
       {/* ROTAS CLIENTE */}
-      <CartState>
+      <CartProvider>
         <Route exact path="/:subdominio/menu" component={Menu} />
         <Route exact path="/:subdominio/menu/item/:id" component={DetailProduto} />
         <Route exact path="/:subdominio/cart" component={Cart} />
         <Route exact path="/:subdominio/newpedido" component={NewPedido} />
-      </CartState>
-      <Route exact path="/:subdominio/empresa" component={DetailEmpresa} />
-      <Route exact path="/:subdominio/pedidos" component={Pedidos} />
+        <Route exact path="/:subdominio/empresa" component={DetailEmpresa} />
+        <Route exact path="/:subdominio/pedidos" component={Pedidos} />
+      </CartProvider>
 
       <PrivateRoute path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
