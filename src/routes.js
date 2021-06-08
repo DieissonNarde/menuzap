@@ -28,7 +28,6 @@ import Parse from 'parse';
 import * as Env from "./services/environments";
 import PrivateRoute from "./services/auth";
 import { CartProvider } from './hooks/useCart';
-// import CartState from './context/cart/CartState';
 
 Parse.initialize(Env.APPLICATION_ID, Env.JAVASCRIPT_KEY);
 Parse.serverURL = Env.SERVER_URL;

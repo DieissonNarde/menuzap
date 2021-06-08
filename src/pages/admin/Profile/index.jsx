@@ -164,7 +164,7 @@ const Profile = () => {
           <Grid item xs={12} sm={9} className={classes.grid}>
             <Paper className={classes.paper}>
               <h3>Dados da Empresa</h3>
-              <form onSubmit={handleSubmit} enctype="multipart/form-data">
+              <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid container className={classes.gridFile} justify="center">
                     <Grid item xs={12} sm={12}>
