@@ -1,52 +1,49 @@
 {
-  "name": "menu-play",
+  "name": "menu-zap",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.4",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "*",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^13.1.9",
-    "cep-promise": "^4.1.0",
-    "next": "^10.2.2",
-    "parse": "^3.2.0",
-    "polished": "^4.1.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^9.0.0",
+    "@mui/lab": "9.0.0-beta.9",
+    "@mui/material": "^9.4.0",
+    "cep-promise": "^4.4.1",
+    "events": "^3.3.0",
+    "parse": "^8.6.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-icons": "^4.2.0",
-    "react-input-mask": "^2.0.4",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3",
-    "rebass": "^4.0.7",
-    "recharts": "^2.0.9",
-    "styled-components": "^5.3.0",
-    "web-vitals": "^1.1.2"
+    "react-router-dom": "^7.18.3",
+    "recharts": "^3.10.1"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.6",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "jsdom": "^26.1.0",
+    "rollup-plugin-visualizer": "^7.1.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "analyze": "vite build --mode analyze",
+    "preview": "vite preview",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24.1.0 <25"
   },
-  "browserslist": {
-    "proxy": "http://localhost:3000",
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "overrides": {
+    "ws": "^8.21.0"
   }
 }

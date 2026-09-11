@@ -1,0 +1,131 @@
+.cart-container {
+  padding: 12px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.cart-container footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-container footer button {
+  background: #14bb14;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 9px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+
+.cart-container footer button:hover {
+  background: #13b013;
+}
+
+.cart-container footer button:disabled {
+  background: #a9a9a9;
+  cursor: not-allowed;
+}
+
+.cart-product-table {
+  width: 100%;
+}
+
+.cart-product-table thead th {
+  color: #999;
+  text-align: left;
+  padding: 12px;
+}
+
+.cart-product-table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-product-table img {
+  height: 80px;
+}
+
+.cart-product-table strong {
+  color: #333;
+  display: block;
+}
+
+.cart-product-image {
+  width: 96px;
+}
+
+.cart-product-quantity {
+  width: 150px;
+}
+
+.cart-product-subtotal {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cart-product-subtotal strong {
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.cart-product-table span {
+  display: block;
+  margin-top: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.cart-product-table div {
+  display: flex;
+  align-items: center;
+}
+
+.cart-product-table div input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #666;
+  padding: 6px;
+  width: 50px;
+}
+
+.cart-product-table button {
+  background: none;
+  border: 0;
+  padding: 4px;
+}
+
+.cart-product-table button svg {
+  color: #7159c1;
+  transition: color 0.2s;
+}
+
+.cart-product-table button:hover svg {
+  color: #674fad;
+}
+
+.cart-product-table button:disabled svg {
+  color: #a090d0;
+  cursor: not-allowed;
+}
+
+.cart-total {
+  display: flex;
+  align-items: baseline;
+}
+
+.cart-total span {
+  color: #999;
+  font-weight: bold;
+}
+
+.cart-total strong {
+  color: #14bb14;
+  font-size: 18px;
+  margin-left: 5px;
+}
