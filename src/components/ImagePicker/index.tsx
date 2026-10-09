@@ -23,7 +23,7 @@ const ImagePicker = ({
     <Stack spacing={1} sx={{ alignItems: "center" }}>
       <Button component="label" variant="outlined" startIcon={<PhotoCamera />}>
         {label}
-        <input hidden accept="image/*" type="file" onChange={handleChange} />
+        <input hidden accept="image/png,image/jpeg,image/webp,image/gif" type="file" onChange={handleChange} />
       </Button>
       {file && (
         <Typography variant="caption" color="text.secondary">

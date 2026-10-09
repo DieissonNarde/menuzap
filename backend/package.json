@@ -1,0 +1,19 @@
+{
+  "name": "menuzap-backend",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": ">=24.11.0 <25" },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test --test-isolation=none test/*.test.js",
+    "test:integration": "node --test --test-isolation=none test/integration/*.test.js"
+  },
+  "dependencies": {
+    "@parse/fs-files-adapter": "3.0.0",
+    "express": "5.2.1",
+    "parse": "8.6.0",
+    "parse-server": "9.10.0",
+    "pg": "8.16.3"
+  },
+  "overrides": { "ws": "8.21.0" }
+}

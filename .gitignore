@@ -26,3 +26,12 @@ yarn-error.log*
 node_modules
 /vscode
 .vscode
+
+# Self-hosted backend and backup secrets/artifacts
+/backend/var/
+/backend/logs/
+/deploy/stack.env
+/deploy/backup.env
+/deploy/backup.key
+/deploy/.operations.lock
+/backups/

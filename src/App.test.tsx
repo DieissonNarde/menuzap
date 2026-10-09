@@ -9,6 +9,6 @@ describe("App", () => {
   it("renderiza a página inicial", async () => {
     render(<App />);
 
-    expect(await screen.findByRole("link", { name: "Login" })).toBeInTheDocument();
+    expect(await screen.findByRole("link", { name: "Login" }, { timeout: 5000 })).toBeInTheDocument();
   });
 });

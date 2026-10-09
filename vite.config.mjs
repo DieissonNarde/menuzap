@@ -6,6 +6,7 @@ export default defineConfig(({ mode }) => {
   const analyze = mode === "analyze" || process.env.ANALYZE === "true";
 
   return {
+    test: { include: ["src/**/*.test.{ts,tsx}"] },
     plugins: [
       react(),
       ...(analyze
