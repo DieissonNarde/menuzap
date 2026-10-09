@@ -1,0 +1,11 @@
+[Unit]
+Description=Backup consistente e criptografado do Menu Zap
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/menuzap
+ExecStart=/bin/bash /opt/menuzap/deploy/scripts/backup.sh
+UMask=0077

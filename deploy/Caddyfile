@@ -1,0 +1,25 @@
+{$SITE_ADDRESS} {
+	encode zstd gzip
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	@parse path /parse /parse/*
+	handle @parse {
+		request_body {
+			max_size 6MB
+		}
+		reverse_proxy backend:1337 {
+			header_up -X-Parse-Master-Key
+			header_up -X-Parse-Read-Only-Master-Key
+		}
+	}
+	handle {
+		root * /srv
+		@index path /index.html
+		header @index Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+}

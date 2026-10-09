@@ -1,0 +1,15 @@
+FROM node:24.14.1-bookworm-slim@sha256:b506e7321f176aae77317f99d67a24b272c1f09f1d10f1761f2773447d8da26c AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY index.html vite.config.mjs tsconfig.json ./
+COPY src ./src
+COPY public ./public
+ARG VITE_PARSE_APPLICATION_ID
+ARG VITE_PARSE_JAVASCRIPT_KEY
+ARG VITE_PARSE_SERVER_URL
+RUN test -n "$VITE_PARSE_APPLICATION_ID" && test -n "$VITE_PARSE_JAVASCRIPT_KEY" && test -n "$VITE_PARSE_SERVER_URL" && npm run typecheck && npm run build
+
+FROM caddy:2.10.2-alpine@sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d
+COPY deploy/Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /app/dist /srv

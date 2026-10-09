@@ -1,0 +1,10 @@
+node_modules
+backend
+.git
+.env*
+dist
+build
+*.pdf
+.agents
+.codex
+.aws

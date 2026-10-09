@@ -1,0 +1,65 @@
+name: menuzap
+services:
+  database:
+    image: postgis/postgis:17-3.5@sha256:01a6a70e41e6c4467c8f55f6063555ed72db2d6662cd0d571040d42eadaeb6f6
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: menuzap
+      POSTGRES_USER: menuzap
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configure POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U menuzap -d menuzap']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [data]
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    init: true
+    environment:
+      NODE_ENV: production
+      DATABASE_URI: postgres://menuzap:${POSTGRES_PASSWORD:?Configure POSTGRES_PASSWORD}@database:5432/menuzap
+      PARSE_APPLICATION_ID: ${PARSE_APPLICATION_ID:?Configure PARSE_APPLICATION_ID}
+      PARSE_JAVASCRIPT_KEY: ${PARSE_JAVASCRIPT_KEY:?Configure PARSE_JAVASCRIPT_KEY}
+      PARSE_MASTER_KEY: ${PARSE_MASTER_KEY:?Configure PARSE_MASTER_KEY}
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:?Configure PUBLIC_ORIGIN}
+      FILES_DIRECTORY: /app/var/files
+    volumes:
+      - parse_files:/app/var/files
+    depends_on:
+      database:
+        condition: service_healthy
+    networks: [data, edge]
+    stop_grace_period: 30s
+  web:
+    profiles: [web]
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.web
+      args:
+        VITE_PARSE_APPLICATION_ID: ${PARSE_APPLICATION_ID:?Configure PARSE_APPLICATION_ID}
+        VITE_PARSE_JAVASCRIPT_KEY: ${PARSE_JAVASCRIPT_KEY:?Configure PARSE_JAVASCRIPT_KEY}
+        VITE_PARSE_SERVER_URL: ${PUBLIC_ORIGIN:?Configure PUBLIC_ORIGIN}/parse
+    restart: unless-stopped
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:?Configure SITE_ADDRESS}
+    ports: ['80:80', '443:443', '443:443/udp']
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [edge]
+volumes:
+  postgres_data:
+  parse_files:
+  caddy_data:
+  caddy_config:
+networks:
+  data:
+    internal: true
+  edge:

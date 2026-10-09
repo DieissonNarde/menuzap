@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup diário do Menu Zap
+
+[Timer]
+OnCalendar=*-*-* 03:00:00 America/Porto_Velho
+Persistent=true
+RandomizedDelaySec=5m
+
+[Install]
+WantedBy=timers.target
