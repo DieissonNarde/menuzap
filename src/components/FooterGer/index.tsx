@@ -6,8 +6,8 @@ import Typography from "@mui/material/Typography";
 const Copyright = () => (
   <Typography variant="body2" color="text.secondary">
     Copyright ©{" "}
-    <Link color="inherit" href="https://upplaycompany.com.br/">
-      upPlay Company
+    <Link color="inherit" href="/">
+      Menu Zap
     </Link>{" "}
     {new Date().getFullYear()}.
   </Typography>

@@ -13,9 +13,7 @@ const Footer = () => (
 
     <div className="footer-copyright text-center py-3">
       <a
-        href="https://upplaycompany.com.br"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/"
         className="author"
       >
         Menu Zap
