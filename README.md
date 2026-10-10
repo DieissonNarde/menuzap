@@ -4,6 +4,8 @@ Cardápio digital com catálogo público, carrinho e envio de pedidos. O painel 
 
 **Tecnologias:** React 19, TypeScript, Vite e Material UI no frontend; Parse Server 9, Node.js 24 e PostgreSQL 17/PostGIS no backend; Docker Compose e Caddy na infraestrutura.
 
+Para começar a desenvolver, consulte o [guia para novos desenvolvedores](ANALISE.md), com arquitetura, fluxos, modelo de dados e orientações de alteração.
+
 ## Executar localmente
 
 Requer Docker Engine e Docker Compose em uma máquina **amd64**. Na raiz do projeto:
@@ -32,6 +34,22 @@ MENUZAP_LOCAL_PORT=8081 docker compose -f compose.local.yaml up -d --build --wai
 ```
 
 Esse arquivo é independente e usa credenciais exclusivas de desenvolvimento. Caddy entrega o frontend e encaminha `/parse` ao backend; banco e API ficam na rede dos containers. Banco e imagens são persistidos em volumes.
+
+## Contas e dados de teste
+
+No banco local já populado, acesse [o login](http://localhost:8080/login) com uma destas contas:
+
+| Empresa | Usuário | Senha |
+|---|---|---|
+| Lanchonete Menu Zap Demo | `demo-menuzap` | `Mz!s6sNPhIsTnFJsbk7` |
+| MenuZap Teste | `teste-e52f5d` | `Mz!y7zIl2fta_AEENSh` |
+
+A **Lanchonete Menu Zap Demo** possui 3 categorias, 9 produtos e 12 pedidos, com dois pedidos em cada status. Use essa conta para testar o catálogo, dashboard, gestão de pedidos e relatórios.
+
+- [Cardápio da Lanchonete Menu Zap Demo](http://localhost:8080/menuzap-demo/menu)
+- [Cardápio da empresa MenuZap Teste](http://localhost:8080/teste-e52f5d/menu)
+
+Essas credenciais são de demonstração para o ambiente local. As contas foram cadastradas no banco desta instalação; não são criadas automaticamente pelo Compose em outro computador ou após apagar os volumes. Em um banco novo, use `/register` para criar uma conta. Com o frontend via Vite, use `http://localhost:5173/login` conectado à mesma API local.
 
 ## Desenvolver o frontend com Vite
 
