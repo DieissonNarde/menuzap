@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" role="img" aria-labelledby="title">
+  <title id="title">Menu Zap</title>
+  <g transform="translate(140 12) scale(1.6667)">
+    <path d="M28 8H8v20M68 8h20v20M8 68v20h20M88 68v20H68" fill="none" stroke="#171717" stroke-width="6"/>
+    <path d="M52 18 27 52h18l-4 26 28-36H51z" fill="#0e9d9e"/>
+  </g>
+  <text x="220" y="264" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="68" fill="#171717">MENU <tspan fill="#0e9d9e">ZAP</tspan></text>
+</svg>

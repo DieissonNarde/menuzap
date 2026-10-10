@@ -1,4 +1,4 @@
-import Logo from "../../assets/images/logo.png";
+import Logo from "../../assets/images/logo.svg";
 
 const Nav = () => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light static-top header-a">

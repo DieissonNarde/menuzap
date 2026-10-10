@@ -1,4 +1,4 @@
-import LogoName from "../../../assets/images/logo-com-nome.png";
+import LogoName from "../../../assets/images/logo-com-nome.svg";
 import ImgQrcode from "../../../assets/images/cardapio-qrcode.png";
 import IconNotInstall from "../../../assets/icons/not-install.png";
 import IconEasyInstall from "../../../assets/icons/easy-install.png";
@@ -15,7 +15,7 @@ function Content() {
                 <div className="row banner">
                     <div className="col-sm-5 talk">
                         <div className="img">
-                            <img src={LogoName} width="60%" />
+                            <img src={LogoName} width="60%" alt="Menu Zap" />
                         </div>
                         
                         <br />

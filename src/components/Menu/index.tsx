@@ -11,7 +11,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { type PropsWithChildren, useState } from "react";
 
-import LogoName from "../../assets/images/logo-nome.png";
+import LogoName from "../../assets/images/logo-nome.svg";
 import { getCurrentUser } from "../../services/parse/auth.service";
 import { menuAdmin } from "../MenuList";
 
